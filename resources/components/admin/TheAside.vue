@@ -1,80 +1,63 @@
 <template>
-  <div class="sidebar">
-    <div class="d-flex flex-column flex-shrink-0 p-3 bg-gray h-100">
-      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-        <svg class="bi pe-none me-2" width="40" height="32">
-          <use xlink:href="#bootstrap"></use>
-        </svg>
-        <span class="fs-4">Sidebar</span>
-      </a>
-      <hr>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#home"></use>
-            </svg>
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#speedometer2"></use>
-            </svg>
-            Dashboard
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#table"></use>
-            </svg>
-            Orders
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#grid"></use>
-            </svg>
-            Products
-          </a>
-        </li>
-        <li>
-          <a href="#" class="nav-link text-white">
-            <svg class="bi pe-none me-2" width="16" height="16">
-              <use xlink:href="#people-circle"></use>
-            </svg>
-            Customers
-          </a>
-        </li>
-      </ul>
-      <hr>
-      <div class="dropdown">
-        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-          data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-          <strong>mdo</strong>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-          <li><a class="dropdown-item" href="#">New project...</a></li>
-          <li><a class="dropdown-item" href="#">Settings</a></li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a class="dropdown-item" href="#">Sign out</a></li>
-        </ul>
+ <div class="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
+      <!-- Sidebar component, swap this element with another sidebar if you like -->
+      <div class="flex min-h-0 flex-1 flex-col bg-gray-800">
+        <div class="flex h-16 flex-shrink-0 items-center bg-gray-900 px-4">
+          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=red&shade=500" alt="Your Company" />
+        </div>
+        <div class="flex flex-1 flex-col overflow-y-auto">
+          <nav class="flex-1 space-y-1 px-2 py-4">
+            <router-link v-for="item in navigation" :key="item.name" :to="item.href" class="text-gray-200 hover:bg-gray-700 hover:text-red-600 group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+              <component :is="item.icon" :class="[item.current ? 'text-gray-300' : 'text-gray-400 group-hover:text-red-800', 'mr-3 flex-shrink-0 h-6 w-6']" aria-hidden="true" />
+              {{ item.name }}
+            </router-link>
+          </nav>
+        </div>
       </div>
     </div>
-  </div>
 </template>
 
-<script>
-export default {
+<script setup>
 
-}
+import { ref } from 'vue'
+import {
+  Dialog,
+  DialogPanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  TransitionChild,
+  TransitionRoot,
+} from '@headlessui/vue'
+import {
+  Bars3BottomLeftIcon,
+  BellIcon,
+  CalendarIcon,
+  ChartBarIcon,
+  FolderIcon,
+  HomeIcon,
+  InboxIcon,
+  UsersIcon,
+  XMarkIcon,
+} from '@heroicons/vue/24/outline'
+import { MagnifyingGlassIcon } from '@heroicons/vue/20/solid'
+
+const navigation = [
+  { name: 'Dashboard', href: '/admin', icon: HomeIcon, current: true },
+  { name: 'Team', href: '/admin/movies', icon: FolderIcon, current: false },
+  { name: 'Users', href: '/admin/users', icon: UsersIcon, current: false },
+  { name: 'Calendar', href: '/admin/a', icon: CalendarIcon, current: false },
+  { name: 'Documents', href: '/admin/v', icon: InboxIcon, current: false },
+  { name: 'Reports', href: '/admin/c', icon: ChartBarIcon, current: false },
+]
+const userNavigation = [
+  { name: 'Your Profile', href: '#' },
+  { name: 'Settings', href: '#' },
+  { name: 'Sign out', href: '#' },
+]
+
+const sidebarOpen = ref(false)
 </script>
 
 <style lang="scss" scoped>
