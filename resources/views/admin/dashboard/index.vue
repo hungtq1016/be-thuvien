@@ -1,13 +1,15 @@
 <template>
-<div class="h-96 rounded-lg border-4 border-dashed border-gray-200 bg-white" />
+    <div class="mx-auto px-4 sm:px-6 md:px-8 bg-zinc-700 rounded-lg text-white">
+        <!-- Replace with your content -->
+        <div class="py-4">
+            <div class="h-96">Hello</div>
+        </div>
+        <!-- /End replace -->
+    </div>
 </template>
 
 <script>
-
-export default {
-}
+export default {};
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
