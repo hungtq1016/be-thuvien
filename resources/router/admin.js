@@ -11,20 +11,15 @@ const admin = [
             },
             {
                 path: 'category',
-                children: [
-                    {
-                        path: '',
-                        name: "users-index",
-                        meta: { title: 'Thể Loại' },
-                        component: () => import("../views/admin/category/index.vue"),
-                    },
-                    // {
-                    //     path: 'add',
-                    //     name: "user-add",
-                    //     component: () => import("../views/admin/users/add.vue"),
-                    // }
-                ],
-
+                name: "category",
+                meta: { title: 'Thể Loại' },
+                component: () => import("../views/admin/category/index.vue"),
+            },
+            {
+                path: 'tag',
+                name: "tag",
+                meta: { title: 'Nhãn Dán' },
+                component: () => import("../views/admin/tag/index.vue"),
             },
 
         ],

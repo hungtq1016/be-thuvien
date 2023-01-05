@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Tag;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\UpdateTagRequest;
+use App\Http\Resources\TagResource;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -15,7 +17,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        return TagResource::collection(Tag::paginate(15));
     }
 
     /**
@@ -25,7 +27,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -36,7 +38,17 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
+        $category = Tag::create([
+            'name' => $name,
+            'slug' => $slug,
+            'status' => 1,
+        ]);
+
+        return new TagResource($category);
+
     }
 
     /**

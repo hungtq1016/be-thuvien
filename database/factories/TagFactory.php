@@ -1,7 +1,8 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\Tag;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,12 @@ class TagFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->name();
+        $slug = Str::slug($name, '-');
         return [
-            //
+            'name' => $name,
+            'slug'=> $slug,
+            'status' => true,
         ];
     }
 }
