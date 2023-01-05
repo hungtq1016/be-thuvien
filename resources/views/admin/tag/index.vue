@@ -19,8 +19,8 @@
       Thêm {{this.$route.meta.title}}</button>
     </div>
   </div>
-  <TableComponent colName="tags" label="tag" :remove="removeData" @updateId="(val)=>{this.id = val}" @openModal="this.isOpen = true"/>
-  <ModalComponent :openModal="isOpen" @closeModal="this.isOpen = false" :idProp="id" />
+  <TableComponent colName="tags" :label="dataView" :remove="removeData" @updateId="(val)=>{this.id = val}" @openModal="this.isOpen = true"/>
+  <ModalComponent :openModal="isOpen" @closeModal="this.isOpen = false" :idProp="id" :form="dataView+'Form'" :resource="dataView" @update="update"/>
 </template>
 
 <script>
@@ -34,13 +34,16 @@ export default {
   },
   data() {
     return {
+        dataView:'tag',
         id:null,
         isOpen: false,
         removeData: ["created_at", "updated_at","status"],
     };
   },
   methods:{
-
+    update(){
+        // console.log(pluralize('test'));
+    }
   }
 };
 </script>

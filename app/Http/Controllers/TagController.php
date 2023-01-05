@@ -59,7 +59,7 @@ class TagController extends Controller
      */
     public function show(Tag $tag)
     {
-        //
+        return new TagResource($tag);
     }
 
     /**
@@ -82,7 +82,15 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        //
+        $request->validated($request->all());
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
+        $tag ->update([
+            'name' => $name,
+            'slug' => $slug
+        ]);
+        return new TagResource($tag);
+
     }
 
     /**
@@ -93,6 +101,6 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        return $tag->delete();
     }
 }

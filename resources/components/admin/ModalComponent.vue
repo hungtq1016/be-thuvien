@@ -1,5 +1,5 @@
 <template>
-  <TransitionRoot appear :show="isModal" as="template">
+  <TransitionRoot appear :show="isClose" as="template">
     <Dialog as="div" class="relative z-10">
       <TransitionChild
         as="template"
@@ -28,38 +28,36 @@
           >
             <DialogPanel
               class="
-                w-full
-                max-w-md
-                transform
-                overflow-hidden
-                rounded-2xl
-                bg-white
-                p-6
-                text-left
-                align-middle
-                shadow-xl
-                transition-all
+              w-full max-w-xl transform overflow-hidden rounded-2xl bg-white dark:bg-zinc-600 p-6 text-left align-middle shadow-xl transition-all
               "
             >
               <DialogTitle
                 as="h3"
-                class="text-lg font-medium leading-6 text-gray-900"
+                class="text-lg font-medium leading-6 text-slate-900 dark:text-white"
               >
-                Edit
+                {{idProp == null? "Thêm" : "Chỉnh Sửa" }} {{ this.$route.meta.title }}
               </DialogTitle>
               <div class="mt-2">
                 <KeepAlive>
-                  <component :is="current" :idProp="this.idProp"/>
+                  <component
+                    :is="this.form"
+                    :idProp="this.idProp"
+                    :resource="resource"
+                    @closeModal="
+                      isClose = !false;
+                      $emit('closeModal');
+                    "
+                    @closeAndUpdate="$emit('update'); $emit('closeModal');isClose = !false;"
+                  />
                 </KeepAlive>
               </div>
-
-              <div class="mt-4">
+              <div class="absolute top-6 right-6">
                 <button
                   type="button"
                   class=""
-                  @click="(isModal = !isModal), $emit('closeModal')"
+                  @click="(isClose = !isClose), $emit('closeModal')"
                 >
-                  Trở Về
+                  <XMarkIcon class="w-6 h-6 dark:text-white"/>
                 </button>
               </div>
             </DialogPanel>
@@ -69,28 +67,12 @@
     </Dialog>
   </TransitionRoot>
 </template>
-  <script>
-import TagForm from "../../views/admin/tag/TagForm.vue";
-import CategoryForm from "../../views/admin/category/FormCategory.vue";
-
-export default {
-  components: { TagForm ,CategoryForm},
-  props: ["openModal","idProp"],
-  data() {
-    return {
-      isModal: false,
-      current: "TagForm",
-    }
-  },
-  watch: {
-    openModal: function (newVal, oldVal) {
-      // watch it
-      this.isModal = newVal;
-    },
-  },
-};
-</script>
-  <script setup>
+<script>
+import tagForm from "../../views/admin/tag/TagForm.vue";
+import categoryForm from "../../views/admin/category/FormCategory.vue";
+import {
+    XMarkIcon,
+} from "@heroicons/vue/24/outline";
 import {
   TransitionRoot,
   TransitionChild,
@@ -98,4 +80,29 @@ import {
   DialogPanel,
   DialogTitle,
 } from "@headlessui/vue";
+export default {
+  components: {
+    tagForm,
+    categoryForm,
+    TransitionRoot,
+    TransitionChild,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+    XMarkIcon
+  },
+  props: ["openModal", "idProp","form","resource"],
+  data() {
+    return {
+      isClose: false,
+      current: "tagForm",
+    };
+  },
+  watch: {
+    openModal: function (newVal, oldVal) {
+      // watch it
+      this.isClose = newVal;
+    },
+  },
+};
 </script>
