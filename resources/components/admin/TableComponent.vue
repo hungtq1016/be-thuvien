@@ -112,7 +112,7 @@
 import Pagination from "v-pagination-3";
 export default {
   components: { Pagination },
-  props: ["label", "colName", "remove"],
+  props: ["dataView", "remove"],
   data() {
     return {
       config: {
@@ -130,13 +130,13 @@ export default {
   async mounted() {
     await axios
       .get(
-        `http://127.0.0.1:8001/api/get-col-name/${this.colName}`,
+        `http://127.0.0.1:8001/api/get-col-name/${this.dataView}`,
         this.config
       )
       .then((response) => (this.labels = response.data));
     await axios
       .get(
-        `http://127.0.0.1:8001/api/${this.label}?page=${this.page}`,
+        `http://127.0.0.1:8001/api/${this.dataView}?page=${this.page}`,
         this.config
       )
       .then(
@@ -149,10 +149,10 @@ export default {
   },
   methods: {
     async updateData(){
-      await axios.get(`http://127.0.0.1:8001/api/${this.label}?page=${this.page}`, this.config).then(response => (this.data = response.data.data));
+      await axios.get(`http://127.0.0.1:8001/api/${this.dataView}?page=${this.page}`, this.config).then(response => (this.data = response.data.data));
     },
     async updatePage(value) {
-      await axios.get(`http://127.0.0.1:8001/api/${this.label}?page=${value}`, this.config).then(response => (this.data = response.data.data));
+      await axios.get(`http://127.0.0.1:8001/api/${this.dataView}?page=${value}`, this.config).then(response => (this.data = response.data.data));
     }
   },
   computed: {

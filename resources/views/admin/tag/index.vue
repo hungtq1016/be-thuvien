@@ -19,7 +19,7 @@
       Thêm {{this.$route.meta.title}}</button>
     </div>
   </div>
-  <TableComponent colName="tags" :label="dataView" :remove="removeData" @updateId="(val)=>{this.id = val}" @openModal="this.isOpen = true"/>
+  <TableComponent  :dataView="dataView" :remove="removeData" @updateId="(val)=>{this.id = val}" @openModal="this.isOpen = true"/>
   <ModalComponent :openModal="isOpen" @closeModal="this.isOpen = false" :idProp="id" :form="dataView+'Form'" :resource="dataView" @update="update"/>
 </template>
 
