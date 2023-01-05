@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Movie;
-use Illuminate\Http\Request;
+use App\Models\Tag;
+use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\UpdateTagRequest;
 
-class MovieController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return 'Hello';
+        //
     }
 
     /**
@@ -30,10 +31,10 @@ class MovieController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTagRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTagRequest $request)
     {
         //
     }
@@ -41,10 +42,10 @@ class MovieController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function show(Movie $movie)
+    public function show(Tag $tag)
     {
         //
     }
@@ -52,10 +53,10 @@ class MovieController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function edit(Movie $movie)
+    public function edit(Tag $tag)
     {
         //
     }
@@ -63,11 +64,11 @@ class MovieController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Http\Requests\UpdateTagRequest  $request
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Movie $movie)
+    public function update(UpdateTagRequest $request, Tag $tag)
     {
         //
     }
@@ -75,10 +76,10 @@ class MovieController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Movie  $movie
+     * @param  \App\Models\Tag  $tag
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Movie $movie)
+    public function destroy(Tag $tag)
     {
         //
     }

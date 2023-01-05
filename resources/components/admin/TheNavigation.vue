@@ -1,19 +1,26 @@
 <template>
-    <div class="flex flex-1 justify-end px-4">
-        <div class="ml-4 flex items-center md:ml-6">
+    <div class="flex flex-1 justify-end px-4 shadow-md">
+        <div class="ml-4 flex items-center gap-x-2 md:ml-6">
             <button
                 type="button"
-                class="rounded-full bg-white p-1 text-red-600 hover:text-red-800 animate-wiggle focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                class="rounded-full bg-white p-1 dark:text-red-600 hover:dark:text-red-800 text-sky-600 hover:text-sky-700 animate-wiggle focus:outline-none focus:ring-2 focus:dark:ring-red-600 focus:ring-sky-600 focus:ring-offset-2"
             >
                 <span class="sr-only">Thông báo</span>
                 <BellIcon class="h-6 w-6" aria-hidden="true" />
             </button>
-
+            <button
+                type="button"
+                class="rounded-full p-1 bg-black text-white dark:bg-white dark:text-yellow-500" @click="toggleDark()"
+            >
+                <span class="sr-only">Thông báo</span>
+                <SunIcon class="h-6 w-6 hover:animate-spin " aria-hidden="true" v-if="isDark"/>
+                <MoonIcon class="h-6 w-6 hover:animate-wiggle" aria-hidden="true" v-else/>
+            </button>
             <!-- Profile dropdown -->
             <Menu as="div" class="relative ml-3">
                 <div>
                     <MenuButton
-                        class="flex max-w-xs items-center rounded-full bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+                        class="flex max-w-xs items-center rounded-full bg-zinc-900 text-sm focus:outline-none focus:ring-2 focus:dark:ring-red-600  focus:ring-sky-600 focus:ring-offset-2"
                     >
                         <span class="sr-only">Open  menu</span>
                         <img
@@ -32,11 +39,11 @@
                     leave-to-class="transform opacity-0 scale-95"
                 >
                     <MenuItems
-                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-zinc-900 py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md dark:bg-zinc-900 bg-white pb-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:shadow-none"
                     >
-                        <div class="px-4 py-2 text-white bg-red-600 text-lg rounded-t-md">Hello <span class=""> Admin</span>!</div>
+                        <div class="px-4 py-2 text-white dark:bg-red-600 bg-sky-600 text-lg rounded-t-md">Hello <span class=""> Admin</span>!</div>
                         <MenuItem v-for="item in list" :key="item.name" v-slot="{ active }">
-                        <a :href="item.href" :class="[active ? 'bg-red-900' : '', 'block px-4 py-2 text-sm text-white']">{{ item.name }}</a>
+                        <a :href="item.href" :class="[active ? 'dark:bg-red-900 bg-sky-700 ' : '', 'block px-4 py-2 text-sm dark:text-white text-black hover:text-white']">{{ item.name }}</a>
                     </MenuItem>
                     </MenuItems>
                 </transition>
@@ -58,6 +65,11 @@ export default {
 };
 </script>
 <script setup>
+import { useDark, useToggle } from '@vueuse/core';
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
-import { BellIcon } from "@heroicons/vue/24/outline";
+import { BellIcon ,SunIcon} from "@heroicons/vue/24/outline";
+import { MoonIcon} from "@heroicons/vue/24/solid";
+
+const isDark = useDark();
+const toggleDark =  useToggle(isDark)
 </script>

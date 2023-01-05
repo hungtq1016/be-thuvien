@@ -1,12 +1,18 @@
 <template>
-    <div>
         <router-view></router-view>
-    </div>
 </template>
 
 <script>
     export default {
-        
+        name: 'App',
+        watch: {
+        $route: {
+            immediate: true,
+            handler(to, from) {
+                document.title = to.meta.title+' | H Phim';
+            }
+        },
+    }
     }
 </script>
 

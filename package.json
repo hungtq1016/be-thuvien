@@ -19,6 +19,7 @@
         "@heroicons/vue": "^2.0.13",
         "@vitejs/plugin-vue": "^4.0.0",
         "@vueuse/core": "^9.9.0",
+        "v-pagination-3": "^0.1.7",
         "vue": "^3.2.45",
         "vue-router": "^4.1.6"
     }

@@ -3,9 +3,30 @@
 @tailwind utilities;
 
 .router-link-exact-active{
-    @apply !text-red-600 bg-gray-700;
+    @apply dark:!text-red-600 dark:bg-gray-700 text-slate-100 bg-sky-600;
 }
 
 .router-link-exact-active svg{
-    @apply !text-red-800 ;
+    @apply dark:!text-red-800 text-slate-200;
+}
+
+.link-custom{
+    @apply dark:text-red-600  text-sky-500 hover:text-white hover:dark:text-white 
+}
+.VuePagination__pagination{
+    @apply flex justify-center py-3 
+}
+
+.VuePagination__pagination-item {
+    @apply z-10 items-center border border-gray-300 dark:border-zinc-800 hover:border-sky-600 dark:hover:border-red-600 bg-white  hover:bg-sky-50 dark:hover:bg-red-50 px-4 py-2 text-sm font-medium text-slate-900 dark:hover:text-red-600 hover:text-sky-600 focus:z-20
+}
+.VuePagination__pagination-item.active{
+    @apply border-sky-600 text-sky-600 bg-sky-50 dark:border-red-600 dark:text-red-600 dark:bg-red-50
+}
+.VuePagination__pagination-item-prev-chunk{
+    @apply  rounded-l-lg
+}
+
+.VuePagination__pagination-item-next-chunk{
+    @apply rounded-r-lg
 }

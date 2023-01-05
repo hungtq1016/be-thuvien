@@ -1,5 +1,4 @@
 <template>
-    <div>
         <TransitionRoot as="template" :show="sidebarOpen">
             <Dialog
                 as="div"
@@ -29,7 +28,7 @@
                         leave-to="-translate-x-full"
                     >
                         <DialogPanel
-                            class="relative flex w-full max-w-xs flex-1 flex-col bg-zinc-900 pt-5 pb-4"
+                            class="relative flex w-full max-w-xs flex-1 flex-col dark:bg-zinc-900 bg-white pt-5 pb-4"
                         >
                             <TransitionChild
                                 as="template"
@@ -43,14 +42,14 @@
                                 <div class="absolute top-0 right-0 -mr-12 pt-2">
                                     <button
                                         type="button"
-                                        class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-800"
+                                        class="ml-1 flex h-10 w-10 items-center justify-center rounded-full focus:outline-none focus:ring-2 focus:ring-inset focus:dark:ring-red-800 focus:ring-black"
                                         @click="sidebarOpen = false"
                                     >
                                         <span class="sr-only"
                                             >Close sidebar</span
                                         >
                                         <XMarkIcon
-                                            class="h-6 w-6 text-red-800"
+                                            class="h-6 w-6 dark:text-red-800 text-black"
                                             aria-hidden="true"
                                         />
                                     </button>
@@ -59,7 +58,7 @@
                             <div class="flex flex-shrink-0 items-center px-4">
                                 <img
                                     class="h-8 w-auto"
-                                    src="https://tailwindui.com/img/logos/mark.svg?color=red&shade=600"
+                                    src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600"
                                     alt="Your Company"
                                 />
                             </div>
@@ -76,13 +75,13 @@
             </Dialog>
         </TransitionRoot>
         <TheAside />
-        <div class="flex flex-col md:pl-64 bg-black min-h-[100vh]">
+        <div class="flex flex-col md:pl-64 dark:bg-black bg-gray-200 min-h-[100vh]">
             <div
-                class="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-zinc-900"
+                class="sticky top-0 z-10 flex h-16 flex-shrink-0 dark:bg-zinc-900 bg-white"
             >
                 <button
                     type="button"
-                    class="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-600 md:hidden"
+                    class="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:dark:ring-red-600 focus:ring-sky-600 md:hidden"
                     @click="sidebarOpen = true"
                 >
                     <span class="sr-only">Open sidebar</span>
@@ -93,22 +92,19 @@
 
             <main class="flex-1 ">
                 <div class="p-6 space-y-4">
-                    <div class="mx-auto px-4 sm:px-6 md:px-8 bg-zinc-700 rounded-lg">
-                        <h1 class="text-2xl font-semibold text-white py-4 upper case">
-                            Dashboard
-                        </h1>
-                    </div>
+                    <TitleComponent :title="this.$route.meta"/>
                     <router-view></router-view>
                     
                 </div>
             </main>
         </div>
-    </div>
 </template>
 <script>
 import TheAside from "../../components/admin/TheAside.vue";
 import TheNavigationItem from "../../components/admin/TheNavigationItem.vue";
 import TheNavigation from "../../components/admin/TheNavigation.vue";
+import TitleComponent from '../../components/admin/TitleComponent.vue';
+
 import { ref } from "vue";
 import {
     Bars3BottomLeftIcon,
@@ -129,7 +125,7 @@ export default {
     components: {
         TheAside,
         TheNavigationItem,
-        TheNavigation,
+        TheNavigation,TitleComponent
     },
 };
 </script>

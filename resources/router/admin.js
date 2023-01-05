@@ -7,25 +7,32 @@ const admin = [
                 path: '',
                 name: "admin-dashboard",
                 component: () => import("../views/admin/dashboard/index.vue"),
+                meta: { title: 'Trang Quản Lý' }
             },
             {
-                path: 'users',
+                path: 'category',
                 children: [
                     {
                         path: '',
                         name: "users-index",
-                        component: () => import("../views/admin/users/index.vue"),
+                        meta: { title: 'Thể Loại' },
+                        component: () => import("../views/admin/category/index.vue"),
                     },
-                    {
-                        path: 'add',
-                        name: "user-add",
-                        component: () => import("../views/admin/users/add.vue"),
-                    }
+                    // {
+                    //     path: 'add',
+                    //     name: "user-add",
+                    //     component: () => import("../views/admin/users/add.vue"),
+                    // }
                 ],
 
             },
 
-        ]
+        ],
+    },
+    {
+        path: "/:pathMatch(.*)*", 
+        component: ()=>import("../views/pages/PageNotFound.vue"),
+        meta: { title: '404' },
     }
 ]
 
