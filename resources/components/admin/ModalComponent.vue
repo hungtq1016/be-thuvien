@@ -69,7 +69,9 @@
 </template>
 <script>
 import tagForm from "../../views/admin/tag/TagForm.vue";
-import categoryForm from "../../views/admin/category/FormCategory.vue";
+import categoryForm from "../../views/admin/category/CategoryForm.vue";
+import actorForm from "../../views/admin/actor/ActorForm.vue";
+
 import {
     XMarkIcon,
 } from "@heroicons/vue/24/outline";
@@ -84,6 +86,7 @@ export default {
   components: {
     tagForm,
     categoryForm,
+    actorForm,
     TransitionRoot,
     TransitionChild,
     Dialog,

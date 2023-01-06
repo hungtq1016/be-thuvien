@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
+use App\Http\Requests\StoreTagRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdateTagRequest;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -34,13 +37,14 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTagRequest $request)
     {
-        $request->validate([
-            'name' => ['required','string','max:255'],
-        ]);
+        $request->validated($request->all());
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
         $category = Category::create([
             'name' => $request->name,
+            'slug' => $slug,
             'status' => 1,
         ]);
 
@@ -77,11 +81,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateTagRequest $request, Category $category)
     {
-        $category ->update([
-            'name' => $request->name,
-            'status' => $request->status
+        $request->validated($request->all());
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
+        $category->update([
+            'name' => $name,
+            'slug' => $slug
         ]);
 
         return new CategoryResource($category);

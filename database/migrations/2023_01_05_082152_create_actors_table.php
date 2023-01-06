@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('actors', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->tinyText('gender');
+            $table->dateTime('yob');
+            $table->dateTime('yod');
+            $table->string('country');
+            $table->boolean('status');
+            $table->string('slug');
             $table->timestamps();
         });
     }

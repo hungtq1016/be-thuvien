@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="
+  <div class="
       mx-auto
       px-4
       sm:px-6
@@ -10,8 +9,7 @@
       dark:text-white
       bg-white
       text-black
-    "
-  >
+    ">
     <div class="py-4 sm:py-6 md:py-8 flex flex-col">
       <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -19,18 +17,11 @@
             <table class="min-w-full">
               <thead class="dark:text-white">
                 <tr class="uppercase border-b-2 dark:border-white border-black">
-                  <th
-                    scope="col"
-                    v-for="(label, labelIndex) in sortedArray"
-                    :key="labelIndex"
-                    class="px-3 py-3.5 text-left text-sm font-semibold"
-                  >
+                  <th scope="col" v-for="(label, labelIndex) in sortedArray" :key="labelIndex"
+                    class="px-3 py-3.5 text-left text-sm font-semibold">
                     {{ label }}
                   </th>
-                  <th
-                    scope="col"
-                    class="px-3 py-3.5 text-sm font-semibold text-center"
-                  >
+                  <th scope="col" class="px-3 py-3.5 text-sm font-semibold text-center">
                     STATUS
                   </th>
                   <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -39,35 +30,23 @@
                 </tr>
               </thead>
               <tbody class="">
-                <tr
-                  v-for="(item, id) in data"
-                  :key="item.name"
-                  :class="
-                    id % 2 === 0
-                      ? 'dark:bg-zinc-900 hover:dark:bg-red-600 bg-gray-200 hover:bg-sky-300'
-                      : 'hover:dark:bg-red-400 hover:bg-sky-200'
-                  "
-                  class="hover:dark:bg-red-600 group"
-                >
-                  <td
-                    v-for="(label, labelIndex) in sortedArray"
-                    :key="labelIndex"
-                    class="whitespace-nowrap px-3 py-4 text-sm"
-                  >
+                <tr v-for="(item, id) in data" :key="item.name" :class="
+                  id % 2 === 0
+                    ? 'dark:bg-zinc-900 hover:dark:bg-red-600 bg-gray-200 hover:bg-sky-300'
+                    : 'hover:dark:bg-red-400 hover:bg-sky-200'
+                " class="hover:dark:bg-red-600 group">
+                  <td v-for="(label, labelIndex) in sortedArray" :key="labelIndex"
+                    class="whitespace-nowrap px-3 py-4 text-sm">
                     {{ item[label] }}
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-center">
-                    <button
-                      class="w-1 h-1 rounded-full p-2"
-                      :class="
-                        item.status == 1
-                          ? 'bg-lime-500 hover:bg-lime-600'
-                          : 'bg-red-600 hover:bg-red-700 dark:bg-amber-600'
-                      "
-                    ></button>
+                    <button class="w-1 h-1 rounded-full p-2" @click="updateStatus(item)" :class="
+                      item.status == 1
+                        ? 'bg-lime-500 hover:bg-lime-600'
+                        : 'bg-red-600 hover:bg-red-700 dark:bg-amber-600'
+                    "></button>
                   </td>
-                  <td
-                    class="
+                  <td class="
                       relative
                       whitespace-nowrap
                       py-4
@@ -76,19 +55,13 @@
                       text-right text-sm
                       font-medium
                       sm:pr-6
-                    "
-                  >
-                    <button
-                      type="button"
-                      class="link-custom group-hover:text-white" @click="$emit('updateId',item.id);$emit('openModal')"
-                    >
+                    ">
+                    <button type="button" class="link-custom group-hover:text-white"
+                      @click="$emit('updateId', item.id); $emit('openModal')">
                       Chỉnh Sửa
                     </button>
                     /
-                    <button
-                      type="button"
-                      class="link-custom group-hover:text-white"
-                    >
+                    <button type="button" class="link-custom group-hover:text-white" @click="destroy(item.id)">
                       Xóa
                     </button>
                   </td>
@@ -96,12 +69,7 @@
               </tbody>
             </table>
           </div>
-          <pagination
-            v-model="page"
-            :records="total"
-            :per-page="per_page"
-            @paginate="updatePage"
-          />
+          <pagination v-model="page" :records="total" :per-page="per_page" @paginate="updatePage" />
         </div>
       </div>
     </div>
@@ -112,7 +80,7 @@
 import Pagination from "v-pagination-3";
 export default {
   components: { Pagination },
-  props: ["dataView", "remove"],
+  props: ["dataView", "remove", "isUpdate"],
   data() {
     return {
       config: {
@@ -125,6 +93,7 @@ export default {
       per_page: 1,
       labels: [],
       data: [],
+      isShow : Number,
     };
   },
   async mounted() {
@@ -148,11 +117,20 @@ export default {
       );
   },
   methods: {
-    async updateData(){
+    async updateData() {
       await axios.get(`http://127.0.0.1:8001/api/${this.dataView}?page=${this.page}`, this.config).then(response => (this.data = response.data.data));
     },
     async updatePage(value) {
-      await axios.get(`http://127.0.0.1:8001/api/${this.dataView}?page=${value}`, this.config).then(response => (this.data = response.data.data));
+      await axios.get(`http://127.0.0.1:8001/api/${this.dataView}?page=${value}`, this.config).then(response => (this.data = response.data.data, this.page = response.data.meta.current_page));
+    },
+    async destroy(value) {
+      await axios.delete(`http://127.0.0.1:8001/api/${this.dataView}/${value}`, this.config);
+      this.updateData()
+    },
+    async updateStatus(payload) {
+      (payload.status == 1) ? payload.status = 0 : payload.status = 1;
+      await axios.put(`http://127.0.0.1:8001/api/${this.dataView}/${payload.id}/update`, { status:payload.status }, this.config);
+      this.updateData()
     }
   },
   computed: {
@@ -160,8 +138,18 @@ export default {
       return this.labels.filter((item) => !this.remove.find((e) => e == item));
     },
   },
+  watch: {
+    isUpdate: async function (newVal, oldVal) { // watch it
+
+      if (newVal) {
+        await axios.get(`http://127.0.0.1:8001/api/${this.dataView}?page=${this.page}`, this.config).then(response => (this.data = response.data.data));
+        this.$emit('updateEmit')
+      }
+    }
+  }
 };
 </script>
 
 <style lang="scss" scoped>
+
 </style>

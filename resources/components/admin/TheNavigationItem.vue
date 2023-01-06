@@ -7,7 +7,7 @@
 
 <script>
 import {
-    CalendarIcon,
+    VideoCameraIcon,
     ChartBarIcon,
     TagIcon,
     HomeIcon,
@@ -22,7 +22,7 @@ export default {
                 { name: 'Trang Quản Trị', href: '/admin', icon: HomeIcon },
                 { name: 'Thể Loại', href: '/admin/category', icon: QueueListIcon },
                 { name: 'Nhãn Dán', href: '/admin/tag', icon: TagIcon },
-                { name: 'Calendar', href: '/admin/log', icon: CalendarIcon },
+                { name: 'Diễn Viên', href: '/admin/actor', icon: VideoCameraIcon },
                 { name: 'Documents', href: '/admin/author', icon: InboxIcon },
                 { name: 'Reports', href: '/admin/abc', icon: ChartBarIcon },
             ]

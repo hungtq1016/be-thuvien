@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Http\Requests\StoreTagRequest;
+use Illuminate\Http\Request;
 use App\Http\Requests\UpdateTagRequest;
 use App\Http\Resources\TagResource;
 use Illuminate\Support\Str;
@@ -102,5 +103,13 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         return $tag->delete();
+    }
+    public function updateStatus(Request $request,Tag $tag)
+    {
+        $tag ->update([
+            'status' => $request->status
+        ]);
+        return new TagResource($tag);
+
     }
 }

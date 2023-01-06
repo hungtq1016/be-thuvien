@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Actor;
 use App\Http\Requests\StoreActorRequest;
 use App\Http\Requests\UpdateActorRequest;
+use App\Http\Resources\ActorResource;
+use Illuminate\Support\Str;
+
 
 class ActorController extends Controller
 {
@@ -15,7 +18,7 @@ class ActorController extends Controller
      */
     public function index()
     {
-        //
+        return ActorResource::collection(Actor::paginate(15));
     }
 
     /**
@@ -25,7 +28,7 @@ class ActorController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -36,7 +39,17 @@ class ActorController extends Controller
      */
     public function store(StoreActorRequest $request)
     {
-        //
+        $request->validated($request->all());
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
+        $category = Actor::create([
+            'name' => $name,
+            'slug' => $slug,
+            'status' => 1,
+        ]);
+
+        return new ActorResource($category);
+
     }
 
     /**
@@ -47,7 +60,7 @@ class ActorController extends Controller
      */
     public function show(Actor $actor)
     {
-        //
+        return new ActorResource($actor);
     }
 
     /**
@@ -70,7 +83,15 @@ class ActorController extends Controller
      */
     public function update(UpdateActorRequest $request, Actor $actor)
     {
-        //
+        $request->validated($request->all());
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
+        $actor ->update([
+            'name' => $name,
+            'slug' => $slug
+        ]);
+        return new ActorResource($actor);
+
     }
 
     /**
@@ -81,6 +102,14 @@ class ActorController extends Controller
      */
     public function destroy(Actor $actor)
     {
-        //
+        return $actor->delete();
+    }
+    public function updateStatus(Request $request,Actor $actor)
+    {
+        $actor ->update([
+            'status' => $request->status
+        ]);
+        return new ActorResource($actor);
+
     }
 }
