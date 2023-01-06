@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
-use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
-use App\Http\Requests\UpdateTagRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -37,7 +37,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTagRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
         $request->validated($request->all());
         $name = $request->name;
@@ -81,7 +81,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTagRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
         $request->validated($request->all());
         $name = $request->name;

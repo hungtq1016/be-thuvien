@@ -8,10 +8,10 @@
 <script>
 import {
     VideoCameraIcon,
-    ChartBarIcon,
+    FilmIcon,
     TagIcon,
     HomeIcon,
-    InboxIcon,
+    PaintBrushIcon,
     UsersIcon,
     QueueListIcon
 } from '@heroicons/vue/24/outline'
@@ -19,12 +19,12 @@ export default {
     data() {
         return {
             navigation: [
-                { name: 'Trang Quản Trị', href: '/admin', icon: HomeIcon },
+                { name: 'Trang Quản Lý', href: '/admin', icon: HomeIcon },
                 { name: 'Thể Loại', href: '/admin/category', icon: QueueListIcon },
                 { name: 'Nhãn Dán', href: '/admin/tag', icon: TagIcon },
                 { name: 'Diễn Viên', href: '/admin/actor', icon: VideoCameraIcon },
-                { name: 'Documents', href: '/admin/author', icon: InboxIcon },
-                { name: 'Reports', href: '/admin/abc', icon: ChartBarIcon },
+                { name: 'Đạo Diễn', href: '/admin/director', icon: PaintBrushIcon },
+                { name: 'Phim', href: '/admin/movie', icon: FilmIcon },
             ]
         }
     }

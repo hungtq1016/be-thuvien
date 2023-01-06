@@ -71,6 +71,8 @@
 import tagForm from "../../views/admin/tag/TagForm.vue";
 import categoryForm from "../../views/admin/category/CategoryForm.vue";
 import actorForm from "../../views/admin/actor/ActorForm.vue";
+import directorForm from "../../views/admin/director/DirectorForm.vue";
+
 
 import {
     XMarkIcon,
@@ -87,6 +89,7 @@ export default {
     tagForm,
     categoryForm,
     actorForm,
+    directorForm,
     TransitionRoot,
     TransitionChild,
     Dialog,

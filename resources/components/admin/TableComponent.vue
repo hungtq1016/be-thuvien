@@ -37,7 +37,8 @@
                 " class="hover:dark:bg-red-600 group">
                   <td v-for="(label, labelIndex) in sortedArray" :key="labelIndex"
                     class="whitespace-nowrap px-3 py-4 text-sm">
-                    {{ item[label] }}
+                    <img :src="item.image" v-if="label == 'image'" class="w-14 h-14"/>
+                    <div v-else> {{ item[label] }}</div>
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-center">
                     <button class="w-1 h-1 rounded-full p-2" @click="updateStatus(item)" :class="

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateActorRequest extends FormRequest
+class UpdatedirectorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +14,7 @@ class UpdateActorRequest extends FormRequest
      */
     public function authorize()
     {
-        return Auth::check() ;
+        return Auth::check();
     }
 
     /**
@@ -25,12 +25,7 @@ class UpdateActorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255','unique:actors'],
-            'country' => ['required'],
-            'yob' => ['required'],
-            'gender' => ['required'],
-            'image' => ['required'],
-
+            'name' => ['required','string','max:255','unique:tags'],
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class UpdateActorRequest extends FormRequest
+class StoredirectorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,11 +26,10 @@ class UpdateActorRequest extends FormRequest
     {
         return [
             'name' => ['required','string','max:255','unique:actors'],
-            'country' => ['required'],
-            'yob' => ['required'],
-            'gender' => ['required'],
-            'image' => ['required'],
-
+            'country' => ['required','string','max:255'],
+            'yob' => ['required','string','max:255'],
+            'gender' => ['required','string','max:255'],
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
         ];
     }
 }

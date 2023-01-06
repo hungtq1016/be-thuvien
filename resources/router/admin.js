@@ -27,11 +27,22 @@ const admin = [
                 meta: { title: 'Diễn Viên' },
                 component: () => import("../views/admin/actor/index.vue"),
             },
-
+            {
+                path: 'director',
+                name: "director",
+                meta: { title: 'Đạo Diễn' },
+                component: () => import("../views/admin/director/index.vue"),
+            },
+            {
+                path: 'movie',
+                name: "movie",
+                meta: { title: 'Phim' },
+                component: () => import("../views/admin/movie/index.vue"),
+            },
         ],
     },
     {
-        path: "/:pathMatch(.*)*", 
+        path: "/:pathMatch(.*)*",
         component: ()=>import("../views/pages/PageNotFound.vue"),
         meta: { title: '404' },
     }
