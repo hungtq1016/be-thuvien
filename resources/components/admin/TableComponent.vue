@@ -137,13 +137,13 @@ export default {
   computed: {
     sortedArray() {
       return this.labels.filter((item) => !this.remove.find((e) => e == item));
-    },
+    }
   },
   watch: {
-    isUpdate: async function (newVal, oldVal) { // watch it
+    isUpdate:  function (newVal,oldVal) { // watch it
 
       if (newVal) {
-        await axios.get(`http://127.0.0.1:8001/api/${this.dataView}?page=${this.page}`, this.config).then(response => (this.data = response.data.data));
+        this.updateData();
         this.$emit('updateEmit')
       }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return 'Hello';
+        return MovieResource::collection(Movie::paginate(15));
     }
 
     /**

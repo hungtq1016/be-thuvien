@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('movies', function (Blueprint $table) {
+        Schema::create('moive_tag', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('movie_id');
+            $table->integer('tag_id');
         });
     }
 
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('movies');
+        //
     }
 };

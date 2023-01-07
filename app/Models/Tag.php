@@ -15,4 +15,9 @@ class Tag extends Model
         'slug',
         'status',
     ];
+
+    public function movies()
+    {
+        return $this->belongsToMany(Movie::class,'movie_tag','movie_id','tag_id');
+    }
 }

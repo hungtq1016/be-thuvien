@@ -7,6 +7,7 @@ use App\Http\Controllers\ActorController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\DirectorController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\TagController;
 
 Route::post('/login', [AuthController::class,'login']);
@@ -20,6 +21,7 @@ Route::group(['middleware'=> ['auth:sanctum']], function ()
     Route::resource('/director',DirectorController::class);
     Route::resource('/category',CategoryController::class);
     Route::resource('/tag',TagController::class);
+    Route::resource('/movie',MovieController::class);
     Route::put('category/{category}/update', [CategoryController::class,'updateStatus']);
     Route::put('tag/{tag}/update', [TagController::class,'updateStatus']);
     Route::put('actor/{actor}/update', [ActorController::class,'updateStatus']);
