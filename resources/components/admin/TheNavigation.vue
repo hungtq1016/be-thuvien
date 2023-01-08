@@ -41,10 +41,11 @@
                     <MenuItems
                         class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md dark:bg-zinc-900 bg-white pb-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:shadow-none"
                     >
-                        <div class="px-4 py-2 text-white dark:bg-red-600 bg-sky-600 text-lg rounded-t-md">Hello <span class=""> Admin</span>!</div>
+                        <div class="px-4 py-2 text-white dark:bg-red-600 bg-sky-600 text-lg rounded-t-md">Xin chào <span class=""> {{this.getData.name}}</span>!</div>
                         <MenuItem v-for="item in list" :key="item.name" v-slot="{ active }">
-                        <a :href="item.href" :class="[active ? 'dark:bg-red-900 bg-sky-700 ' : '', 'block px-4 py-2 text-sm dark:text-white text-black hover:text-white']">{{ item.name }}</a>
-                    </MenuItem>
+                            <a @click="submit(item.method)"
+                            :class="[active ? 'dark:bg-red-900 bg-sky-700 ' : '', 'block px-4 py-2 text-sm dark:text-white text-black hover:text-white']">{{ item.name }}</a>
+                        </MenuItem>
                     </MenuItems>
                 </transition>
             </Menu>
@@ -52,16 +53,36 @@
     </div>
 </template>
 <script>
+import axios from 'axios';
+
 export default {
+
     data() {
         return {
             list: [
-                { name: "Your Profile", href: "#" },
-                { name: "Settings", href: "#" },
-                { name: "Sign out", href: "#" },
+                { name: "Your Profile", method: "#" },
+                { name: "Settings", method: "#" },
+                { name: "Đăng Xuất", method: "logout" },
             ],
+            config: {
+                headers: { Authorization: `Bearer ${localStorage.getItem('token-admin')}`}
+            }
         };
     },
+    methods:{
+        async submit(method){
+            await axios.post(`http://127.0.0.1:8001/api/${method}`,'', this.config).then(function (response) {console.log(response);})
+            localStorage.removeItem('token-admin');
+            localStorage.removeItem('userInfo');
+            this.$router.push({ name: 'admin-login' })
+        }
+    },
+    computed:{
+        getData(){
+            const data = JSON.parse(localStorage.getItem('userInfo'));
+            return data;
+        }
+    }
 };
 </script>
 <script setup>

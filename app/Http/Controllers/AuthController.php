@@ -25,7 +25,10 @@ class AuthController extends Controller
         $user = User::where('email',$request->email)->where('role_id','>=',3)->first();
 
         return $this->success([
-            'user' => $user,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role,
+            'id'=>$user->id,
             'token' => $user->createToken('API Token of '.$user->name)->plainTextToken
          ]);
     }
@@ -43,8 +46,21 @@ class AuthController extends Controller
         ]);
 
         return $this->success([
-            'user' => $user,
+            'name' => $user->name,
+            'email' => $user->email,
+            'role' => $user->role,
+            'id'=>$user->id,
             'token' => $user->createToken('API Token of '.$user->name)->plainTextToken
         ]);
+    }
+
+    public function logout()
+    {
+        Auth::user()->currentAccessToken()->delete();
+
+        return $this->success([
+            'message' => 'You have succesfully been logged out and your token has been removed'
+        ]);
+
     }
 }

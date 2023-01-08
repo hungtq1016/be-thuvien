@@ -18,7 +18,7 @@ Route::post('/register', [AuthController::class,'register']);
 Route::group(['middleware'=> ['auth:sanctum']], function ()
 {
     Route::post('/logout', [AuthController::class,'logout']);
-    
+
     Route::resource('/actor',ActorController::class);
     Route::resource('/director',DirectorController::class);
     Route::resource('/category',CategoryController::class);
