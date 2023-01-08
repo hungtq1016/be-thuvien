@@ -12,7 +12,6 @@ class Role extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'name',
-        'code',
     ];
 
     public function users()

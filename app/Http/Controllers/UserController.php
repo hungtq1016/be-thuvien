@@ -8,8 +8,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(User $user)
     {
+        $this->authorize('viewAny', $user);
         return UserResource::collection(User::all());
     }
 }
