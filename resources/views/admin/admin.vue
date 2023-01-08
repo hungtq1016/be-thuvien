@@ -89,12 +89,11 @@
                 </button>
                 <TheNavigation />
             </div>
-
             <main class="flex-1 ">
                 <div class="p-6 space-y-4">
                     <TitleComponent :title="this.$route.meta"/>
                     <router-view></router-view>
-                    
+
                 </div>
             </main>
         </div>
@@ -121,12 +120,22 @@ import {
     TransitionChild,
     TransitionRoot,
 } from "@headlessui/vue";
+import { mapActions, mapMutations } from 'vuex';
 export default {
     components: {
         TheAside,
         TheNavigationItem,
         TheNavigation,TitleComponent
     },
+    methods:{
+        ...mapActions(['getData','getDataLabel']),
+        ...mapMutations(['SET_RESOURCE'])
+    },
+    mounted(){
+        this.SET_RESOURCE(this.$route.path.substring(this.$route.path.lastIndexOf('/') + 1))
+        this.getData({page:1}),
+        this.getDataLabel()
+    }
 };
 </script>
 
