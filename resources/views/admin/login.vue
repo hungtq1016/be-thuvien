@@ -112,7 +112,7 @@ export default {
     methods: {
         async submit() {
             const login = await axios
-                .post(`http://127.0.0.1:8001/api/login`, this.form)
+                .post(`/api/login`, this.form)
                 .catch(function (error) {
                     alert('Mat khau hoac email sai')
                 });

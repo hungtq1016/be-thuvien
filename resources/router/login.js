@@ -1,7 +1,7 @@
 const login = [
     {
-        path:'/admin-login',
-        name: "admin-login",
+        path:'/login',
+        name: "login",
         meta: { title: 'Đăng Nhập' },
         component:() => import("../views/admin/login.vue"),
     }

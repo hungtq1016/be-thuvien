@@ -1,6 +1,17 @@
 const admin = [
     {
         path: '/admin',
+        beforeEnter(to, from, next) {
+            if (isAuthenticated()) {
+              if (!hasPermissionsAdmin(to)) {
+                next('/');
+              } else {
+                next();
+              }
+            } else {
+                next('/');
+            }
+        },
         component: () => import("../views/admin/admin.vue"),
         children: [
             {
@@ -42,10 +53,25 @@ const admin = [
         ],
     },
     {
-        path: "/:pathMatch(.*)*",
+        path: "/admin/:pathMatch(.*)*",
         component: ()=>import("../views/pages/PageNotFound.vue"),
         meta: { title: '404' },
     }
 ]
 
+function isAuthenticated() {
+    const token = localStorage.getItem('token-admin');
+    if (token) {
+        return true;
+    }
+    return false
+}
+
+function hasPermissionsAdmin() {
+    const role = JSON.parse(localStorage.getItem('userInfo')).role;
+    if (role.id >=3) {
+        return true;
+    }
+    return false
+}
 export default admin
