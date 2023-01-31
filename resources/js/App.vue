@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { useDark } from '@vueuse/core';
+const isDark = useDark();
     export default {
         name: 'App',
         watch: {

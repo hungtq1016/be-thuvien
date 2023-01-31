@@ -56,7 +56,7 @@ export default {
         return {
             config: {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token-admin")}`,
+                    Authorization: `Bearer ${this.$cookies.get('ltoken')}`,
                 },
             },
             page: 1,
@@ -65,7 +65,12 @@ export default {
         };
     },
     async mounted() {
-        await axios .get(`/api/${this.getResource}?page=1`, this.config) .then( (response) => ( (this.total = response.data.meta.total), (this.per_page = response.data.meta.per_page) ) );
+        await axios .get(`/api/${this.getResource}?page=1`, this.config) .then( (response) => {
+            if (response.data.meta) {
+                this.total = response.data.meta.total,
+                this.per_page = response.data.meta.per_page
+            }
+        } );
     },
     methods: {
         ...mapActions(["getData", "destroyData","updateStatus"]),

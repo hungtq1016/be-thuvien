@@ -32,4 +32,5 @@ Route::group(['middleware'=> ['auth:sanctum']], function ()
     Route::put('director/{director}/update', [DirectorController::class,'updateStatus']);
 
     Route::get('get-col-name/{value}', [DbController::class, 'index']);
+    Route::get('getdb/{value}', [DbController::class, 'index2']);
 });

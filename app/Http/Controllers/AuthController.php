@@ -27,7 +27,7 @@ class AuthController extends Controller
         return $this->success([
             'name' => $user->name,
             'email' => $user->email,
-            'role' => $user->role,
+            'role' => $user->role->id,
             'id'=>$user->id,
             'token' => $user->createToken('API Token of '.$user->name)->plainTextToken
          ]);
@@ -48,7 +48,7 @@ class AuthController extends Controller
         return $this->success([
             'name' => $user->name,
             'email' => $user->email,
-            'role' => $user->role,
+            'role' => $user->role->id,
             'id'=>$user->id,
             'token' => $user->createToken('API Token of '.$user->name)->plainTextToken
         ]);
@@ -59,7 +59,7 @@ class AuthController extends Controller
         Auth::user()->currentAccessToken()->delete();
 
         return $this->success([
-            'message' => 'You have succesfully been logged out and your token has been removed'
+            'message' => 'Đăng xuất thành công'
         ]);
 
     }

@@ -3,13 +3,13 @@ const admin = [
         path: '/admin',
         beforeEnter(to, from, next) {
             if (isAuthenticated()) {
-              if (!hasPermissionsAdmin(to)) {
-                next('/');
-              } else {
-                next();
-              }
+                if (!hasPermissionsAdmin(to)) {
+                    next('/');
+                } else {
+                    next();
+                }
             } else {
-                next('/');
+                next('/login');
             }
         },
         component: () => import("../views/admin/admin.vue"),
@@ -54,13 +54,14 @@ const admin = [
     },
     {
         path: "/admin/:pathMatch(.*)*",
-        component: ()=>import("../views/pages/PageNotFound.vue"),
+        component: () => import("../views/pages/PageNotFound.vue"),
         meta: { title: '404' },
     }
 ]
 
 function isAuthenticated() {
-    const token = localStorage.getItem('token-admin');
+    // const token = localStorage.getItem('token-admin');
+    const token = window.$cookies.isKey("ltoken");
     if (token) {
         return true;
     }
@@ -68,8 +69,10 @@ function isAuthenticated() {
 }
 
 function hasPermissionsAdmin() {
-    const role = JSON.parse(localStorage.getItem('userInfo')).role;
-    if (role.id >=3) {
+    const today = new Date()
+    const isAdmin = window.btoa(today.getMonth() + "admin");
+    const token = window.$cookies.isKey(isAdmin);
+    if (token) {
         return true;
     }
     return false

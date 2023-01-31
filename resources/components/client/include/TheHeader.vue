@@ -1,11 +1,11 @@
 <template>
-    <Popover class="fixed left-0 right-0 bg-white">
+    <Popover class="fixed top-0 left-0 right-0 bg-white z-50 duration-500"  :class="headerClass">
       <div class="mx-auto max-w-7xl px-6">
-        <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+        <div class="flex items-center justify-between py-6 md:justify-start md:space-x-10">
           <div class="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
               <span class="sr-only">Your Company</span>
-              <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
+              <img class="h-8 w-auto sm:h-10" src="public/videos/rickr" alt="" />
             </a>
           </div>
           <div class="-my-2 -mr-2 md:hidden">
@@ -140,7 +140,36 @@
       </transition>
     </Popover>
   </template>
-
+<script>
+export default {
+  data() {
+    return {
+        headerClass: '',
+        prevScrollpos : window.pageYOffset
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+  methods: {
+    handleScroll() {
+    var currentScrollPos = window.pageYOffset
+      if (window.scrollY > 96 && this.prevScrollpos >= currentScrollPos) {
+        this.headerClass = 'shadow-b'
+      } else {
+        this.headerClass = '-translate-y-full'
+      }
+      if (currentScrollPos == 0) {
+        this.headerClass = ''
+      }
+      this.prevScrollpos = currentScrollPos
+    }
+  }
+}
+</script>
   <script setup>
   import { Popover, PopoverButton, PopoverGroup, PopoverPanel } from '@headlessui/vue'
   import {

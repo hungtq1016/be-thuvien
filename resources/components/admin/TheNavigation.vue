@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-1 justify-end px-4 shadow-md">
+    <div class="flex flex-1 justify-end px-4 shadow-b">
         <div class="ml-4 flex items-center gap-x-2 md:ml-6">
             <button
                 type="button"
@@ -42,7 +42,7 @@
                         class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md dark:bg-zinc-900 bg-white pb-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:shadow-none"
                     >
                         <div class="px-4 py-2 text-white dark:bg-red-600 bg-sky-600 text-lg rounded-t-md">Xin chào <span class=""> {{this.getData.name}}</span>!</div>
-                        <MenuItem v-for="item in list" :key="item.name" v-slot="{ active }">
+                        <MenuItem v-for="item in list"  v-slot="{ active }">
                             <a @click="submit(item.method)"
                             :class="[active ? 'dark:bg-red-900 bg-sky-700 ' : '', 'block px-4 py-2 text-sm dark:text-white text-black hover:text-white']">{{ item.name }}</a>
                         </MenuItem>
@@ -65,21 +65,28 @@ export default {
                 { name: "Đăng Xuất", method: "logout" },
             ],
             config: {
-                headers: { Authorization: `Bearer ${localStorage.getItem('token-admin')}`}
+                headers: { Authorization: `Bearer ${this.$cookies.get('ltoken')}`}
             }
         };
     },
     methods:{
         async submit(method){
-            await axios.post(`http://127.0.0.1:8001/api/${method}`,'', this.config).then(function (response) {console.log(response);})
-            localStorage.removeItem('token-admin');
-            localStorage.removeItem('userInfo');
-            this.$router.push({ name: 'admin-login' })
+            await axios.post(`/api/${method}`,{}, this.config).then( (response) => {
+                console.log(response)
+                this.$router.push({ name: 'login' })
+            })
+
+            // const today = new Date()
+            // const isAdmin = window.btoa(today.getMonth() + "admin");
+            // this.$cookies.remove("ltoken");
+            // this.$cookies.remove(isAdmin);
+
+
         }
     },
     computed:{
         getData(){
-            const data = JSON.parse(localStorage.getItem('userInfo'));
+            const data =  this.$cookies.get('info_user')
             return data;
         }
     }

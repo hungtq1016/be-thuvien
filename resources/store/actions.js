@@ -1,12 +1,13 @@
 import axios from "axios"
+import VueCookies from 'vue-cookies'
 const config = {
     headers: {
-        Authorization: `Bearer ${localStorage.getItem('token-admin')}`,
+        Authorization: `Bearer ${ VueCookies.get("ltoken")}`,
     }
 }
 export default {
     async getData({ commit, getters }, payload) {
-        await axios.get(`/api/${getters.getResource}?page=${payload.page}`, config)
+        await axios.get(`/api/${getters.getResource}?page=${payload.page}`)
             .then((response) => {
                 commit('SET_TAGS', response.data.data)
             })
@@ -24,10 +25,8 @@ export default {
     },
 
     async getDataLabel({ commit, getters }) {
-        console.log(getters.getResource);
         await axios.get(`/api/get-col-name/${getters.getResource}`, config)
             .then((response) => {
-                console.log(response);
                 commit('SET_LABEL', response.data)
             })
     }

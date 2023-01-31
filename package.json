@@ -20,10 +20,12 @@
         "@vitejs/plugin-vue": "^4.0.0",
         "@vueuse/core": "^9.9.0",
         "moment": "^2.29.4",
+        "sweetalert2": "^11.7.1",
         "v-pagination-3": "^0.1.7",
         "vue": "^3.2.45",
         "vue-cookies": "^1.8.2",
         "vue-router": "^4.1.6",
+        "vue3-carousel": "^0.2.9",
         "vuex": "^4.1.0"
     }
 }
