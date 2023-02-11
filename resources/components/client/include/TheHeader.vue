@@ -1,19 +1,96 @@
 <template>
-    <Popover class="fixed top-0 left-0 right-0 bg-white z-50 duration-500"  :class="headerClass">
-      <div class="mx-auto max-w-7xl px-6">
-        <div class="flex items-center justify-between py-6 md:justify-start md:space-x-10">
-          <div class="flex justify-start lg:w-0 lg:flex-1">
+    <Popover class="fixed top-0 left-0 right-0 bg-white z-50 "  :class="headerClass">
+      <div class="mx-auto max-w-7xl px-1 md:px-6">
+        <div class="flex items-center py-2 md:py-6 md:justify-start md:gap-x-10 gap-x-2">
+          <!-- <div class="flex justify-start lg:w-0 lg:flex-1">
             <a href="#">
               <span class="sr-only">Your Company</span>
               <img class="h-8 w-auto sm:h-10" src="public/videos/rickr" alt="" />
             </a>
-          </div>
+          </div> -->
           <div class="-my-2 -mr-2 md:hidden">
             <PopoverButton class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
               <span class="sr-only">Open menu</span>
               <Bars3Icon class="h-6 w-6" aria-hidden="true" />
             </PopoverButton>
           </div>
+          <Popover v-slot="{ open }" class="relative flex-auto">
+            <PopoverButton  :class="open ? '' : 'text-opacity-90'" class="w-full" as="div">
+                <form>
+                    <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <input type="search" id="default-search" class="block w-full py-2 md:p-4 pl-10 text-sm text-gray-900 focus:ring-0 bg-gray-100 border-none rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Tìm Sách..." autocomplete="false" required>
+                    </div>
+                </form>
+            </PopoverButton>
+            <!-- <form>
+                <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input type="search" id="default-search" class="block w-full py-2 md:p-4 pl-10 text-sm text-gray-900 focus:ring-0 bg-gray-100 border-none rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Tìm Sách..." autocomplete="false" required>
+                </div>
+            </form> -->
+            <transition
+              enter-active-class="transition duration-200 ease-out"
+              enter-from-class="translate-y-1 opacity-0"
+              enter-to-class="translate-y-0 opacity-100"
+              leave-active-class="transition duration-150 ease-in"
+              leave-from-class="translate-y-0 opacity-100"
+              leave-to-class="translate-y-1 opacity-0"
+            >
+              <PopoverPanel
+                class="absolute left-1 right-1 z-10 mt-3"
+              >
+                <div
+                  class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5"
+                >
+                  <div class="relative grid gap-8 bg-white p-7 lg:grid-cols-2">
+                    <a
+                      v-for="item in solutions"
+                      :key="item.name"
+                      :href="item.href"
+                      class="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                    >
+                      <div
+                        class="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12"
+                      >
+                      </div>
+                      <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-900">
+                          {{ item.name }}
+                        </p>
+                        <p class="text-sm text-gray-500">
+                          {{ item.description }}
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="bg-gray-50 p-4">
+                    <a
+                      href="##"
+                      class="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50"
+                    >
+                      <span class="flex items-center">
+                        <span class="text-sm font-medium text-gray-900">
+                          Documentation
+                        </span>
+                      </span>
+                      <span class="block text-sm text-gray-500">
+                        Start integrating products and tools
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </PopoverPanel>
+            </transition>
+          </Popover>
           <PopoverGroup as="nav" class="hidden space-x-10 md:flex">
             <Popover class="relative" v-slot="{ open }">
               <PopoverButton :class="[open ? 'text-gray-900' : 'text-gray-500', 'group inline-flex items-center rounded-md bg-white text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
@@ -145,7 +222,8 @@ export default {
   data() {
     return {
         headerClass: '',
-        prevScrollpos : window.pageYOffset
+        prevScrollpos : window.pageYOffset,
+        searchResult:[{id:111,text:'lorem'},{id:112,text:'lorem'},{id:113,text:'lorem'},]
     }
   },
   mounted() {
@@ -160,7 +238,7 @@ export default {
       if (window.scrollY > 96 && this.prevScrollpos >= currentScrollPos) {
         this.headerClass = 'shadow-b'
       } else {
-        this.headerClass = '-translate-y-full'
+        this.headerClass = '-translate-y-full duration-500'
       }
       if (currentScrollPos == 0) {
         this.headerClass = ''
