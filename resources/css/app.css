@@ -46,3 +46,6 @@
 .carousel__next,.carousel__prev{
     @apply !bg-white !rounded-full
 }
+.split{
+    @apply relative before:absolute
+}

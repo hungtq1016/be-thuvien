@@ -93,10 +93,10 @@ export default {
 };
 </script>
 <script setup>
-import { useDark, useToggle } from '@vueuse/core';
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { BellIcon ,SunIcon} from "@heroicons/vue/24/outline";
 import { MoonIcon} from "@heroicons/vue/24/solid";
+import { useDark, useToggle } from '@vueuse/core';
 
 const isDark = useDark();
 const toggleDark =  useToggle(isDark)

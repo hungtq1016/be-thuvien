@@ -166,6 +166,9 @@ export default {
             }
         },
     },
+    mounted(){
+        this.isRegister = (this.$route.query.action == 'register') ? true : false
+    }
 };
 </script>
 
