@@ -13,7 +13,7 @@
             </button>
             <div class="flex-1">
                 <router-link :to="{name: 'BookDetail', params: { slug: value.slug }}" class="mt-2 block !bg-transparent">
-                    <p class="text-xl font-semibold text-sky-700 dark:text-red-600 lg:text-clip truncate">
+                    <p class="text-xl font-semibold text-sky-700 dark:text-red-600 lg:text-clip">
                         {{ value.title }}
                     </p>
                     <p class="mt-3 text-base text-gray-600 dark:text-gray-300 truncate">

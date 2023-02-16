@@ -37,7 +37,20 @@ class BookController extends Controller
      */
     public function store(StoreBookRequest $request)
     {
-        //
+        // 'id' => $this->id,
+        // 'title'=> $this->title,
+        // 'slug'=> $this->slug,
+        // 'specialization'=> $this->specialization,
+        // 'publisher'=> $this->publisher,
+        // 'image'=> $this->image,
+        // 'language'=> $this->language,
+        // 'desc'=> $this->desc,
+        // 'year'=> $this->year,
+        // 'bookself'=> $this->bookself,
+        // 'series'=> $this->series,
+        // 'country'=> $this->country,
+        // 'status'=> $this->status,
+        // 'tags'=>$this->tags()
     }
 
     /**
@@ -48,7 +61,8 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        return new BookResource($book);
+
     }
 
     /**

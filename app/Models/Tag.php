@@ -16,13 +16,9 @@ class Tag extends Model
         'status',
     ];
 
-    public function movies()
-    {
-        return $this->belongsToMany(Movie::class,'movie_tag','movie_id','tag_id');
-    }
 
     public function books()
     {
-        return $this->morphedByMany(Book::class,'book_tag','book_id','tag_id');
+        return $this->belongsToMany(Book::class);
     }
 }

@@ -19,7 +19,7 @@ class TagResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'status' => $this->status,
-            'movies'=>$this->movies
+            'books'=>$this->books
         ];
     }
 }

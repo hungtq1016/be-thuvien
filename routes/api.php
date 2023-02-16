@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ActorController;
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\DirectorController;
@@ -24,7 +25,7 @@ Route::group(['middleware'=> ['auth:sanctum']], function ()
     Route::resource('/category',CategoryController::class);
     Route::resource('/tag',TagController::class);
     Route::resource('/movie',MovieController::class);
-    Route::resource('/book',MovieController::class);
+    Route::resource('/book',BookController::class);
     Route::resource('/user',UserController::class);
 
     Route::put('category/{category}/update', [CategoryController::class,'updateStatus']);

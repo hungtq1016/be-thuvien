@@ -28,8 +28,8 @@ class BookResource extends JsonResource
             'series'=> $this->series,
             'country'=> $this->country,
             'status'=> $this->status,
-            'tags'=>$this->tags
-
+            'tags'=> $this->tags->isEmpty() ? null : $this->tags->pluck('name')->unique()->all(),
+            'categories'=>$this->categories->isEmpty() ? null : $this->categories->pluck('name')->all(),
         ];
     }
 }

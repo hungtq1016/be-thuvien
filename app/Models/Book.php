@@ -27,6 +27,11 @@ class Book extends Model
 
     public function tags()
     {
-        return $this->morphedByMany(Tag::class,'book_tag','book_id','tag_id');
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
     }
 }

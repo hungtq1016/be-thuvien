@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -15,6 +16,8 @@ class BookFactory extends Factory
      *
      * @return array<string, mixed>
      */
+    protected $model = Book::class;
+
     public function definition()
     {
         $title = $this->faker->firstName();
