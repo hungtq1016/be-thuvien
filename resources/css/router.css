@@ -10,3 +10,6 @@ a.router-link-active.router-link-exact-active.sub-nav{
 .router-link-exact-active span{
     @apply !text-gray-900 dark:!text-white
 }
+.router-link-exact-active{
+    @apply !bg-transparent
+}

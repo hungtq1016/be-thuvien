@@ -71,11 +71,13 @@
                                         <div
                                             class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                             <div class="relative grid gap-6 bg-white dark:bg-zinc-900 px-2 py-4 sm:p-4">
-                                                <router-link :to="subitem.link" v-for="subitem in item.subNav"
+                                                <router-link :to="{ name: 'RequestBook', params: { slug: subitem.slug },query:{title:subitem.title}}"
+                                                     v-for="subitem in item.subNav"
                                                     :key="subitem.title"
                                                     class="text-base font-medium text-gray-900 dark:text-gray-300 -m-3 flex items-start rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-700 dark:hover:text-white sub-nav">{{
                                                         subitem.title
                                                     }}</router-link>
+
                                             </div>
                                             <span class="block bg-white dark:bg-gray-900">
                                                 <router-link :to="item.link"
@@ -224,15 +226,15 @@ export default {
                     subNav: [
                         {
                             title: 'Hành Động',
-                            link: '/category/action'
+                            slug: 'action'
                         },
                         {
                             title: 'Phiêu Lưu',
-                            link: '/category/avan'
+                            slug: 'avan'
                         },
                         {
                             title: 'Cách Mạng',
-                            link: '/category/casc'
+                            slug: 'casc'
                         }
                     ]
                 },
@@ -242,15 +244,15 @@ export default {
                     subNav: [
                         {
                             title: 'Lục Bát',
-                            link: '/poem/action'
+                            slug: '/poem/action'
                         },
                         {
                             title: 'Hiện Đại',
-                            link: '/poem/action'
+                            slug: '/poem/action'
                         },
                         {
                             title: 'Cổ Điển',
-                            link: '/poem/action'
+                            slug: '/poem/action'
                         }
                     ]
                 },

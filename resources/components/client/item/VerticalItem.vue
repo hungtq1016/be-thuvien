@@ -13,14 +13,14 @@
                 </svg>
             </button>
             <div class="flex-1">
-                <a :href="value.href" class="mt-2 block">
+                <router-link :to="{name: 'BookDetail', params: { slug: value.slug }}" class="mt-2 block">
                     <p class="text-xl font-semibold text-sky-700 dark:text-red-600" >
                         {{ value.title }}
                     </p>
                     <p class="mt-3 text-base text-gray-600 dark:text-gray-300 truncate">
                         {{ value.description }}
                     </p>
-                </a>
+                </router-link>
                 <p class="text-sm text-gray-400 dark:text-gray-100  font-semibold" >
                     <a :href="value.category.href" class="hover:underline" >{{ value.category.name }}</a >
                 </p>

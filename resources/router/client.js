@@ -9,20 +9,22 @@ const client = [
                 meta: { title: 'Trang Chủ' }
             },
             {
-                path: 'book',
-                name: "book",
-                component: () => import("../views/client/book/index.vue"),
+                path: 'book/:slug',
+                name: "BookDetail",
+                props: true,
+                component: () => import("../views/client/BookDetailView.vue"),
                 meta: { title: 'Danh Sách' }
             },
             {
                 path: 'category',
-                name: "category",
-                component: () => import("../views/client/item.vue"),
+                name: "CategoryList",
+                component: () => import("../views/client/CateLayout.vue"),
                 meta: { title: 'category' }
             },
             {
-                path: 'category/:id',
-                name: "category-detail",
+                path: 'category/:slug',
+                name: "RequestBook",
+                props: true,
                 component: () => import("../views/client/item.vue"),
                 meta: { title: 'category' }
             },

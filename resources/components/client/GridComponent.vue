@@ -1,64 +1,21 @@
 <template>
-    <section>
-        <div class="relative bg-gray-50 dark:bg-black px-6 py-10 lg:px-8 lg:py-16">
-            <div class="absolute inset-0">
-                <div class="h-1/3 bg-white dark:bg-zinc-900 sm:h-2/3" />
-            </div>
-            <div class="relative mx-auto max-w-7xl">
-                <div class="text-left">
-                    <div class="flex item-centers justify-between">
-                        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
-                            {{section.title}}
-                        </h2>
-                        <router-link :to="'/book?action='+section.slug"
-                            class="text-lg text-sky-500  hover:text-sky-600 dark:text-red-500 dark:hover:text-red-600">
-                            Xem thêm</router-link>
-                    </div>
-                    <p class="mt-3 text-xl text-gray-500 dark:text-gray-300 sm:mt-4">
-                        {{section.desc}}
-                    </p>
-                </div>
-                <div class="mx-auto mt-12 grid max-w-lg gap-5 lg:max-w-none grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-                    <VerticalItem v-for="post in books" :key="post.title" :value="post"
-                        class="flex flex-col overflow-hidden rounded-lg shadow-lg" />
-                </div>
-            </div>
+    <section aria-labelledby="product-heading" class="mt-6 lg:col-span-2 lg:mt-0 xl:col-span-3">
+        <h2 id="product-heading" class="sr-only">Books</h2>
+        <div class="grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 lg:gap-x-8 xl:grid-cols-3">
+          <VerticalItem v-for="book in books" :key="book.id" :value="book"/>
         </div>
-    </section>
+      </section>
 </template>
 
 <script>
-import VerticalItem from "../../../components/client/item/VerticalItem.vue";
-
-export default {
-    props:['section'],
-    components: {
-        VerticalItem
-    },
-    data() {
-        return {
-            books: [
+import VerticalItem from './item/VerticalItem.vue'
+    export default {
+        data(){
+            return{
+                books: [
                 {
                     title: "Boost your conversion rate",
-                    slug: "asdasd",
-                    category: { name: "Article", href: "#" },
-                    description:
-                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.",
-                    date: "Mar 16, 2020",
-                    comments: "0",
-                    imageUrl:
-                        "https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1679&q=80",
-                    rating: "5.0",
-                    author: {
-                        name: "Roel Aufderehar",
-                        href: "#",
-                        imageUrl:
-                            "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-                    },
-                },
-                {
-                    title: "Boost your conversion rate",
-                    slug: "1#123",
+                    slug: "2#2132",
                     category: { name: "Article", href: "#" },
                     description:
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.",
@@ -76,7 +33,7 @@ export default {
                 },
                 {
                     title: "How to use search engine optimization to drive sales",
-                    slug: "fdfds",
+                    slug: "giao-adas",
                     category: { name: "Video", href: "#" },
                     description:
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.",
@@ -94,7 +51,7 @@ export default {
                 },
                 {
                     title: "Improve your customer experience",
-                    slug: "asdsd",
+                    slug: "23ddd",
                     category: { name: "Case Study", href: "#" },
                     description:
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.",
@@ -111,7 +68,12 @@ export default {
                     },
                 },
             ]
-        }
+            }
+        },
+        components:{VerticalItem}
     }
-};
 </script>
+
+<style lang="scss" scoped>
+
+</style>

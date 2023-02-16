@@ -12,7 +12,7 @@
                 </svg>
             </button>
             <div class="flex-1">
-                <router-link :to="value.href" class="mt-2 block !bg-transparent">
+                <router-link :to="{name: 'BookDetail', params: { slug: value.slug }}" class="mt-2 block !bg-transparent">
                     <p class="text-xl font-semibold text-sky-700 dark:text-red-600 lg:text-clip truncate">
                         {{ value.title }}
                     </p>
@@ -63,7 +63,3 @@ export default {
     props: ['value']
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

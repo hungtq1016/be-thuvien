@@ -40,7 +40,7 @@ import HorizontalItem from "../../../components/client/item/HorizontalItem.vue";
             books: [
                 {
                     title: "Boost your conversion rate",
-                    href: "#",
+                    slug: "dfghdf-1asd",
                     category: { name: "Article", href: "#" },
                     description:
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto accusantium praesentium eius, ut atque fuga culpa, similique sequi cum eos quis dolorum.",
@@ -58,7 +58,7 @@ import HorizontalItem from "../../../components/client/item/HorizontalItem.vue";
                 },
                 {
                     title: "How to use search engine optimization to drive sales",
-                    href: "#",
+                    slug: "sadsa-123",
                     category: { name: "Video", href: "#" },
                     description:
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.",
@@ -76,7 +76,7 @@ import HorizontalItem from "../../../components/client/item/HorizontalItem.vue";
                 },
                 {
                     title: "Improve your customer experience",
-                    href: "#",
+                    slug: "sad-sda",
                     category: { name: "Case Study", href: "#" },
                     description:
                         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint harum rerum voluptatem quo recusandae magni placeat saepe molestiae, sed excepturi cumque corporis perferendis hic.",
