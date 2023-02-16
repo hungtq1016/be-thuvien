@@ -40,7 +40,7 @@
                     <h1
                         class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
                     >
-                        {{ book.name }}
+                        {{ book.title }}
                     </h1>
                 </div>
 
@@ -90,7 +90,7 @@
                     </div>
                 </section>
                 <section
-                    v-for="data in moreInfo"
+                    v-for="data in label"
                     :key="data.title"
                     class="border-t border-gray-300"
                 >
@@ -172,7 +172,7 @@
                             <RadioGroupOption
                                 as="template"
                                 v-for="series in book.series"
-                                :key="series.name"
+                                :key="series.title"
                                 :value="series"
                                 v-slot="{ active, checked }"
                             >
@@ -348,7 +348,7 @@
                             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                               <UsersIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
                             </div>
-                            <input type="email" name="email" id="email" class="block w-full rounded-none rounded-l-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="John Smith" />
+                            <input type="email" title="email" id="email" class="block w-full rounded-none rounded-l-md border-gray-300 pl-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="John Smith" />
                           </div>
                           <button type="button" class="relative -ml-px inline-flex items-center space-x-2 rounded-r-md border border-gray-300 bg-gray-50 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500">
                             <BarsArrowUpIcon class="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -423,7 +423,7 @@ export default {
         return {
             selectedSeries: "",
             book: {
-                name: "Cafe Sáng Cùng Tony",
+                title: "Cafe Sáng Cùng Tony",
                 href: "#",
                 rating: 4.3,
                 review: 1244,
@@ -448,7 +448,7 @@ export default {
                 bookshelf:['A1'],
                 tag:['Tâm lý','Thường ngày']
             },
-            moreInfo:[
+            label:[
                 {title:'Thông tin suất bản',desc:'publisher'},
                 {title:'Tác giả',desc:'author'},
                 {title:'Chuyên ngành',desc:'specialization'},

@@ -20,4 +20,9 @@ class Tag extends Model
     {
         return $this->belongsToMany(Movie::class,'movie_tag','movie_id','tag_id');
     }
+
+    public function books()
+    {
+        return $this->morphedByMany(Book::class,'book_tag','book_id','tag_id');
+    }
 }

@@ -24,6 +24,7 @@ Route::group(['middleware'=> ['auth:sanctum']], function ()
     Route::resource('/category',CategoryController::class);
     Route::resource('/tag',TagController::class);
     Route::resource('/movie',MovieController::class);
+    Route::resource('/book',MovieController::class);
     Route::resource('/user',UserController::class);
 
     Route::put('category/{category}/update', [CategoryController::class,'updateStatus']);
