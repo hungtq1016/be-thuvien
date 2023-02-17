@@ -22,6 +22,8 @@ class TagFactory extends Factory
         return [
             'name' => $name,
             'slug'=> $slug,
+            'image'=> 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg',
+            'desc'=> $this->faker->text(),
             'status' => true,
         ];
     }

@@ -20,20 +20,20 @@ class BookFactory extends Factory
 
     public function definition()
     {
-        $title = $this->faker->firstName();
-        $slug = Str::slug($title, '-');
+        $name = $this->faker->name();
+        $slug = Str::slug($name, '-');
         return [
-            'title' => $title,
+            'name' => $name,
             'slug' => $slug,
-            'specialization' => 1,
-            'publisher' => 1,
-            'image' => 'https://we25.vn/media/images/DLRfVy_W0AUdS6u.jpg',
-            'language' =>1,
+            'image' => 'https://chiasemoi.com/wp-content/uploads/2017/12/ca-phe-cung-tony.jpg',
             'desc' => $this->faker->text(),
             'year' => $this->faker->year(),
-            'bookself'=>1,
-            'series'=>1,
             'country'=>$this->faker->country(),
+            'major_id' => rand(1,15),
+            'publisher_id' => rand(1,10),
+            'language_id' =>rand(1,3),
+            'bookself_id'=>rand(1,10),
+            'series_id'=>rand(1,10),
             'status'=>1,
         ];
     }

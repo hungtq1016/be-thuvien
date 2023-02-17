@@ -10,24 +10,30 @@ class Book extends Model
     use HasFactory;
     protected $table = 'books';
     protected $primaryKey = 'id';
+    protected $hidden = ['pivot'];
     protected $fillable = [
         'title',
         'slug',
-        'major',
-        'publisher',
-        'image',
-        'language',
         'desc',
         'year',
-        'bookself',
-        'series',
         'country',
+        'image',
+        'language_id',
+        'major_id',
+        'publisher_id',
+        'bookself_id',
+        'series_id',
         'status',
     ];
 
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class,'book_author');
     }
 
     public function categories()

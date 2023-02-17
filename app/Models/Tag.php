@@ -10,6 +10,8 @@ class Tag extends Model
     use HasFactory;
     protected $table = 'tags';
     protected $primaryKey = 'id';
+    protected $hidden = ['pivot'];
+
     protected $fillable = [
         'name',
         'slug',

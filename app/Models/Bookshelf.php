@@ -11,7 +11,6 @@ class Bookshelf extends Model
     protected $table = 'bookshelves';
     protected $primaryKey = 'id';
     protected $fillable = [
-
         'name',
         'status',
     ];

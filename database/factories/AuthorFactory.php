@@ -2,14 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Actor;
+use App\Models\Author;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Actor>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Author>
  */
-class ActorFactory extends Factory
+class AuthorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class ActorFactory extends Factory
         $slug = Str::slug($name, '-');
         return [
             'name' => $name,
-            'image' => 'https://we25.vn/media/images/DLRfVy_W0AUdS6u.jpg',
+            'image' => 'https://people.com/thmb/4qadRVrtYHmcwd0lo1k6-Pxmjss=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(563x480:565x482):format(webp)/henry-cavill-02-05e04cf5412e4993a893d60ee9abc092.jpg',
             'gender'  => $this->faker->title() ,
             'yob' => $this->faker->dateTimeBetween($startDate = '-40 years', $endDate = 'now', $timezone = null) ,
             'yod'  => $this->faker->dateTime($max = 'now', $timezone = null),

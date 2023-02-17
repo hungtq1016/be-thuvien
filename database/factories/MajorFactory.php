@@ -17,7 +17,8 @@ class MajorFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' =>  $this->faker->city(),
+            'status' => true,
         ];
     }
 }
