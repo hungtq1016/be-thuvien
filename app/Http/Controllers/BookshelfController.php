@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Bookshelf;
 use App\Http\Requests\StoreBookshelfRequest;
 use App\Http\Requests\UpdateBookshelfRequest;
+use App\Http\Resources\BookShelfResource;
+use App\Models\Book;
 
 class BookshelfController extends Controller
 {
@@ -15,7 +17,7 @@ class BookshelfController extends Controller
      */
     public function index()
     {
-        //
+        return BookShelfResource::collection(Bookshelf::paginate(15));
     }
 
     /**

@@ -19,7 +19,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return AuthorResource::collection(Author::paginate(15));
+        return AuthorResource::collection(Author::all());
     }
 
     /**

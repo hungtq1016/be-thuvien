@@ -155,7 +155,8 @@ export default {
 
                 this.$cookies.set("ltoken",login.data.data.token, "7d");
                 this.$cookies.set("info_user",login.data.data, "7d");
-                if (login.data.data.role >= 3) {
+                console.log(login.data.data);
+                if (login.data.data.role.id >= 3) {
                     //Neu co quyen admin thi moi duoc vao
                     this.$cookies.set(isAdmin, true, "7d");
                     this.$router.push({ name: "admin-dashboard" });

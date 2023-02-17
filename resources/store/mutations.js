@@ -4,6 +4,10 @@ export default {
         state.tags = tags
     },
 
+    SET_DATA_TABLE : function (state,dataTable) {
+        state.dataTable = dataTable
+    },
+
     SET_LABEL : function (state,label) {
         state.label = label
     },

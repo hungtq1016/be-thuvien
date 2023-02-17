@@ -15,10 +15,9 @@ class BookShelfResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->when($request->user()->greaterThan(3), 'id'),
+            'id' => $this->id,
             'name' => $this->name,
-            'slug' => $this->when($request->user()->greaterThan(3), 'slug'),
-            'status' => $this->when($request->user()->greaterThan(3), 'status'),
+            'status' => $this->status,
         ];
     }
 }

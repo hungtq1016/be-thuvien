@@ -36,13 +36,13 @@ const admin = [
                 path: 'author',
                 name: "author",
                 meta: { title: 'Tác Giả' },
-                component: () => import("../views/admin/author/index.vue"),
+                component: () => import("../views/admin/AdminLayout.vue"),
             },
             {
-                path: 'director',
-                name: "director",
-                meta: { title: 'Đạo Diễn' },
-                component: () => import("../views/admin/director/index.vue"),
+                path: 'bookshelf',
+                name: "BookShelf",
+                meta: { title: 'Kệ Sách' },
+                component: () => import("../views/admin/AdminLayout.vue"),
             },
             {
                 path: 'movie',

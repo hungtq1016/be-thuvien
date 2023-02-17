@@ -13,6 +13,13 @@ export default {
             })
     },
 
+    async getDataTable({ commit }, payload) {
+        await axios.get(`/api/${payload.resource}?page=${payload.page}`)
+            .then((response) => {
+                commit('SET_DATA_TABLE', response.data.data)
+            })
+    },
+
     async destroyData({ getters, dispatch }, payload) {
         await axios.delete(`/api/${getters.getResource}/${payload.id}`, config)
         dispatch(`getData`, { page: payload.page })

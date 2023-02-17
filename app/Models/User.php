@@ -60,11 +60,12 @@ class User extends Authenticatable
         return false;
     }
 
-    public function greaterThan($roleName)
+    public function greaterThan($roleId)
     {
+        $role = 1;
         foreach ($this->role()->get() as $role)
         {
-            if ($role->id >= $roleName)
+            if ($role->id >= $roleId)
             {
                 return true;
             }

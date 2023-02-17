@@ -1,5 +1,6 @@
 export default{
     tags:[],
     resource:String,
-    label:[]
+    label:[],
+    dataTable:[]
 }
