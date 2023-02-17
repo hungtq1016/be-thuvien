@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Actor;
-use App\Http\Requests\StoreActorRequest;
-use App\Http\Requests\UpdateActorRequest;
-use App\Http\Resources\ActorResource;
+use App\Models\Author;
+use App\Http\Requests\StoreAuthorRequest;
+use App\Http\Requests\UpdateAuthorRequest;
+use App\Http\Resources\AuthorResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 
-class ActorController extends Controller
+class AuthorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +19,7 @@ class ActorController extends Controller
      */
     public function index()
     {
-        return ActorResource::collection(Actor::paginate(15));
+        return AuthorResource::collection(Author::paginate(15));
     }
 
     /**
@@ -35,10 +35,10 @@ class ActorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreActorRequest  $request
+     * @param  \App\Http\Requests\StoreAuthorRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreActorRequest $request)
+    public function store(StoreAuthorRequest $request)
     {
         $upload_path = public_path('images');
         $generated_new_name = time() . '.' . $request->image->getClientOriginalExtension();
@@ -46,7 +46,7 @@ class ActorController extends Controller
 
         $name = $request->name;
         $slug = Str::slug($name,'-');
-        $actor = Actor::create([
+        $author = Author::create([
             'name' => $name,
             'image' =>$generated_new_name,
             'country' =>$request->country,
@@ -57,28 +57,28 @@ class ActorController extends Controller
             'status' => 1,
         ]);
 
-        return new ActorResource($actor);
+        return new AuthorResource($author);
 
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function show(Actor $actor)
+    public function show(Author $author)
     {
-        return new ActorResource($actor);
+        return new AuthorResource($author);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function edit(Actor $actor)
+    public function edit(Author $author)
     {
         //
     }
@@ -86,11 +86,11 @@ class ActorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateActorRequest  $request
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Http\Requests\UpdateAuthorRequest  $request
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateActorRequest $request, Actor $actor)
+    public function update(UpdateAuthorRequest $request, Author $author)
     {
         $data = $request->all();
         $request->validated($data);
@@ -104,27 +104,27 @@ class ActorController extends Controller
         }
 
         $data['slug'] = Str::slug($data['name'],'-');
-        $actor ->update($data);
-        return new ActorResource($actor);
+        $author ->update($data);
+        return new AuthorResource($author);
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Actor  $actor
+     * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Actor $actor)
+    public function destroy(Author $author)
     {
-        return $actor->delete();
+        return $author->delete();
     }
-    public function updateStatus(Request $request,Actor $actor)
+    public function updateStatus(Request $request,Author $author)
     {
-        $actor ->update([
+        $author ->update([
             'status' => $request->status,
         ]);
-        return new ActorResource($actor);
+        return new AuthorResource($author);
 
     }
 }

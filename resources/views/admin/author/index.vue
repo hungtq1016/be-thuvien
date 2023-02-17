@@ -35,7 +35,7 @@ export default {
   data() {
     return {
         isUpdate:false,
-        dataView:'actor',
+        dataView:'author',
         id:null,
         isOpen: false,
         removeData: ["created_at", "updated_at","status"],

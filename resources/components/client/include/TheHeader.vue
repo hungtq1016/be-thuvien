@@ -244,15 +244,15 @@ export default {
                     subNav: [
                         {
                             title: 'Lục Bát',
-                            slug: '/poem/action'
+                            slug: 'action'
                         },
                         {
                             title: 'Hiện Đại',
-                            slug: '/poem/action'
+                            slug: 'action'
                         },
                         {
                             title: 'Cổ Điển',
-                            slug: '/poem/action'
+                            slug: 'action'
                         }
                     ]
                 },

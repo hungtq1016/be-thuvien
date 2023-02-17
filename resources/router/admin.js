@@ -33,10 +33,10 @@ const admin = [
                 component: () => import("../views/admin/tag/index.vue"),
             },
             {
-                path: 'actor',
-                name: "actor",
-                meta: { title: 'Diễn Viên' },
-                component: () => import("../views/admin/actor/index.vue"),
+                path: 'author',
+                name: "author",
+                meta: { title: 'Tác Giả' },
+                component: () => import("../views/admin/author/index.vue"),
             },
             {
                 path: 'director',

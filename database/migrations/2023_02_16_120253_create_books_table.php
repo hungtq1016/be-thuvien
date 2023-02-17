@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('specialization');
+            $table->string('major');
             $table->string('publisher');
             $table->string('image');
             $table->string('language');

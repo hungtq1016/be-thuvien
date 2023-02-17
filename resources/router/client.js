@@ -9,6 +9,13 @@ const client = [
                 meta: { title: 'Trang Chủ' }
             },
             {
+                path: 'book',
+                name: "BookList",
+                props: true,
+                component: () => import("../views/client/item.vue"),
+                meta: { title: 'Danh Sách' }
+            },
+            {
                 path: 'book/:slug',
                 name: "BookDetail",
                 props: true,
@@ -27,6 +34,19 @@ const client = [
                 props: true,
                 component: () => import("../views/client/item.vue"),
                 meta: { title: 'category' }
+            },
+            {
+                path: 'poem',
+                name: "PoemList",
+                component: () => import("../views/client/CateLayout.vue"),
+                meta: { title: 'poem' }
+            },
+            {
+                path: 'poem/:slug',
+                name: "RequestBook",
+                props: true,
+                component: () => import("../views/client/item.vue"),
+                meta: { title: 'poem' }
             },
         ],
         component: () => import("../views/client/client.vue"),

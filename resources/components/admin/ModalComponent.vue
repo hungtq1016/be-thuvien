@@ -33,12 +33,12 @@
 <script>
 import tagForm from "../../views/admin/tag/TagForm.vue";
 import categoryForm from "../../views/admin/category/CategoryForm.vue";
-import actorForm from "../../views/admin/actor/ActorForm.vue";
+import authorForm from "../../views/admin/author/AuthorForm.vue";
 import directorForm from "../../views/admin/director/DirectorForm.vue";
 import { XMarkIcon, } from "@heroicons/vue/24/outline";
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle, } from "@headlessui/vue";
 export default {
-  components: { tagForm, categoryForm, actorForm, directorForm, TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle, XMarkIcon },
+  components: { tagForm, categoryForm, authorForm, directorForm, TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle, XMarkIcon },
   props: ["openModal", "idProp","form","resource"],
   data() {
     return {

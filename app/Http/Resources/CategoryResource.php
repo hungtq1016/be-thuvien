@@ -19,6 +19,8 @@ class CategoryResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'status' => $this->status,
+            'books_count' => $this->whenCounted('books'),
+            'books' => $this->books->isEmpty() ? null : BookResource::collection($this->books),
         ];
     }
 }

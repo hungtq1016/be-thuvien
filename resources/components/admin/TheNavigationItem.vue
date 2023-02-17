@@ -25,7 +25,7 @@ export default {
                 { name: 'Trang Quản Lý', href: '/admin', icon: HomeIcon },
                 { name: 'Thể Loại', href: '/admin/category', icon: QueueListIcon },
                 { name: 'Nhãn Dán', href: '/admin/tag', icon: TagIcon },
-                { name: 'Diễn Viên', href: '/admin/actor', icon: VideoCameraIcon },
+                { name: 'Tác Giả', href: '/admin/author', icon: VideoCameraIcon },
                 { name: 'Đạo Diễn', href: '/admin/director', icon: PaintBrushIcon },
                 { name: 'Phim', href: '/admin/movie', icon: FilmIcon },
             ]
