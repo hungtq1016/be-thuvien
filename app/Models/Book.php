@@ -12,7 +12,7 @@ class Book extends Model
     protected $primaryKey = 'id';
     protected $hidden = ['pivot'];
     protected $fillable = [
-        'title',
+        'name',
         'slug',
         'desc',
         'year',
@@ -40,4 +40,32 @@ class Book extends Model
     {
         return $this->belongsToMany(Category::class);
     }
+
+    public function bookself()
+    {
+        return $this->belongsTo(Bookshelf::class);
+    }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class);
+    }
+
+    public function publisher()
+    {
+        return $this->belongsTo(Publisher::class);
+    }
+
+    public function major()
+    {
+        return $this->belongsTo(Major::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class,'id','series_id');
+    }
+    public function parent(){
+        return $this->hasOne( self::class, 'series_id', 'id' );
+      }
 }

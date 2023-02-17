@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'role_id',
         'password',
     ];
 
@@ -46,4 +47,30 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class);
     }
+    public function is($roleName)
+    {
+        foreach ($this->role()->get() as $role)
+        {
+            if ($role->name == $roleName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function greaterThan($roleName)
+    {
+        foreach ($this->role()->get() as $role)
+        {
+            if ($role->id >= $roleName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
