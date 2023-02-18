@@ -159,7 +159,7 @@ export default {
                 if (login.data.data.role.id >= 3) {
                     //Neu co quyen admin thi moi duoc vao
                     this.$cookies.set(isAdmin, true, "7d");
-                    this.$router.push({ name: "admin-dashboard" });
+                    this.$router.push({ name: "AdminDashboard" });
                 } else {
                     //Khong thi la client
                     this.$router.push({ name: "home" });

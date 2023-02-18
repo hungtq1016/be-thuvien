@@ -6,6 +6,7 @@ use App\Models\Major;
 use App\Http\Requests\StoreMajorRequest;
 use App\Http\Requests\UpdateMajorRequest;
 use App\Http\Resources\MajorResource;
+use Illuminate\Http\Request;
 
 class MajorController extends Controller
 {
@@ -14,9 +15,9 @@ class MajorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return MajorResource::collection(Major::all());
+        return MajorResource::collection(Major::paginate($request->limit));
     }
 
     /**

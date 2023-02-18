@@ -17,9 +17,9 @@ class AuthorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return AuthorResource::collection(Author::all());
+        return AuthorResource::collection(Author::paginate($request->limit));
     }
 
     /**

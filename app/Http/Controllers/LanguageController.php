@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Http\Requests\StoreLanguageRequest;
 use App\Http\Requests\UpdateLanguageRequest;
 use App\Http\Resources\LanguageResource;
+use Illuminate\Http\Request;
 
 class LanguageController extends Controller
 {
@@ -14,9 +15,9 @@ class LanguageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return LanguageResource::collection(Language::all());
+        return LanguageResource::collection(Language::paginate($request->limit));
     }
 
     /**

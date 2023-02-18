@@ -6,6 +6,7 @@ use App\Models\Publisher;
 use App\Http\Requests\StorePublisherRequest;
 use App\Http\Requests\UpdatePublisherRequest;
 use App\Http\Resources\PublisherResource;
+use Illuminate\Http\Request;
 
 class PublisherController extends Controller
 {
@@ -14,9 +15,9 @@ class PublisherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return PublisherResource::collection(Publisher::all());
+        return PublisherResource::collection(Publisher::paginate($request->limit));
     }
 
     /**

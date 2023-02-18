@@ -16,9 +16,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return TagResource::collection(Tag::all());
+        return TagResource::collection(Tag::paginate($request->limit));
     }
 
     /**
@@ -107,7 +107,7 @@ class TagController extends Controller
     public function updateStatus(Request $request,Tag $tag)
     {
         $tag ->update([
-            'status' => $request->status
+            'status' => $request->status ? false : true
         ]);
         return new TagResource($tag);
 

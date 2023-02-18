@@ -6,6 +6,7 @@ use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookResource;
+use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
@@ -14,9 +15,9 @@ class BookController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return BookResource::collection(Book::all());
+        return BookResource::collection(Book::paginate($request->limit));
     }
 
     /**

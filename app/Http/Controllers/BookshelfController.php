@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBookshelfRequest;
 use App\Http\Requests\UpdateBookshelfRequest;
 use App\Http\Resources\BookShelfResource;
 use App\Models\Book;
+use Illuminate\Http\Request;
 
 class BookshelfController extends Controller
 {
@@ -15,9 +16,9 @@ class BookshelfController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return BookShelfResource::collection(Bookshelf::all());
+        return BookShelfResource::collection(Bookshelf::paginate($request->limit));
     }
 
     /**

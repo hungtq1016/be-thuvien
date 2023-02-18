@@ -7,16 +7,13 @@
       </div>
     </div>
     <TableComponent :key="$route.fullPath"/>
-    <!-- <ModalComponent :openModal="isOpen" @closeModal="this.isOpen = false" :idProp="id" :form="dataView+'Form'" :resource="dataView" @update="update"/> -->
   </template>
 
   <script>
-//   import ModalComponent from "../../../components/admin/ModalComponent.vue";
   import TableComponent from "../../components/admin/TableComponent.vue";
 
   export default {
     components: {
-    //   ModalComponent,
       TableComponent,
     }
   };

@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(User $user)
+    public function index(Request $request)
     {
         // $this->authorize('viewAny', $user);
-        return UserResource::collection(User::all());
+        return UserResource::collection(User::paginate($request->limit));
     }
 }

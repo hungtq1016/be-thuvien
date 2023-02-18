@@ -1,6 +1,7 @@
 export default{
-    tags:[],
-    resource:String,
-    label:[],
-    dataTable:[]
+    dataTable:[],
+    limit:10,
+    links:[],
+    meta:[],
+    clickedRow:{}
 }

@@ -6,35 +6,31 @@ const config = {
     }
 }
 export default {
-    async getData({ commit, getters }, payload) {
-        await axios.get(`/api/${getters.getResource}?page=${payload.page}`)
+    async getDataTable({ commit,getters}, payload) {
+        await axios.get(`/api/${payload.resource}?page=${payload.page}&limit=${getters.getLimit}`)
             .then((response) => {
-                commit('SET_TAGS', response.data.data)
+                commit('SET_DATA_TABLE', response.data.data)
+                commit('SET_LINKS', response.data.links)
+                commit('SET_META', response.data.meta)
             })
     },
 
-    async getDataTable({ commit }, payload) {
-        await axios.get(`/api/${payload.resource}?page=${payload.page}&limit=${payload.limit}`)
+    async getDataTableByLink({ commit,getters }, payload) {
+        await axios.get(`${payload.link}&limit=${getters.getLimit}`)
             .then((response) => {
                 commit('SET_DATA_TABLE', response.data.data)
+                commit('SET_LINKS', response.data.links)
+                commit('SET_META', response.data.meta)
             })
     },
 
     async destroyData({ getters, dispatch }, payload) {
-        await axios.delete(`/api/${getters.getResource}/${payload.id}`, config)
-        dispatch(`getData`, { page: payload.page })
+        await axios.delete(`/api/${payload.resource}/${payload.id}`, config)
+        dispatch(`getDataTable`, {resource:payload.resource, page: getters.getMeta.current_page})
     },
 
     async updateStatus({ getters, dispatch }, payload) {
-        payload.status == 1 ? (payload.status = 0) : (payload.status = 1);
-        await axios.put(`/api/${getters.getResource}/${payload.id}/update`, { status: payload.status }, config);
-        dispatch(`getData`, { page: payload.page })
+        await axios.put(`/api/${payload.resource}/${payload.id}/update`, { status: payload.status }, config);
+        dispatch(`getDataTable`, {resource:payload.resource, page: getters.getMeta.current_page})
     },
-
-    async getDataLabel({ commit, getters }) {
-        await axios.get(`/api/get-col-name/${getters.getResource}`, config)
-            .then((response) => {
-                commit('SET_LABEL', response.data)
-            })
-    }
 }

@@ -1,18 +1,20 @@
 
 export default {
-    SET_TAGS : function (state,tags) {
-        state.tags = tags
+    SET_LIMIT : function (state,limit) {
+        state.limit = limit
     },
 
     SET_DATA_TABLE : function (state,dataTable) {
         state.dataTable = dataTable
     },
-
-    SET_LABEL : function (state,label) {
-        state.label = label
+    SET_LINKS : function (state,links) {
+        state.links = links
+    },
+    SET_ROW : function (state,clickedRow) {
+        state.clickedRow = clickedRow
     },
 
-    SET_RESOURCE :function (state,resource) {
-        state.resource = resource
+    SET_META : function (state,meta) {
+        state.meta = meta
     },
 }
