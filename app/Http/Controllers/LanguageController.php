@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Language;
 use App\Http\Requests\StoreLanguageRequest;
 use App\Http\Requests\UpdateLanguageRequest;
+use App\Http\Resources\LanguageResource;
 
 class LanguageController extends Controller
 {
@@ -15,7 +16,7 @@ class LanguageController extends Controller
      */
     public function index()
     {
-        //
+        return LanguageResource::collection(Language::all());
     }
 
     /**

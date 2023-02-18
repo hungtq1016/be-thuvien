@@ -17,7 +17,7 @@ import {
     UsersIcon,
     QueueListIcon
 } from '@heroicons/vue/24/outline'
-import { mapActions, mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
     data() {
         return {
@@ -26,19 +26,16 @@ export default {
                 { name: 'Thể Loại', href: '/admin/category', icon: QueueListIcon },
                 { name: 'Nhãn Dán', href: '/admin/tag', icon: TagIcon },
                 { name: 'Tác Giả', href: '/admin/author', icon: VideoCameraIcon },
-                { name: 'Đạo Diễn', href: '/admin/director', icon: PaintBrushIcon },
-                { name: 'Phim', href: '/admin/movie', icon: FilmIcon },
+                { name: 'Ngôn Ngữ', href: '/admin/language', icon: PaintBrushIcon },
+                { name: 'Ngành Học', href: '/admin/major', icon: FilmIcon },
             ]
         }
     },
     methods:{
-        ...mapMutations(['SET_RESOURCE']),
-        ...mapActions(['getData','getDataLabel']),
+        ...mapActions(['getDataTable']),
         changeLink(val){
             const path =val.substring(val.lastIndexOf('/') + 1)
-            this.SET_RESOURCE(path)
-            this.getData({page:1})
-            this.getDataLabel()
+            this.getDataTable({resource:path,page:1})
         }
     }
 }

@@ -14,7 +14,7 @@ export default {
     },
 
     async getDataTable({ commit }, payload) {
-        await axios.get(`/api/${payload.resource}?page=${payload.page}`)
+        await axios.get(`/api/${payload.resource}?page=${payload.page}&limit=${payload.limit}`)
             .then((response) => {
                 commit('SET_DATA_TABLE', response.data.data)
             })

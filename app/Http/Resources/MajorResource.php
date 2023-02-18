@@ -17,6 +17,7 @@ class MajorResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'image' => null,
             'slug' => $this->slug,
             'status' => $this->status,
         ];

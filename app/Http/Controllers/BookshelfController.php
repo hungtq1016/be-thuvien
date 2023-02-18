@@ -17,7 +17,7 @@ class BookshelfController extends Controller
      */
     public function index()
     {
-        return BookShelfResource::collection(Bookshelf::paginate(15));
+        return BookShelfResource::collection(Bookshelf::all());
     }
 
     /**

@@ -76,12 +76,6 @@ export default {
                 this.$router.push({ name: 'login' })
             })
 
-            // const today = new Date()
-            // const isAdmin = window.btoa(today.getMonth() + "admin");
-            // this.$cookies.remove("ltoken");
-            // this.$cookies.remove(isAdmin);
-
-
         }
     },
     computed:{

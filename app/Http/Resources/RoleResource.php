@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ChildrenResource extends JsonResource
+class RoleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +16,9 @@ class ChildrenResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name'=> $this->name,
-            'slug'=> $this->slug,
-            'image'=> $this->image,
-            'desc'=> $this->desc,
-            'year'=> $this->year,
-            'bookself'=> new BookShelfResource($this->bookself),
-            'status'=> $this->status,
+            'name' => $this->name,
+            'slug' => $this->slug,
+            'status' => $this->status,
         ];
     }
 }

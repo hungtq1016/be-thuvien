@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Publisher;
 use App\Http\Requests\StorePublisherRequest;
 use App\Http\Requests\UpdatePublisherRequest;
+use App\Http\Resources\PublisherResource;
 
 class PublisherController extends Controller
 {
@@ -15,7 +16,7 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        //
+        return PublisherResource::collection(Publisher::all());
     }
 
     /**

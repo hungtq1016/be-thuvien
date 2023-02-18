@@ -6,7 +6,7 @@
         Thêm </button>
       </div>
     </div>
-    <TableComponent :data="data"/>
+    <TableComponent :key="$route.fullPath"/>
     <!-- <ModalComponent :openModal="isOpen" @closeModal="this.isOpen = false" :idProp="id" :form="dataView+'Form'" :resource="dataView" @update="update"/> -->
   </template>
 
@@ -18,14 +18,6 @@
     components: {
     //   ModalComponent,
       TableComponent,
-    },
-    data() {
-      return {
-          data:{
-            name:this.$route.path.split('/').slice(-1)[0],
-            title: this.$route.meta.title
-          }
-      };
-    },
+    }
   };
   </script>

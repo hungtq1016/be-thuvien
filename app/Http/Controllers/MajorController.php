@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Major;
 use App\Http\Requests\StoreMajorRequest;
 use App\Http\Requests\UpdateMajorRequest;
+use App\Http\Resources\MajorResource;
 
 class MajorController extends Controller
 {
@@ -15,7 +16,7 @@ class MajorController extends Controller
      */
     public function index()
     {
-        //
+        return MajorResource::collection(Major::all());
     }
 
     /**

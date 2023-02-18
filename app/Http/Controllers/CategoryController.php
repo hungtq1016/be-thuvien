@@ -16,9 +16,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return CategoryResource::collection(Category::paginate(15));
+        return CategoryResource::collection(Category::paginate($request->limit));
     }
 
     /**
