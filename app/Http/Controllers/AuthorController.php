@@ -40,25 +40,27 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        $upload_path = public_path('images');
-        $generated_new_name = time() . '.' . $request->image->getClientOriginalExtension();
-        $request->image->move($upload_path, $generated_new_name);
+        if ($request->image) {
+            $image_name = time() . '.' . $request->image->getClientOriginalExtension();
+            $image_path = public_path('images');
+            $request->image->move($image_path, $image_name);
 
-        $name = $request->name;
-        $slug = Str::slug($name,'-');
-        $author = Author::create([
-            'name' => $name,
-            'image' =>$generated_new_name,
-            'country' =>$request->country,
-            'gender' =>$request->gender,
-            'yob' =>$request->yob,
-            'yod' =>$request->yod,
-            'slug' => $slug,
-            'status' => 1,
-        ]);
-
-        return new AuthorResource($author);
-
+            $name = $request->name;
+            $slug = Str::slug($name,'-');
+            $author = Author::create([
+                'name' => $name,
+                'image' =>$image_name,
+                'country' =>$request->country,
+                'gender' =>$request->gender,
+                'yob' =>$request->yob,
+                'yod' =>$request->yod,
+                'slug' => $slug,
+                'status' => 1,
+            ]);
+            return new AuthorResource($author);
+        }else{
+            return 'err';
+        }
     }
 
     /**

@@ -1,5 +1,9 @@
 
 export default {
+    SET_RESOURCE : function (state,resource) {
+        state.resource = resource
+    },
+
     SET_LIMIT : function (state,limit) {
         state.limit = limit
     },
@@ -16,5 +20,9 @@ export default {
 
     SET_META : function (state,meta) {
         state.meta = meta
+    },
+
+    SET_DATA_SINGLE : function (state,dataSingle) {
+        state.dataSingle = dataSingle
     },
 }

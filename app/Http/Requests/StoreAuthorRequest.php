@@ -25,11 +25,12 @@ class StoreAuthorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255','unique:actors'],
+            'name' => ['required','string','max:255'],
             'country' => ['required','string','max:255'],
             'yob' => ['required','string','max:255'],
+            'yod' => 'required',
             'gender' => ['required','string','max:255'],
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=1000,max_height=1000',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ];
     }
 }

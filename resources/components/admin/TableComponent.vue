@@ -35,7 +35,9 @@
                             </template>
                             <template #item-image="item">
                                 <img :src="item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-full my-1"
-                                    v-if="item.image" />
+                                    v-if="item.image.split('/')[0]  == 'http:' || item.image.split('/')[0]  == 'https:'"/>
+                                <img :src="'/images/'+item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-full my-1"
+                                    v-else/>
                             </template>
                             <template #item-desc="{ desc, country }">
                                 <span class="truncate">{{
@@ -99,10 +101,11 @@ export default {
     },
     mounted() {
         this.getDataTable({ resource: this.data.name, page: 1 });
+        this.SET_RESOURCE(this.data.name)
     },
     methods: {
         ...mapActions(["getDataTable", "destroyData", "updateStatus"]),
-        ...mapMutations(['SET_ROW']),
+        ...mapMutations(['SET_ROW','SET_RESOURCE']),
         showRow(item) {
             this.SET_ROW(item);
         },
@@ -139,7 +142,7 @@ export default {
                     confirmButtonText: 'Hoàn thành',
                 }
             )
-        }
+        },
     },
     computed: {
         ...mapGetters(["getDataFromState", "getMeta"]),

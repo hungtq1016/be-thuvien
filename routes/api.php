@@ -11,6 +11,7 @@ use App\Http\Controllers\DbController;
 use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MajorController;
+use App\Http\Controllers\ModalController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
@@ -28,7 +29,6 @@ use App\Http\Controllers\UserController;
     Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['only' => ['index','show']]);
 
-
     //End API get all without auth
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -41,6 +41,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/bookshelf', BookshelfController::class, ['except' => ['index','show']]);
     Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['except' => ['index','show']]);
+
 
 
     Route::put('category/{category}/update', [CategoryController::class, 'updateStatus']);

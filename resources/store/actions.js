@@ -3,6 +3,7 @@ import VueCookies from 'vue-cookies'
 const config = {
     headers: {
         Authorization: `Bearer ${ VueCookies.get("ltoken")}`,
+        'Content-Type': 'multipart/form-data'
     }
 }
 export default {
@@ -32,5 +33,10 @@ export default {
     async updateStatus({ getters, dispatch }, payload) {
         await axios.put(`/api/${payload.resource}/${payload.id}/update`, { status: payload.status }, config);
         dispatch(`getDataTable`, {resource:payload.resource, page: getters.getMeta.current_page})
+    },
+
+    async updateDataSingle({ getters, dispatch }, payload) {
+        await axios.post(`/api/${getters.getResource}`,payload,config);
+        dispatch(`getDataTable`, {resource:getters.getResource, page: getters.getMeta.current_page})
     },
 }

@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\ModalCollection;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -104,12 +105,19 @@ class CategoryController extends Controller
     {
         return $category->delete();
     }
+
     public function updateStatus(Request $request, Category $category)
     {
         $category ->update([
-            'status' => $request->status
+            'status' => $request->status ? false : true
         ]);
         return new CategoryResource($category);
 
     }
+
+    public function fieldsToAdd()
+    {
+        return '123';
+    }
+
 }
