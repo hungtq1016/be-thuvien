@@ -50,7 +50,7 @@
                             </template>
                             <template #item-operation="item">
                                 <div class="flex gap-x-2">
-                                    <button>
+                                    <button @click="updateRow(item)">
                                         <PencilIcon class="w-5 h-5 text-gray-600 hover:text-black" />
                                     </button>
                                     <button @click="deleteRow(item)">
@@ -105,9 +105,14 @@ export default {
     },
     methods: {
         ...mapActions(["getDataTable", "destroyData", "updateStatus"]),
-        ...mapMutations(['SET_ROW','SET_RESOURCE']),
+        ...mapMutations(['SET_ROW','SET_RESOURCE','SET_UPDATE_DATA','OPEN_MODAL','SET_IS_UPDATE']),
         showRow(item) {
             this.SET_ROW(item);
+        },
+        updateRow(item){
+            this.SET_UPDATE_DATA(item)
+            this.SET_IS_UPDATE(true)
+            this.OPEN_MODAL()
         },
         deleteRow(item) {
             Swal.fire({

@@ -40,6 +40,7 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
+
         if ($request->image) {
             $image_name = time() . '.' . $request->image->getClientOriginalExtension();
             $image_path = public_path('images');
@@ -58,8 +59,6 @@ class AuthorController extends Controller
                 'status' => 1,
             ]);
             return new AuthorResource($author);
-        }else{
-            return 'err';
         }
     }
 
@@ -92,23 +91,12 @@ class AuthorController extends Controller
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAuthorRequest $request, Author $author)
+    public function update(Request $request,Author $author)
     {
-        $data = $request->all();
-        $request->validated($data);
-        if ($request->hasFile('image')) {
-            $upload_path = public_path('images');
-            $generated_new_name = time() . '.' . $request->image->getClientOriginalExtension();
-            $request->image->move($upload_path, $generated_new_name);
-            $data['image'] = $generated_new_name;
-        }else{
-            unset($data['image']);
-        }
-
-        $data['slug'] = Str::slug($data['name'],'-');
-        $author ->update($data);
+        $author ->update([
+            'status' => $request->status ? false : true
+        ]);
         return new AuthorResource($author);
-
     }
 
     /**
@@ -124,7 +112,7 @@ class AuthorController extends Controller
     public function updateStatus(Request $request,Author $author)
     {
         $author ->update([
-            'status' => $request->status,
+            'status' => $request->status ? false : true
         ]);
         return new AuthorResource($author);
 

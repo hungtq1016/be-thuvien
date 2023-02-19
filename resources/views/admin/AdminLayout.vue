@@ -7,12 +7,9 @@
 
   <script>
   import ModalComponent from "../../components/admin/ModalComponent.vue";
-import TableComponent from "../../components/admin/TableComponent.vue";
+    import TableComponent from "../../components/admin/TableComponent.vue";
 
   export default {
-    components: {
-    TableComponent,
-    ModalComponent
-}
+    components: { TableComponent, ModalComponent },
   };
   </script>

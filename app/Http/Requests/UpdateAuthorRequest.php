@@ -25,12 +25,12 @@ class UpdateAuthorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255','unique:actors'],
-            'country' => ['required'],
-            'yob' => ['required'],
-            'gender' => ['required'],
-            'image' => ['required'],
-
+            'name' => ['required','string','max:255'],
+            'country' => ['required','string','max:255'],
+            'yob' => ['required','string','max:255'],
+            'yod' => 'required',
+            'gender' => ['required','string','max:255'],
+            // 'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ];
     }
 }

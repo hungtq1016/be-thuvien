@@ -4,6 +4,7 @@ export default {
     getDataFromState: state => state.dataTable,
     getLinks: state => state.links,
     getMeta: state => state.meta,
-    getRow: state => state.clickedRow,
-    getFields: state => state.fields
+    getUpdateData: state => state.updateData,
+    isModalOpen: state=>state.openModal,
+    isUpdate:state=>state.isUpdate
 }

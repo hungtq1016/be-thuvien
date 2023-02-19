@@ -4,6 +4,7 @@ export default{
     limit:10,
     links:[],
     meta:[],
-    clickedRow:{},
-    dataSingle:{}
+    updateData:null,
+    openModal:false,
+    isUpdate:false,
 }

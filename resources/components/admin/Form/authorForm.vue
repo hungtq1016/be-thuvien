@@ -22,29 +22,37 @@
                       class="block w-full flex-1 rounded-none rounded-r-lg border-gray-300 focus:ring-sky-600 focus:ring-0 sm:text-sm"/>
                     </div>
                 </div>
-                <div>
-                    <label for="yob" class="block text-sm font-medium text-gray-700">Ngày Sinh</label>
-                    <div class="mt-1 flex rounded-lg">
-                      <span class="inline-flex items-center rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
-                          <ClockIcon class="w-4 h-5"/>
-                      </span>
-                      <Datepicker v-model="form.yob" class="rounded-none rounded-r-lg border-gray-300 focus:ring-sky-600 focus:ring-0 sm:text-sm" id="yob"/>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                    <div>
+                        <label for="yob" class="block text-sm font-medium text-gray-700">Ngày Sinh</label>
+                        <div class="mt-1 flex rounded-lg">
+                          <span class="inline-flex items-center rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
+                              <ClockIcon class="w-4 h-5"/>
+                          </span>
+                          <!-- <Datepicker v-model="form.yob" inputFormat="dd-MM-yyyy"
+                          class="flex-1 rounded-none rounded-r-lg border-gray-300 focus:ring-sky-600 focus:ring-0 sm:text-sm" id="yob"/> -->
+                          <input type="date" v-model="form.yob"
+                          class="w-full rounded-r-lg border-gray-300">
+                        </div>
+                    </div>
+                    <div :class="{'hidden':!isDeath}">
+                        <label for="yod" class="block text-sm font-medium text-gray-700">Ngày Mất</label>
+                        <div class="mt-1 flex rounded-lg">
+                          <span class="inline-flex items-center rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
+                              <ClockIcon class="w-4 h-5"/>
+                          </span>
+                          <!-- <Datepicker v-model="form.yod" inputFormat="dd-MM-yyyy"
+                          class=" flex-1 rounded-none rounded-r-lg border-gray-300 focus:ring-sky-600 focus:ring-0 sm:text-sm" id="yod"/> -->
+                          <input type="date" v-model="form.yod" :max="this.currentDate"
+                          class="w-full rounded-r-lg border-gray-300">
+                        </div>
                     </div>
                 </div>
                 <div class="flex items-center gap-x-3 px-1">
                     <input type="checkbox" class="rounded-md ring-sky-600 checked:bg-sky-600 checked:ring-0 checked:outline-none hover:bg-sky-600 checked:hover:bg-sky-400"
-                    id="is-death" v-model="isDeath" @click="this.isDeath = !isDeath"><label for="is-death" class="font-medium text-gray-700">Đã mất</label>
+                    id="is-death" v-model="isDeath" @click="isDeathToggle"><label for="is-death" class="font-medium text-gray-700">Đã mất</label>
                 </div>
-                <div :class="{'hidden':!isDeath}">
-                    <label for="yod" class="block text-sm font-medium text-gray-700">Ngày Mất</label>
-                    <div class="mt-1 flex rounded-lg">
-                      <span class="inline-flex items-center rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 px-3 text-sm text-gray-500">
-                          <ClockIcon class="w-4 h-5"/>
-                      </span>
-                      <Datepicker v-model="form.yod" inputFormat="dd-MM-yyyy"
-                      class="rounded-none rounded-r-lg border-gray-300 focus:ring-sky-600 focus:ring-0 sm:text-sm" id="yod"/>
-                    </div>
-                </div>
+
                 <div>
                     <label for="about" class="block text-sm font-medium text-gray-700">Giới Tính</label>
                     <div class="grid grid-cols-3 gap-x-4 mt-1">
@@ -107,18 +115,17 @@
 
 <script>
 import { UserIcon, GlobeAsiaAustraliaIcon,ClockIcon } from "@heroicons/vue/24/outline";
-import Datepicker from 'vue3-datepicker'
-import { mapActions } from "vuex";
+import { mapActions, mapMutations ,mapGetters} from "vuex";
 
     export default {
-        components:{Datepicker,UserIcon,GlobeAsiaAustraliaIcon,ClockIcon},
+        components:{UserIcon,GlobeAsiaAustraliaIcon,ClockIcon},
         data(){
             return{
                 isDeath:false,
                 form:{
                     name:'',
                     country:'',
-                    yob: new Date(),
+                    yob: null,
                     yod: null,
                     gender: 'male',
                     image:null
@@ -127,12 +134,15 @@ import { mapActions } from "vuex";
             }
         },
         methods: {
+            isDeathToggle(){
+                this.isDeath = !this.isDeath;
+                this.form.yod = (this.form.yod == null) ? this.currentDate : null
+            },
             onFileChange(e) {
                 const file = e.target.files[0];
                 this.form.image = file;
                 this.url = URL.createObjectURL(file);
             },
-
             submitForm(){
                 let payload = new FormData();
                 payload.append('name',this.form.name)
@@ -141,11 +151,24 @@ import { mapActions } from "vuex";
                 payload.append('yod',this.form.yod)
                 payload.append('gender',this.form.gender)
                 payload.append('image',this.form.image)
-                this.updateDataSingle(payload)
-                this.$emit('closeModal')
+                this.isUpdate ? this.updateData(this.form) : this.postData(payload)
+                this.CLOSE_MODAL()
             },
-            ...mapActions(['updateDataSingle'])
+            ...mapActions(['postData','updateData']),
+            ...mapMutations(['CLOSE_MODAL'])
+        },
+        mounted() {
+            this.isUpdate ? this.form = this.getUpdateData : this.form={name:'',country:'',yob: null, yod: null, gender: 'male',image:null};
+            this.isUpdate ? '' : this.form.yob = this.currentDate
+        },
+        computed:{
+            ...mapGetters(['getUpdateData','isUpdate']),
+            currentDate(){
+                const currentDate = new Date();
+                let month = currentDate.getMonth()+1;
+                month = month < 10 ? '0'+month :month
+                return  currentDate.getFullYear() + '-' + month + '-' + currentDate.getDate()
+            }
         }
-
     }
 </script>

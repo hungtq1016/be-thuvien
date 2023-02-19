@@ -18,11 +18,23 @@ export default {
         state.clickedRow = clickedRow
     },
 
+    OPEN_MODAL : function (state) {
+        state.openModal = true
+    },
+
+    CLOSE_MODAL : function (state) {
+        state.openModal = false
+    },
+
     SET_META : function (state,meta) {
         state.meta = meta
     },
 
-    SET_DATA_SINGLE : function (state,dataSingle) {
-        state.dataSingle = dataSingle
+    SET_IS_UPDATE : function (state,isUpdate) {
+        state.isUpdate = isUpdate
+    },
+
+    SET_UPDATE_DATA : function (state,updateData) {
+        state.updateData = updateData
     },
 }
