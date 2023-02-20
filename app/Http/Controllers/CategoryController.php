@@ -93,17 +93,13 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
-        $request->validated($request->all());
-        $name = $request->name;
-        $slug = Str::slug($name,'-');
-        $category->update([
-            'name' => $name,
-            'slug' => $slug,
-            'desc'=> $request->desc
+        $category ->update([
+            'name' => $request->name,
+            'slug'=>  $request->name,
+            'desc' => $request->desc,
         ]);
-
         return new CategoryResource($category);
     }
 

@@ -10,7 +10,7 @@
 <script>
 import {
     BuildingOfficeIcon,
-    FilmIcon,
+    BookOpenIcon,
     TagIcon,
     HomeIcon,
     ExclamationCircleIcon,
@@ -28,6 +28,7 @@ export default {
             navigation: [
                 { name: 'Trang Quản Lý', href: '/admin', icon: HomeIcon },
                 { name: 'Người Dùng', href: '/admin/user', icon: UsersIcon },
+                { name: 'Sách', href: '/admin/book', icon: BookOpenIcon },
                 { name: 'Thể Loại', href: '/admin/category', icon: QueueListIcon },
                 { name: 'Nhãn Dán', href: '/admin/tag', icon: TagIcon },
                 { name: 'Tác Giả', href: '/admin/author', icon: NewspaperIcon },

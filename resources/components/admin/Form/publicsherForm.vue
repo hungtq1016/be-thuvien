@@ -32,7 +32,7 @@ import { mapActions, mapMutations ,mapGetters} from "vuex";
         data(){
             return{
                 form:{
-                    name:'',
+                    name:'[]',
                 },
             }
         },

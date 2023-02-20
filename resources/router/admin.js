@@ -74,6 +74,12 @@ const admin = [
                 meta: { title: 'Nhà Xuất Bản' },
                 component: () => import("../views/admin/AdminLayout.vue"),
             },
+            {
+                path: 'book',
+                name: "AdminBook",
+                meta: { title: 'Sách' },
+                component: () => import("../views/admin/AdminLayout.vue"),
+            },
         ],
     },
     {

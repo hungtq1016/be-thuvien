@@ -44,10 +44,14 @@
     import categoryForm from './Form/categoryForm.vue';
     import languageForm from './Form/languageForm.vue';
     import tagForm from './Form/tagForm.vue';
+    import majorForm from './Form/majorForm.vue';
+    import publicsherForm from './Form/publicsherForm.vue';
+    import userForm from './Form/userForm.vue';
+    import roleForm from './Form/roleForm.vue';
 
     export default {
         components:{TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle,XMarkIcon,
-            authorForm, bookForm,bookshelfForm,categoryForm,languageForm,tagForm},
+            authorForm, bookForm,bookshelfForm,categoryForm,languageForm,tagForm,majorForm,userForm,publicsherForm,roleForm},
         props:['resource'],
         data(){
             return{

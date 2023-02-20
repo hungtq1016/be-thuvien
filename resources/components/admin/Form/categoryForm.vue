@@ -83,7 +83,7 @@ import { mapActions, mapMutations ,mapGetters} from "vuex";
                 payload.append('name',this.form.name)
                 payload.append('desc',this.form.desc)
                 payload.append('image',this.form.image)
-                this.isUpdate ? this.putData(payload) : this.postData(payload)
+                this.isUpdate ? this.putData(this.form) : this.postData(payload)
                 this.CLOSE_MODAL()
             },
             ...mapActions(['postData','putData']),
