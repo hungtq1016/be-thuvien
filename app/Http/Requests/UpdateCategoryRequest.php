@@ -25,7 +25,8 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255','unique:tags'],
+            'name' => ['required','string','max:255'],
+            'desc' => ['required','string','max:255'],
         ];
     }
 }

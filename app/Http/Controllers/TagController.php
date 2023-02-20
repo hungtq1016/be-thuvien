@@ -39,17 +39,27 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        $request->validated($request->all());
-        $name = $request->name;
-        $slug = Str::slug($name,'-');
-        $category = Tag::create([
-            'name' => $name,
-            'slug' => $slug,
-            'status' => 1,
-        ]);
+        if ($request->image) {
+            $image_name = time() . '.' . $request->image->getClientOriginalExtension();
+            $image_path = public_path('images');
+            $request->image->move($image_path, $image_name);
 
-        return new TagResource($category);
-
+            $name = $request->name;
+            $slug = Str::slug($name,'-');
+            $author = Tag::create([
+                'name' => $name,
+                'slug' => $slug,
+                'image' =>$image_name,
+                'desc' =>$request->desc,
+                'status' => 1,
+            ]);
+            return new TagResource($author);
+        }else{
+            return collect([
+                'error'=> 'Có lỗi trong quá trình chuyển file',
+                'code' => '204'
+            ]);
+        }
     }
 
     /**
@@ -83,15 +93,10 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        $request->validated($request->all());
-        $name = $request->name;
-        $slug = Str::slug($name,'-');
         $tag ->update([
-            'name' => $name,
-            'slug' => $slug
+            'status' => $request->status ? false : true
         ]);
         return new TagResource($tag);
-
     }
 
     /**

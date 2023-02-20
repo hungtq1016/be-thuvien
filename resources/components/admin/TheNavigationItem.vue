@@ -9,13 +9,17 @@
 
 <script>
 import {
-    VideoCameraIcon,
+    BuildingOfficeIcon,
     FilmIcon,
     TagIcon,
     HomeIcon,
-    PaintBrushIcon,
+    ExclamationCircleIcon,
     UsersIcon,
-    QueueListIcon
+    AcademicCapIcon ,
+    QueueListIcon,
+    TableCellsIcon,
+    LanguageIcon,
+    NewspaperIcon
 } from '@heroicons/vue/24/outline'
 import { mapActions } from 'vuex'
 export default {
@@ -23,11 +27,15 @@ export default {
         return {
             navigation: [
                 { name: 'Trang Quản Lý', href: '/admin', icon: HomeIcon },
+                { name: 'Người Dùng', href: '/admin/user', icon: UsersIcon },
                 { name: 'Thể Loại', href: '/admin/category', icon: QueueListIcon },
                 { name: 'Nhãn Dán', href: '/admin/tag', icon: TagIcon },
-                { name: 'Tác Giả', href: '/admin/author', icon: VideoCameraIcon },
-                { name: 'Ngôn Ngữ', href: '/admin/language', icon: PaintBrushIcon },
-                { name: 'Ngành Học', href: '/admin/major', icon: FilmIcon },
+                { name: 'Tác Giả', href: '/admin/author', icon: NewspaperIcon },
+                { name: 'Ngành Học', href: '/admin/major', icon: AcademicCapIcon },
+                { name: 'Kệ Sách', href: '/admin/bookshelf', icon: TableCellsIcon },
+                { name: 'Vai Trò', href: '/admin/role', icon: ExclamationCircleIcon },
+                { name: 'Nhà Xuất Bản', href: '/admin/publicsher', icon: BuildingOfficeIcon },
+                { name: 'Ngôn Ngữ', href: '/admin/language', icon: LanguageIcon },
             ]
         }
     },

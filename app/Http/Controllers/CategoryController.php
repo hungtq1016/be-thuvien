@@ -7,7 +7,6 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Resources\ModalCollection;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -40,16 +39,28 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        $request->validated($request->all());
-        $name = $request->name;
-        $slug = Str::slug($name,'-');
-        $category = Category::create([
-            'name' => $request->name,
-            'slug' => $slug,
-            'status' => 1,
-        ]);
+        if ($request->image) {
+            $image_name = time() . '.' . $request->image->getClientOriginalExtension();
+            $image_path = public_path('images');
+            $request->image->move($image_path, $image_name);
 
-        return new CategoryResource($category);
+            $name = $request->name;
+            $slug = Str::slug($name,'-');
+            $category = Category::create([
+                'name' => $name,
+                'slug' => $slug,
+                'image' =>$image_name,
+                'desc' =>$request->desc,
+                'status' => 1,
+            ]);
+            return new CategoryResource($category);
+        }else{
+            return collect([
+                'error'=> 'Có lỗi trong quá trình chuyển file',
+                'code' => '204'
+            ]);
+        }
+
 
     }
 
@@ -89,7 +100,8 @@ class CategoryController extends Controller
         $slug = Str::slug($name,'-');
         $category->update([
             'name' => $name,
-            'slug' => $slug
+            'slug' => $slug,
+            'desc'=> $request->desc
         ]);
 
         return new CategoryResource($category);
@@ -112,12 +124,5 @@ class CategoryController extends Controller
             'status' => $request->status ? false : true
         ]);
         return new CategoryResource($category);
-
     }
-
-    public function fieldsToAdd()
-    {
-        return '123';
-    }
-
 }

@@ -6,6 +6,7 @@ use App\Models\Language;
 use App\Http\Requests\StoreLanguageRequest;
 use App\Http\Requests\UpdateLanguageRequest;
 use App\Http\Resources\LanguageResource;
+use App\Policies\LanguagePolicy;
 use Illuminate\Http\Request;
 
 class LanguageController extends Controller
@@ -38,7 +39,11 @@ class LanguageController extends Controller
      */
     public function store(StoreLanguageRequest $request)
     {
-        //
+        $language = Language::create([
+            'name' => $request->name,
+            'status' => 1,
+        ]);
+        return new LanguageResource($language);
     }
 
     /**
@@ -49,7 +54,8 @@ class LanguageController extends Controller
      */
     public function show(Language $language)
     {
-        //
+        return new LanguagePolicy($language);
+
     }
 
     /**
@@ -72,7 +78,10 @@ class LanguageController extends Controller
      */
     public function update(UpdateLanguageRequest $request, Language $language)
     {
-        //
+        $language ->update([
+            'name' => $request->name,
+        ]);
+        return new LanguageResource($language);
     }
 
     /**
@@ -83,6 +92,15 @@ class LanguageController extends Controller
      */
     public function destroy(Language $language)
     {
-        //
+        return $language->delete();
+
+    }
+
+    public function updateStatus(Request $request, Language $language)
+    {
+        $language ->update([
+            'status' => $request->status ? false : true
+        ]);
+        return new LanguageResource($language);
     }
 }

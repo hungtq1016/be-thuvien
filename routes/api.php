@@ -13,6 +13,8 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ModalController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\PublisherController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 
@@ -28,6 +30,9 @@ use App\Http\Controllers\UserController;
     Route::resource('/bookshelf', BookshelfController::class, ['only' => ['index','show']]);
     Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['only' => ['index','show']]);
+    Route::resource('/role', RoleController::class, ['only' => ['index','show']]);
+    Route::resource('/publicsher', PublisherController::class, ['only' => ['index','show']]);
+
 
     //End API get all without auth
 Route::group(['middleware' => ['auth:sanctum']], function () {
@@ -41,11 +46,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/bookshelf', BookshelfController::class, ['except' => ['index','show']]);
     Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['except' => ['index','show']]);
-
+    Route::resource('/role', RoleController::class, ['except' => ['index','show']]);
+    Route::resource('/publicsher', PublisherController::class, ['except' => ['index','show']]);
 
 
     Route::put('category/{category}/update', [CategoryController::class, 'updateStatus']);
     Route::put('tag/{tag}/update', [TagController::class, 'updateStatus']);
     Route::put('author/{author}/update', [AuthorController::class, 'updateStatus']);
+    Route::put('language/{language}/update', [LanguageController::class, 'updateStatus']);
 
 });

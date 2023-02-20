@@ -151,10 +151,10 @@ import { mapActions, mapMutations ,mapGetters} from "vuex";
                 payload.append('yod',this.form.yod)
                 payload.append('gender',this.form.gender)
                 payload.append('image',this.form.image)
-                this.isUpdate ? this.updateData(this.form) : this.postData(payload)
+                this.isUpdate ? this.putData(payload) : this.postData(payload)
                 this.CLOSE_MODAL()
             },
-            ...mapActions(['postData','updateData']),
+            ...mapActions(['postData','putData']),
             ...mapMutations(['CLOSE_MODAL'])
         },
         mounted() {

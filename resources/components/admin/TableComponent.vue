@@ -34,19 +34,29 @@
                                 <span>Dữ liệu không tìm thấy</span>
                             </template>
                             <template #item-image="item">
-                                <img :src="item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-full my-1"
+                                <template v-if="item.image">
+                                    <img :src="item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-full my-1"
                                     v-if="item.image.split('/')[0]  == 'http:' || item.image.split('/')[0]  == 'https:'"/>
-                                <img :src="'/images/'+item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-full my-1"
-                                    v-else/>
+                                    <img :src="'/images/'+item.image" :alt="item.name" class="w-16 h-16 object-cover rounded-full my-1"
+                                        v-else/>
+                                </template>
                             </template>
-                            <template #item-desc="{ desc, country }">
-                                <span class="truncate">{{
+                            <template #item-desc="{ desc, country ,email }">
+                                <span class="truncate" v-if="!email">{{
                                     desc ? desc : country
                                 }}</span>
+                                <span class="truncate" v-else>
+                                    {{ email }}
+                                </span>
                             </template>
                             <template #item-status="item">
-                                <button class="w-4 h-4 rounded-full"  @click="updateStatusRow(item)"
-                                :class=" item.status == 1 ? 'bg-lime-600' : 'bg-red-600' "></button>
+                                <span v-if="item.role">
+                                    {{ item.role.name }}
+                                </span>
+                                <template v-else>
+                                    <button class="w-4 h-4 rounded-full"  @click="updateStatusRow(item)"
+                                    :class=" item.status == 1 ? 'bg-lime-600' : 'bg-red-600' "></button>
+                                </template>
                             </template>
                             <template #item-operation="item">
                                 <div class="flex gap-x-2">

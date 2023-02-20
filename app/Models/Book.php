@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Book extends Model
 {
@@ -61,11 +62,21 @@ class Book extends Model
         return $this->belongsTo(Major::class);
     }
 
+    public function users() :BelongsToMany
+    {
+        return $this->belongsToMany(User::class,'user_loan','book_id','user_id');
+    }
+
+    public function loans() :BelongsToMany
+    {
+        return $this->belongsToMany(Loan::class,'user_loan','book_id','loan_id');
+    }
+
     public function children()
     {
         return $this->hasMany(self::class,'id','series_id');
     }
     public function parent(){
         return $this->hasOne( self::class, 'series_id', 'id' );
-      }
+    }
 }

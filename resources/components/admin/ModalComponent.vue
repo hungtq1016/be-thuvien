@@ -17,9 +17,10 @@
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900" >
                   Thêm ...
                 </DialogTitle>
-                <KeepAlive>
+                <!-- <KeepAlive>
                     <component :is="this.currentForm"/>
-                </KeepAlive>
+                </KeepAlive> -->
+                <component :is="this.currentForm"/>
                 <div class="absolute top-6 right-6">
                   <button type="button" @click="this.CLOSE_MODAL"
                   class="p-1 border rounded-lg border-gray-400 text-gray-400 hover:border-sky-600 hover:text-sky-600 duration-700 hover:bg-sky-100">

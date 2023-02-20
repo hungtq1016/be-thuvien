@@ -27,9 +27,11 @@ class DatabaseSeeder extends Seeder
         //     UserSeeder::class,
         // ]);
         for($j = 0; $j <= 100; $j++){
-            DB::table('book_tag')->insert([
+            DB::table('user_loan')->insert([
+                'user_id' => rand(1,100),
                 'book_id' => rand(1,100),
-                'tag_id' => rand(1,20),
+                'loan_id' => rand(1,4),
+                'expired_time' => date("d-m-Y"),
             ]);
         }
     }

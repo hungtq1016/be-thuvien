@@ -40,7 +40,6 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-
         if ($request->image) {
             $image_name = time() . '.' . $request->image->getClientOriginalExtension();
             $image_path = public_path('images');
@@ -59,6 +58,11 @@ class AuthorController extends Controller
                 'status' => 1,
             ]);
             return new AuthorResource($author);
+        }else{
+            return collect([
+                'error'=> 'Có lỗi trong quá trình chuyển file',
+                'code' => '204'
+            ]);
         }
     }
 

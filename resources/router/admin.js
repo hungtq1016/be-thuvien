@@ -56,6 +56,24 @@ const admin = [
                 meta: { title: 'Ngành Học' },
                 component: () => import("../views/admin/AdminLayout.vue"),
             },
+            {
+                path: 'user',
+                name: "AdminUser",
+                meta: { title: 'Người Dùng' },
+                component: () => import("../views/admin/AdminLayout.vue"),
+            },
+            {
+                path: 'role',
+                name: "AdminRole",
+                meta: { title: 'Vai Trò' },
+                component: () => import("../views/admin/AdminLayout.vue"),
+            },
+            {
+                path: 'publicsher',
+                name: "AdminPublicsher",
+                meta: { title: 'Nhà Xuất Bản' },
+                component: () => import("../views/admin/AdminLayout.vue"),
+            },
         ],
     },
     {
