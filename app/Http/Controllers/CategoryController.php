@@ -7,6 +7,7 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\CategoryCollection;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -18,6 +19,19 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $categories = Category::all();
+            $categoryData = $categories->map(function ($category) {
+                 if ($category->status)
+                    return[
+                        'name' => $category->name,
+                        'id' => $category->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            // $data = [ 'data' => $categoryData];
+            return response()->json($categoryData);
+        }
         return CategoryResource::collection(Category::paginate($request->limit));
     }
 
