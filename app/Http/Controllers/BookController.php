@@ -17,6 +17,18 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $books = Book::all();
+            $bookData = $books->map(function ($book) {
+                 if ($book->status)
+                    return[
+                        'name' => $book->name,
+                        'id' => $book->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            return response()->json($bookData);
+        }
         return BookResource::collection(Book::paginate($request->limit));
     }
 

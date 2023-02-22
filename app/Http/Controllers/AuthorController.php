@@ -19,6 +19,18 @@ class AuthorController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $authors = Author::all();
+            $authorData = $authors->map(function ($author) {
+                 if ($author->status)
+                    return[
+                        'name' => $author->name,
+                        'id' => $author->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            return response()->json($authorData);
+        }
         return AuthorResource::collection(Author::paginate($request->limit));
     }
 

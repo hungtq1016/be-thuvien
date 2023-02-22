@@ -18,6 +18,18 @@ class LanguageController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $languages = Language::all();
+            $languageData = $languages->map(function ($language) {
+                 if ($language->status)
+                    return[
+                        'name' => $language->name,
+                        'id' => $language->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            return response()->json($languageData);
+        }
         return LanguageResource::collection(Language::paginate($request->limit));
     }
 

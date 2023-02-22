@@ -15,7 +15,7 @@
             <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95" enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100" leave-to="opacity-0 scale-95" >
               <DialogPanel class="w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all relative" >
                 <DialogTitle as="h3" class="text-lg font-medium leading-6 text-gray-900" >
-                  Thêm ...
+                  {{isUpdate?'Chỉnh Sửa':'Thêm'}}
                 </DialogTitle>
                 <!-- <KeepAlive>
                     <component :is="this.currentForm"/>
@@ -67,7 +67,7 @@
             }
         },
         computed:{
-            ...mapGetters(['isModalOpen','getUpdateData'])
+            ...mapGetters(['isModalOpen','getUpdateData','isUpdate'])
         }
     }
 </script>

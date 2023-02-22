@@ -17,6 +17,18 @@ class MajorController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $majors = Major::all();
+            $majorData = $majors->map(function ($major) {
+                 if ($major->status)
+                    return[
+                        'name' => $major->name,
+                        'id' => $major->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            return response()->json($majorData);
+        }
         return MajorResource::collection(Major::paginate($request->limit));
     }
 

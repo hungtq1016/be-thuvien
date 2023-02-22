@@ -35,7 +35,7 @@ export default {
                 { name: 'Ngành Học', href: '/admin/major', icon: AcademicCapIcon },
                 { name: 'Kệ Sách', href: '/admin/bookshelf', icon: TableCellsIcon },
                 { name: 'Vai Trò', href: '/admin/role', icon: ExclamationCircleIcon },
-                { name: 'Nhà Xuất Bản', href: '/admin/publicsher', icon: BuildingOfficeIcon },
+                { name: 'Nhà Xuất Bản', href: '/admin/publisher', icon: BuildingOfficeIcon },
                 { name: 'Ngôn Ngữ', href: '/admin/language', icon: LanguageIcon },
             ]
         }

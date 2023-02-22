@@ -17,6 +17,18 @@ class PublisherController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $publishers = Publisher::all();
+            $publisherData = $publishers->map(function ($publisher) {
+                 if ($publisher->status)
+                    return[
+                        'name' => $publisher->name,
+                        'id' => $publisher->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            return response()->json($publisherData);
+        }
         return PublisherResource::collection(Publisher::paginate($request->limit));
     }
 

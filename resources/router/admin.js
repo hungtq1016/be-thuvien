@@ -69,8 +69,8 @@ const admin = [
                 component: () => import("../views/admin/AdminLayout.vue"),
             },
             {
-                path: 'publicsher',
-                name: "AdminPublicsher",
+                path: 'publisher',
+                name: "AdminPublisher",
                 meta: { title: 'Nhà Xuất Bản' },
                 component: () => import("../views/admin/AdminLayout.vue"),
             },

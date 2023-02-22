@@ -52,7 +52,6 @@
                     <input type="checkbox" class="rounded-md ring-sky-600 checked:bg-sky-600 checked:ring-0 checked:outline-none hover:bg-sky-600 checked:hover:bg-sky-400"
                     id="is-death" v-model="isDeath" @click="isDeathToggle"><label for="is-death" class="font-medium text-gray-700">Đã mất</label>
                 </div>
-
                 <div>
                     <label for="about" class="block text-sm font-medium text-gray-700">Giới Tính</label>
                     <div class="grid grid-cols-3 gap-x-4 mt-1">

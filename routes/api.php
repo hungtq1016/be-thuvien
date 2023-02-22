@@ -31,7 +31,7 @@ use App\Http\Controllers\UserController;
     Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['only' => ['index','show']]);
     Route::resource('/role', RoleController::class, ['only' => ['index','show']]);
-    Route::resource('/publicsher', PublisherController::class, ['only' => ['index','show']]);
+    Route::resource('/publisher', PublisherController::class, ['only' => ['index','show']]);
 
 
     //End API get all without auth
@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['except' => ['index','show']]);
     Route::resource('/role', RoleController::class, ['except' => ['index','show']]);
-    Route::resource('/publicsher', PublisherController::class, ['except' => ['index','show']]);
+    Route::resource('/publisher', PublisherController::class, ['except' => ['index','show']]);
 
 
     Route::put('category/{category}/update', [CategoryController::class, 'updateStatus']);

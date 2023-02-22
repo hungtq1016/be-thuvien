@@ -18,6 +18,18 @@ class BookshelfController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $bookshelves = Bookshelf::all();
+            $bookshelfData = $bookshelves->map(function ($bookshelf) {
+                 if ($bookshelf->status)
+                    return[
+                        'name' => $bookshelf->name,
+                        'id' => $bookshelf->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            return response()->json($bookshelfData);
+        }
         return BookShelfResource::collection(Bookshelf::paginate($request->limit));
     }
 

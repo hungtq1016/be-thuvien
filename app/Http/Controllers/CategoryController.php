@@ -29,7 +29,6 @@ class CategoryController extends Controller
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
                     ];            
             })->filter();
-            // $data = [ 'data' => $categoryData];
             return response()->json($categoryData);
         }
         return CategoryResource::collection(Category::paginate($request->limit));

@@ -18,6 +18,18 @@ class TagController extends Controller
      */
     public function index(Request $request)
     {
+        if($request->limit == 'all') {
+            $tags = Tag::all();
+            $tagData = $tags->map(function ($tag) {
+                 if ($tag->status)
+                    return[
+                        'name' => $tag->name,
+                        'id' => $tag->id,
+                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                    ];            
+            })->filter();
+            return response()->json($tagData);
+        }
         return TagResource::collection(Tag::paginate($request->limit));
     }
 
