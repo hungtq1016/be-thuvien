@@ -32,17 +32,17 @@
                 <div>
                     <label for="desc" class="block text-sm font-medium text-gray-700" >Thông Tin</label >
                     <div class="mt-1 rounded-lg">
-                        <textarea id="desc" placeholder="Nhập thông tin sách..." v-model="form.desc" rows="4" class="block w-full flex-1 rounded-lg border-gray-300 focus:ring-sky-600 focus:ring-0 sm:text-sm resize-none" />
+                        <textarea id="desc" placeholder="Nhập thông tin sách..." v-model="form.desc" rows="4" class="block w-full flex-1 rounded-lg border-gray-300 focus:ring-sky-600 focus:ring-0 sm:text-sm resize-none"></textarea>
                     </div>
                 </div>
-                <SelectInput title="Thể Loại" resource="category" @dataChange="val=>{this.form.categories = val}" :data="categories"/>
-                <SelectInput title="Nhãn" resource="tag" @dataChange="val=>{this.form.tags = val}" :data="tags"/>
-                <SelectInput title="Tác Giả" resource="author" @dataChange="val=>{this.form.authors = val}" :data="authors"/>
-                <SelectOnly title="Kệ Sách" resource="bookshelf" @dataChange="val=>{this.form.bookshelf_id = val}" :data="bookshelf_id"/>
-                <SelectOnly title="Ngành Học" resource="major" @dataChange="val=>{this.form.major_id = val}" :data="major_id"/>
-                <SelectOnly title="Nhà Xuất Bản" resource="publisher" @dataChange="val=>{this.form.publisher_id = val}" :data="publisher_id"/>
-                <SelectOnly title="Ngôn Ngữ" resource="language" @dataChange="val=>{this.form.language_id = val}" :data="language_id"/>
-                <SelectOnly title="Series" resource="book" @dataChange="val=>{this.form.series_id = val}" :data="series_id"/>
+                <SelectInput title="Thể Loại" resource="category" @dataChange="val=>{this.form.categories = val}"/>
+                <SelectInput title="Nhãn" resource="tag" @dataChange="val=>{this.form.tags = val}"/>
+                <SelectInput title="Tác Giả" resource="author" @dataChange="val=>{this.form.authors = val}"/>
+                <SelectOnly title="Kệ Sách" resource="bookshelf" @dataChange="val=>{this.form.bookshelf_id = val}"/>
+                <SelectOnly title="Ngành Học" resource="major" @dataChange="val=>{this.form.major_id = val}"/>
+                <SelectOnly title="Nhà Xuất Bản" resource="publisher" @dataChange="val=>{this.form.publisher_id = val}"/>
+                <SelectOnly title="Ngôn Ngữ" resource="language" @dataChange="val=>{this.form.language_id = val}"/>
+                <SelectOnly title="Series" resource="book" @dataChange="val=>{this.form.series_id = val}"/>
 
                 <div>
                     <label class="block text-sm font-medium text-gray-700" >Hình Ảnh</label >
@@ -88,10 +88,10 @@ export default {
     data() {
         return {
             form:{
-                name:'',
-                country:'',
-                desc:'',
-                realse:'10-16-2000',
+                name:null,
+                country:null,
+                desc:null,
+                release:'10-16-2000',
                 categories:[],
                 tags:[],
                 authors:[],
@@ -109,6 +109,18 @@ export default {
         submitForm() {
             let payload = new FormData();
             payload.append("name", this.form.name);
+            payload.append('country',this.form.country);
+            payload.append('desc',this.form.desc);
+            payload.append('release',this.form.release);
+            payload.append('categories',this.form.categories);
+            payload.append('tags',this.form.tags);
+            payload.append("authors", this.form.authors);
+            payload.append('bookshelf_id',this.form.bookshelf_id);
+            payload.append('publisher_id',this.form.publisher_id);
+            payload.append('major_id',this.form.major_id);
+            payload.append('language_id',this.form.language_id);
+            payload.append('series_id',this.form.series_id);
+            payload.append('image',this.form.image);
             this.isUpdate ? this.putData(this.form) : this.postData(payload);
             this.CLOSE_MODAL();
         },
@@ -124,7 +136,7 @@ export default {
         }
     },
     mounted() {
-        this.isUpdate ? (this.form = this.getUpdateData) : (this.form = { name: "" });
+        // this.isUpdate ? (this.form = this.getUpdateData) : (this.form = { name: "" });
         this.isUpdate ? '' : this.form.release = this.currentDate
     },
     computed: {

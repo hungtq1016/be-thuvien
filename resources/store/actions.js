@@ -36,7 +36,7 @@ export default {
     },
 
     async postData({ getters, dispatch }, payload) {
-        await axios.post(`/api/${getters.getResource}`,payload,config);
+        await axios.post(`/api/${getters.getResource}`,payload,config).then(res=>console.log(res)).catch(err=>console.log(err));
         dispatch(`getDataTable`, {resource:getters.getResource, page: getters.getMeta.current_page})
     },
 

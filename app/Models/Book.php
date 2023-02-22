@@ -16,33 +16,19 @@ class Book extends Model
         'name',
         'slug',
         'desc',
-        'year',
+        'release',
         'country',
         'image',
         'language_id',
         'major_id',
         'publisher_id',
-        'bookself_id',
+        'bookshelf_id',
         'series_id',
         'status',
     ];
 
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class);
-    }
-
-    public function authors()
-    {
-        return $this->belongsToMany(Author::class,'book_author');
-    }
-
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class);
-    }
-
-    public function bookself()
+    
+    public function bookshelf()
     {
         return $this->belongsTo(Bookshelf::class);
     }
@@ -62,6 +48,26 @@ class Book extends Model
         return $this->belongsTo(Major::class);
     }
 
+    public function parent(){
+
+        return $this->belongsTo( self::class, 'series_id', 'id' );
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class,'book_author');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
     public function users() :BelongsToMany
     {
         return $this->belongsToMany(User::class,'user_loan','book_id','user_id');
@@ -76,7 +82,5 @@ class Book extends Model
     {
         return $this->hasMany(self::class,'id','series_id');
     }
-    public function parent(){
-        return $this->hasOne( self::class, 'series_id', 'id' );
-    }
+
 }

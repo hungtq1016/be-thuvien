@@ -27,7 +27,7 @@ class BookFactory extends Factory
             'slug' => $slug,
             'image' => 'https://chiasemoi.com/wp-content/uploads/2017/12/ca-phe-cung-tony.jpg',
             'desc' => $this->faker->text(),
-            'year' => $this->faker->year(),
+            'release' => $this->faker->year(),
             'country'=>$this->faker->country(),
             'major_id' => rand(1,15),
             'publisher_id' => rand(1,10),

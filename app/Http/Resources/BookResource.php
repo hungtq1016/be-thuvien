@@ -14,6 +14,8 @@ class BookResource extends JsonResource
      */
     public function toArray($request)
     {
+        $categories = $this->categories()->select('categories.id','categories.name')->get()->unique();
+        $major = $this->major()->select('majors.id','name')->get();
         return [
             'id' => $this->id,
             'name'=> $this->name,
@@ -21,16 +23,16 @@ class BookResource extends JsonResource
             'image'=> $this->image,
             'country'=> $this->country,
             'desc'=> $this->desc,
-            'year'=> $this->year,
-            'major'=>new MajorResource($this->major),
+            'release'=> $this->release,
+            'major'=>$major,
             'publisher'=> new PublisherResource($this->publisher),
             'language'=>new LanguageResource($this->language),
-            'bookself'=> new BookShelfResource($this->bookself),
-            // 'series'=> new ChildrenResource($this->children),
+            'bookshelf'=> new BookShelfResource($this->bookshelf),
+
             'series'=> $this->children()->get()->unique(),
             'status'=> $this->status,
             'tags'=> $this->tags->isEmpty() ? null : $this->tags()->select('tags.id','tags.name')->get()->unique(),
-            'categories'=>$this->categories->isEmpty() ? null : $this->categories()->select('categories.id','categories.name')->get()->unique(),
+            'categories'=>$this->categories->isEmpty() ? null : $categories,
             'authors'=>$this->authors->isEmpty() ? null : $this->authors()->select('authors.id','name')->get()->unique(),
         ];
     }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('desc');
             $table->string('image');
             $table->string('country');
-            $table->string('year');
+            $table->string('release');
             $table->bigInteger('major_id');
             // $table->bigi('major_id')->references('id')->on('majors');
             $table->bigInteger('publisher_id');
