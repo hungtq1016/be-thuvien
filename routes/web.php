@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,4 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/{any}', "app")->where("any",".*");
+Route::redirect('/{any}', 'http://thuvien.tranhung.info/', 301)->where('any', '^(?!api).*$');;
