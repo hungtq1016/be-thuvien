@@ -17,7 +17,3 @@ const isDark = useDark();
     }
     }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
