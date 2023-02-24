@@ -26,7 +26,7 @@ class LanguageController extends Controller
                         'name' => $language->name,
                         'id' => $language->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($languageData);
         }
@@ -55,7 +55,10 @@ class LanguageController extends Controller
             'name' => $request->name,
             'status' => 1,
         ]);
-        return new LanguageResource($language);
+        return response()->json([
+            'message' => 'Thêm thành công!',
+            'status' => 201
+        ]);
     }
 
     /**
@@ -66,7 +69,7 @@ class LanguageController extends Controller
      */
     public function show(Language $language)
     {
-        return new LanguagePolicy($language);
+        return new LanguageResource($language);
 
     }
 
@@ -90,10 +93,11 @@ class LanguageController extends Controller
      */
     public function update(UpdateLanguageRequest $request, Language $language)
     {
-        $language ->update([
-            'name' => $request->name,
+        $language->update($request->all());
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
         ]);
-        return new LanguageResource($language);
     }
 
     /**
@@ -104,14 +108,20 @@ class LanguageController extends Controller
      */
     public function destroy(Language $language)
     {
-        return $language->delete();
+        $status =  $language->delete();
+        if ($status) {
+            return response()->json([
+                'message' => 'Xóa thành công!',
+                'status' => 200
+            ]);
+        }
 
     }
 
     public function updateStatus(Request $request, Language $language)
     {
         $language ->update([
-            'status' => $request->status ? false : true
+            'status' => $request->status ? 0 : 1
         ]);
         return new LanguageResource($language);
     }

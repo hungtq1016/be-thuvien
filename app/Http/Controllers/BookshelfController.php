@@ -26,7 +26,7 @@ class BookshelfController extends Controller
                         'name' => $bookshelf->name,
                         'id' => $bookshelf->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($bookshelfData);
         }
@@ -51,7 +51,14 @@ class BookshelfController extends Controller
      */
     public function store(StoreBookshelfRequest $request)
     {
-        //
+        $bookshelf = Bookshelf::create([
+            'name' => $request->name,
+            'status' => 1,
+        ]);
+        return response()->json([
+            'message' => 'Thêm thành công!',
+            'status' => 201
+        ]);
     }
 
     /**
@@ -62,7 +69,7 @@ class BookshelfController extends Controller
      */
     public function show(Bookshelf $bookshelf)
     {
-        //
+        return new BookshelfResource($bookshelf);
     }
 
     /**
@@ -85,7 +92,11 @@ class BookshelfController extends Controller
      */
     public function update(UpdateBookshelfRequest $request, Bookshelf $bookshelf)
     {
-        //
+        $bookshelf->update($request->all());
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
+        ]);
     }
 
     /**
@@ -96,6 +107,21 @@ class BookshelfController extends Controller
      */
     public function destroy(Bookshelf $bookshelf)
     {
-        //
+        $status =  $bookshelf->delete();
+        if ($status) {
+            return response()->json([
+                'message' => 'Xóa thành công!',
+                'status' => 200
+            ]);
+        }
+
+    }
+
+    public function updateStatus(Request $request, Bookshelf $bookshelf)
+    {
+        $bookshelf ->update([
+            'status' => $request->status ? 0 : 1
+        ]);
+        return new BookshelfResource($bookshelf);
     }
 }
