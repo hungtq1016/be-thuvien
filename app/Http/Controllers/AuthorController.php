@@ -27,7 +27,7 @@ class AuthorController extends Controller
                         'name' => $author->name,
                         'id' => $author->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($authorData);
         }
@@ -52,30 +52,31 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        if ($request->image) {
-            $image_name = time() . '.' . $request->image->getClientOriginalExtension();
+        $image = $request->image;
+        if ($image != 'undefined') {
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
             $image_path = public_path('images');
-            $request->image->move($image_path, $image_name);
-
+            $image->move($image_path, $image_name);
+            $image = getenv('IMG_URL').$image_name;
+        }else{
+            $image = getenv('IMG_URL').'dummy.jpg';
+        }
             $name = $request->name;
             $slug = Str::slug($name,'-');
-            $author = Author::create([
+            Author::create([
                 'name' => $name,
-                'image' =>$image_name,
-                'country' =>$request->country,
+                'slug' => $slug,
+                'image' =>$image,
                 'gender' =>$request->gender,
                 'yob' =>$request->yob,
                 'yod' =>$request->yod,
-                'slug' => $slug,
+                'country' =>$request->country,
                 'status' => 1,
             ]);
-            return new AuthorResource($author);
-        }else{
-            return collect([
-                'error'=> 'Có lỗi trong quá trình chuyển file',
-                'code' => '204'
+            return response()->json([
+                'message' => 'Thêm thành công!',
+                'status' => 201
             ]);
-        }
     }
 
     /**
@@ -109,10 +110,34 @@ class AuthorController extends Controller
      */
     public function update(Request $request,Author $author)
     {
-        $author ->update([
-            'status' => $request->status ? false : true
+        $image = $request->image;
+        if ($image != 'undefined' && !filter_var($image, FILTER_VALIDATE_URL)) {
+            $image_name = time() . '.' . $image->getClientOriginalExtension();
+            $image_path = public_path('images');
+            $image->move($image_path, $image_name);
+            $image = getenv('IMG_URL').$image_name;
+        }else{
+            if ($image==filter_var($image, FILTER_VALIDATE_URL)) {
+            } else {
+                $image = getenv('IMG_URL').'dummy.jpg';
+            }
+        }
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
+        $author->update([
+                'name' => $name,
+                'slug' => $slug,
+                'image' =>$image,
+                'gender' =>$request->gender,
+                'yob' =>$request->yob,
+                'yod' =>$request->yod,
+                'country' =>$request->country,
+            ]);
+
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
         ]);
-        return new AuthorResource($author);
     }
 
     /**
@@ -123,14 +148,21 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        return $author->delete();
+        $status =  $author->delete();
+        if ($status) {
+            return response()->json([
+                'message' => 'Xóa thành công!',
+                'status' => 200
+            ]);
+        }
+
     }
-    public function updateStatus(Request $request,Author $author)
+
+    public function updateStatus(Request $request, Author $author)
     {
         $author ->update([
-            'status' => $request->status ? false : true
+            'status' => $request->status ? 0 : 1
         ]);
         return new AuthorResource($author);
-
     }
 }

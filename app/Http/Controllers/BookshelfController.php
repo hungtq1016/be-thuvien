@@ -51,7 +51,7 @@ class BookshelfController extends Controller
      */
     public function store(StoreBookshelfRequest $request)
     {
-        $bookshelf = Bookshelf::create([
+        Bookshelf::create([
             'name' => $request->name,
             'status' => 1,
         ]);

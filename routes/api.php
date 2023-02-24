@@ -28,10 +28,10 @@ use App\Http\Controllers\UserController;
     Route::resource('/book', BookController::class, ['only' => ['index','show']]);
     Route::resource('/user', UserController::class, ['only' => ['index','show']]);
     Route::resource('/bookshelf', BookshelfController::class, ['only' => ['index','show']]);
-    Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['only' => ['index','show']]);
     Route::resource('/role', RoleController::class, ['only' => ['index','show']]);
     Route::resource('/publisher', PublisherController::class, ['only' => ['index','show']]);
+    Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
 
 
     //End API get all without auth
@@ -44,15 +44,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/book', BookController::class, ['except' => ['index','show']]);
     Route::resource('/user', UserController::class, ['except' => ['index','show']]);
     Route::resource('/bookshelf', BookshelfController::class, ['except' => ['index','show']]);
-    Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
     Route::resource('/major', MajorController::class, ['except' => ['index','show']]);
     Route::resource('/role', RoleController::class, ['except' => ['index','show']]);
     Route::resource('/publisher', PublisherController::class, ['except' => ['index','show']]);
+    Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
 
 
-    Route::put('category/{category}/update', [CategoryController::class, 'updateStatus']);
-    Route::put('tag/{tag}/update', [TagController::class, 'updateStatus']);
     Route::put('author/{author}/update', [AuthorController::class, 'updateStatus']);
+    Route::put('category/{category}/update', [CategoryController::class, 'updateStatus']);
+    Route::put('tag/{tag}/update', [TagController::class,'updateStatus']);
+    Route::put('book/{book}/update', [BookController::class,'updateStatus']);
+    Route::put('user/{user}/update', [UserController::class,'updateStatus']);
+    Route::put('bookshelf/{bookshelf}/update', [BookshelfController::class,'updateStatus']);
+    Route::put('major/{major}/update', [MajorController::class,'updateStatus']);
+    Route::put('role/{role}/update', [RoleController::class,'updateStatus']);
+    Route::put('publisher/{publisher}/update', [PublisherController::class,'updateStatus']);
     Route::put('language/{language}/update', [LanguageController::class, 'updateStatus']);
 
 });

@@ -25,7 +25,7 @@ class MajorController extends Controller
                         'name' => $major->name,
                         'id' => $major->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($majorData);
         }
@@ -50,7 +50,14 @@ class MajorController extends Controller
      */
     public function store(StoreMajorRequest $request)
     {
-        //
+        Major::create([
+            'name' => $request->name,
+            'status' => 1,
+        ]);
+        return response()->json([
+            'message' => 'Thêm thành công!',
+            'status' => 201
+        ]);
     }
 
     /**
@@ -61,7 +68,7 @@ class MajorController extends Controller
      */
     public function show(Major $major)
     {
-        //
+        return new MajorResource($major);
     }
 
     /**
@@ -84,7 +91,11 @@ class MajorController extends Controller
      */
     public function update(UpdateMajorRequest $request, Major $major)
     {
-        //
+        $major->update($request->all());
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
+        ]);
     }
 
     /**
@@ -95,6 +106,21 @@ class MajorController extends Controller
      */
     public function destroy(Major $major)
     {
-        //
+        $status =  $major->delete();
+        if ($status) {
+            return response()->json([
+                'message' => 'Xóa thành công!',
+                'status' => 200
+            ]);
+        }
+
+    }
+
+    public function updateStatus(Request $request, Major $major)
+    {
+        $major ->update([
+            'status' => $request->status ? 0 : 1
+        ]);
+        return new MajorResource($major);
     }
 }
