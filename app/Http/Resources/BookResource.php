@@ -15,22 +15,30 @@ class BookResource extends JsonResource
     public function toArray($request)
     {
         $categories = $this->categories()->select('categories.id','categories.name')->get()->unique();
-        $major = $this->major()->select('majors.id','name')->get();
+
+        $image = $this->image && $this->image->status ? $this->image :null;
+        $publisher = $this->publisher && $this->publisher->status ? $this->publisher :null;
+        $major = $this->major && $this->major->status ? $this->major :null;
+        $language = $this->language && $this->language->status ? $this->language :null;
+        $bookshelf = $this->bookshelf && $this->bookshelf->status ? $this->bookshelf :null;
+
         return [
             'id' => $this->id,
             'name'=> $this->name,
             'slug'=> $this->slug,
-            'image'=> $this->image,
             'country'=> $this->country,
             'desc'=> $this->desc,
             'release'=> $this->release,
-            'major'=>$major,
-            'publisher'=> new PublisherResource($this->publisher),
-            'language'=>new LanguageResource($this->language),
-            'bookshelf'=> new BookShelfResource($this->bookshelf),
-
-            'series'=> $this->children()->get()->unique(),
             'status'=> $this->status,
+
+            'image'=> $image,
+            'major'=>$major,
+            'publisher'=> $publisher,
+            'language'=>$language,
+            'bookshelf'=> $bookshelf,
+
+            'series'=> $this->parent,
+
             'tags'=> $this->tags->isEmpty() ? null : $this->tags()->select('tags.id','tags.name')->get()->unique(),
             'categories'=>$this->categories->isEmpty() ? null : $categories,
             'authors'=>$this->authors->isEmpty() ? null : $this->authors()->select('authors.id','name')->get()->unique(),

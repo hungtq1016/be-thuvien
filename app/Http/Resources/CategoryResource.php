@@ -14,7 +14,7 @@ class CategoryResource extends JsonResource
      */
     public function toArray($request)
     {
-        $image =  $this->image;
+        $image = $this->image && $this->image->status ? $this->image :null;
         return [
             'id' => $this->id,
             'name' => $this->name,

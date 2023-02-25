@@ -56,8 +56,8 @@ class CategoryController extends Controller
             Category::create([
                 'name' => $name,
                 'slug' => $slug,
-                'image_id' =>$request->image_id,
                 'desc' =>$request->desc,
+                'image_id' =>$request->image_id,
                 'status' => 1,
             ]);
             return response()->json([
@@ -103,7 +103,7 @@ class CategoryController extends Controller
             $category->update([
                 'name' => $name,
                 'slug' => $slug,
-                'image_id' =>$request->image,
+                'image_id' =>$request->image_id,
                 'desc' =>$request->desc,
                 'status' => 1,
             ]);

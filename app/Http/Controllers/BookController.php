@@ -18,7 +18,7 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {   
+    {
         if($request->limit == 'all') {
             $books = Book::all();
             $bookData = $books->map(function ($book) {
@@ -27,11 +27,11 @@ class BookController extends Controller
                         'name' => $book->name,
                         'id' => $book->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($bookData);
         }
-        return ($request->author=='admin')? 
+        return ($request->author=='admin')?
         BookAdmin::collection(Book::all()):
         BookResource::collection(Book::paginate($request->limit));
     }
@@ -52,39 +52,31 @@ class BookController extends Controller
      * @param  \App\Http\Requests\StoreBookRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        if ($request->image) {
-            $image_name = time() . '.' . $request->image->getClientOriginalExtension();
-            $image_path = public_path('images');
-            $request->image->move($image_path, $image_name);
-
             $name = $request->name;
             $slug = Str::slug($name,'-');
             $book = Book::create([
-                'name'=> $request->name,
+                'name'=> $name,
                 'slug'=> $slug,
-                'image'=> $image_name,
                 'country'=> $request->country,
                 'desc'=> $request->desc,
                 'release'=> $request->release,
+                'image_id'=> $request->image_id,
                 'major_id'=> $request->major_id,
                 'publisher_id'=> $request->publisher_id,
-                'language_id'=>$request->major_id,
+                'language_id'=>$request->language_id,
                 'bookshelf_id'=> $request->bookshelf_id,
-                'series_id'=> $request->major_id,
+                'series_id'=> $request->series_id,
                 'status'=> 1,
             ]);
             $book->tags()->attach($request->tags);
             $book->authors()->attach($request->authors);
             $book->categories()->attach($request->categories);
-            return new BookResource($book);
-        }else{
-            return collect([
-                'error'=> 'Có lỗi trong quá trình chuyển file',
-                'code' => '204'
+            return response()->json([
+                'message' => 'Thêm thành công!',
+                'status' => 201
             ]);
-        }
     }
 
     /**
@@ -103,7 +95,7 @@ class BookController extends Controller
                         'name' => $book->name,
                         'id' => $book->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($bookData);
         }
@@ -133,7 +125,29 @@ class BookController extends Controller
      */
     public function update(UpdateBookRequest $request, Book $book)
     {
-        //
+            $name = $request->name;
+            $slug = Str::slug($name,'-');
+            $book ->update([
+                'name'=> $name,
+                'slug'=> $slug,
+                'country'=> $request->country,
+                'desc'=> $request->desc,
+                'release'=> $request->release,
+                'image_id'=> $request->image_id,
+                'major_id'=> $request->major_id,
+                'publisher_id'=> $request->publisher_id,
+                'language_id'=>$request->language_id,
+                'bookshelf_id'=> $request->bookshelf_id,
+                'series_id'=> $request->series_id,
+            ]);
+            $book->tags()->sync($request->tags);
+            $book->authors()->sync($request->authors);
+            $book->categories()->sync($request->categories);
+
+            return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
+        ]);
     }
 
     /**
@@ -144,6 +158,21 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $status =  $book->delete();
+        if ($status) {
+            return response()->json([
+                'message' => 'Xóa thành công!',
+                'status' => 200
+            ]);
+        }
+
+    }
+
+    public function updateStatus(Request $request, Book $book)
+    {
+        $book ->update([
+            'status' => $request->status ? 0 : 1
+        ]);
+        return new BookResource($book);
     }
 }

@@ -27,7 +27,6 @@ class StoreAuthorRequest extends FormRequest
         return [
             'name' => ['required','string','max:255','unique:authors'],
             'country' => ['required','string','max:255'],
-            'image' => ['required'],
             'yob' => ['required','string','max:255'],
             'gender' => ['required','string','max:255'],
         ];

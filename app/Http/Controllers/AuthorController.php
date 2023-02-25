@@ -52,21 +52,12 @@ class AuthorController extends Controller
      */
     public function store(StoreAuthorRequest $request)
     {
-        $image = $request->image;
-        if ($image != 'undefined') {
-            $image_name = time() . '.' . $image->getClientOriginalExtension();
-            $image_path = public_path('images');
-            $image->move($image_path, $image_name);
-            $image = getenv('IMG_URL').$image_name;
-        }else{
-            $image = getenv('IMG_URL').'dummy.jpg';
-        }
             $name = $request->name;
             $slug = Str::slug($name,'-');
             Author::create([
                 'name' => $name,
                 'slug' => $slug,
-                'image' =>$image,
+                'image_id' =>$request->image_id,
                 'gender' =>$request->gender,
                 'yob' =>$request->yob,
                 'yod' =>$request->yod,
@@ -110,24 +101,12 @@ class AuthorController extends Controller
      */
     public function update(Request $request,Author $author)
     {
-        $image = $request->image;
-        if ($image != 'undefined' && !filter_var($image, FILTER_VALIDATE_URL)) {
-            $image_name = time() . '.' . $image->getClientOriginalExtension();
-            $image_path = public_path('images');
-            $image->move($image_path, $image_name);
-            $image = getenv('IMG_URL').$image_name;
-        }else{
-            if ($image==filter_var($image, FILTER_VALIDATE_URL)) {
-            } else {
-                $image = getenv('IMG_URL').'dummy.jpg';
-            }
-        }
         $name = $request->name;
         $slug = Str::slug($name,'-');
         $author->update([
                 'name' => $name,
                 'slug' => $slug,
-                'image' =>$image,
+                'image_id' =>$request->image_id,
                 'gender' =>$request->gender,
                 'yob' =>$request->yob,
                 'yod' =>$request->yod,

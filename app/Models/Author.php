@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Author extends Model
 {
@@ -15,7 +16,7 @@ class Author extends Model
     protected $fillable = [
 
         'name',
-        'image',
+        'image_id',
         'gender',
         'yob',
         'yod',
@@ -23,4 +24,9 @@ class Author extends Model
         'slug',
         'status',
     ];
+
+    public function image() :BelongsTo
+    {
+        return $this->belongsTo(Image::class);
+    }
 }

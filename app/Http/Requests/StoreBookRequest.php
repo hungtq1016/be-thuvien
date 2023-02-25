@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreBookRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreBookRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check() ;
     }
 
     /**
@@ -24,7 +25,10 @@ class StoreBookRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required','string','max:255','unique:books'],
+            'desc' => ['required','string','max:255'],
+            'country' => ['required','string','max:255'],
+            'release' => ['required','string','max:255'],
         ];
     }
 }

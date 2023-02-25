@@ -25,9 +25,8 @@ class UpdateAuthorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255','unique:authors'],
+            'name' => ['required','string','max:255'],
             'country' => ['required','string','max:255'],
-            'image' => ['required,image,max:10240'],
             'yob' => ['required','string','max:255'],
             'gender' => ['required','string','max:255'],
         ];

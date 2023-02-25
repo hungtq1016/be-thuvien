@@ -102,7 +102,7 @@ class TagController extends Controller
         $tag->update([
             'name' => $name,
             'slug' => $slug,
-            'image_id' =>$request->image,
+            'image_id' =>$request->image_id,
             'desc' =>$request->desc,
             'status' => 1,
         ]);

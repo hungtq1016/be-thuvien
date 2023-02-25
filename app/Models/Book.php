@@ -18,7 +18,7 @@ class Book extends Model
         'desc',
         'release',
         'country',
-        'image',
+        'image_id',
         'language_id',
         'major_id',
         'publisher_id',
@@ -27,7 +27,10 @@ class Book extends Model
         'status',
     ];
 
-    
+    public function image()
+    {
+        return $this->belongsTo(Image::class);
+    }
     public function bookshelf()
     {
         return $this->belongsTo(Bookshelf::class);

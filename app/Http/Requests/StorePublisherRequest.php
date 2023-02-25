@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StorePublisherRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StorePublisherRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check() ;
     }
 
     /**
@@ -24,7 +25,8 @@ class StorePublisherRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required','string','max:255','unique:publishers'],
+            'desc' => ['required','string','max:255'],
         ];
     }
 }
