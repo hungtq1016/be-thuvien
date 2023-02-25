@@ -14,14 +14,16 @@ class TagResource extends JsonResource
      */
     public function toArray($request)
     {
+        $image = $this->image->status ? $this->image : null;
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image'=>$this->image,
-            'desc'=>$this->desc,
+            'image' => $image,
+            'desc' => $this->desc,
             'slug' => $this->slug,
             'status' => $this->status,
-            'books'=>$this->books
+            'books_count' => $this->whenCounted('books'),
+            'books' => $this->books->isEmpty() ? null : BookResource::collection($this->books),
         ];
     }
 }

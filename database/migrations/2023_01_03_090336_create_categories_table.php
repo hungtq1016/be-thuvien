@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('slug');
             $table->string('desc');
-            $table->string('image');
+            $table->bigInteger('image_id');
             $table->boolean('status');
             $table->timestamps();
         });

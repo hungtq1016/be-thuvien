@@ -9,6 +9,7 @@ use App\Http\Controllers\BookshelfController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DbController;
 use App\Http\Controllers\DirectorController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ModalController;
@@ -32,6 +33,7 @@ use App\Http\Controllers\UserController;
     Route::resource('/role', RoleController::class, ['only' => ['index','show']]);
     Route::resource('/publisher', PublisherController::class, ['only' => ['index','show']]);
     Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
+    Route::resource('/image', ImageController::class, ['only' => ['index','show']]);
 
 
     //End API get all without auth
@@ -48,6 +50,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/role', RoleController::class, ['except' => ['index','show']]);
     Route::resource('/publisher', PublisherController::class, ['except' => ['index','show']]);
     Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
+    Route::resource('/image', ImageController::class, ['except' => ['index','show']]);
 
 
     Route::put('author/{author}/update', [AuthorController::class, 'updateStatus']);
@@ -60,5 +63,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('role/{role}/update', [RoleController::class,'updateStatus']);
     Route::put('publisher/{publisher}/update', [PublisherController::class,'updateStatus']);
     Route::put('language/{language}/update', [LanguageController::class, 'updateStatus']);
+    Route::put('image/{image}/update', [ImageController::class, 'updateStatus']);
 
 });

@@ -7,7 +7,6 @@ use App\Http\Resources\CategoryResource;
 use App\Http\Requests\StoreCategoryRequest;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateCategoryRequest;
-use App\Http\Resources\CategoryCollection;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -27,7 +26,7 @@ class CategoryController extends Controller
                         'name' => $category->name,
                         'id' => $category->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($categoryData);
         }
@@ -52,29 +51,19 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        if ($request->image) {
-            $image_name = time() . '.' . $request->image->getClientOriginalExtension();
-            $image_path = public_path('images');
-            $request->image->move($image_path, $image_name);
-
             $name = $request->name;
             $slug = Str::slug($name,'-');
-            $category = Category::create([
+            Category::create([
                 'name' => $name,
                 'slug' => $slug,
-                'image' =>$image_name,
+                'image_id' =>$request->image_id,
                 'desc' =>$request->desc,
                 'status' => 1,
             ]);
-            return new CategoryResource($category);
-        }else{
-            return collect([
-                'error'=> 'Có lỗi trong quá trình chuyển file',
-                'code' => '204'
+            return response()->json([
+                'message' => 'Thêm thành công!',
+                'status' => 201
             ]);
-        }
-
-
     }
 
     /**
@@ -106,14 +95,22 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category ->update([
-            'name' => $request->name,
-            'slug'=>  $request->name,
-            'desc' => $request->desc,
-        ]);
-        return new CategoryResource($category);
+
+            $name = $request->name;
+            $slug = Str::slug($name,'-');
+            $category->update([
+                'name' => $name,
+                'slug' => $slug,
+                'image_id' =>$request->image,
+                'desc' =>$request->desc,
+                'status' => 1,
+            ]);
+            return response()->json([
+                'message' => 'Thay đổi thành công!',
+                'status' => 200
+            ]);
     }
 
     /**
@@ -124,7 +121,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        return $category->delete();
+        $status= $category->delete();
+        if ($status) {
+            return response()->json([
+                'message' => 'Xóa thành công!',
+                'status' => 200
+            ]);
+        }
     }
 
     public function updateStatus(Request $request, Category $category)

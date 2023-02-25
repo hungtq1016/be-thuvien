@@ -25,9 +25,8 @@ class StoreTagRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','string','max:255'],
+            'name' => ['required','string','max:255','unique:tags'],
             'desc' => ['required','string','max:255'],
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ];
     }
 }

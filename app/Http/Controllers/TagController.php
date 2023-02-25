@@ -26,7 +26,7 @@ class TagController extends Controller
                         'name' => $tag->name,
                         'id' => $tag->id,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
-                    ];            
+                    ];
             })->filter();
             return response()->json($tagData);
         }
@@ -51,27 +51,19 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
-        if ($request->image) {
-            $image_name = time() . '.' . $request->image->getClientOriginalExtension();
-            $image_path = public_path('images');
-            $request->image->move($image_path, $image_name);
-
-            $name = $request->name;
+        $name = $request->name;
             $slug = Str::slug($name,'-');
-            $author = Tag::create([
+            Tag::create([
                 'name' => $name,
                 'slug' => $slug,
-                'image' =>$image_name,
+                'image_id' =>$request->image_id,
                 'desc' =>$request->desc,
                 'status' => 1,
             ]);
-            return new TagResource($author);
-        }else{
-            return collect([
-                'error'=> 'Có lỗi trong quá trình chuyển file',
-                'code' => '204'
+            return response()->json([
+                'message' => 'Thêm thành công!',
+                'status' => 201
             ]);
-        }
     }
 
     /**
@@ -105,10 +97,19 @@ class TagController extends Controller
      */
     public function update(UpdateTagRequest $request, Tag $tag)
     {
-        $tag ->update([
-            'status' => $request->status ? false : true
+        $name = $request->name;
+        $slug = Str::slug($name,'-');
+        $tag->update([
+            'name' => $name,
+            'slug' => $slug,
+            'image_id' =>$request->image,
+            'desc' =>$request->desc,
+            'status' => 1,
         ]);
-        return new TagResource($tag);
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
+        ]);
     }
 
     /**
