@@ -18,6 +18,18 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->type == 'more') {
+            $categories =  Category::withCount('books')
+            ->orderBy('books_count', 'desc')
+            ->take($request->limit)
+            ->get();
+            // $categories = Category::with('books')->get()->sortBy(function($category)
+            // {
+            //     return $category->books->count();
+            // });
+            return $categories;
+
+        }
         if($request->limit == 'all') {
             $categories = Category::all();
             $categoryData = $categories->map(function ($category) {

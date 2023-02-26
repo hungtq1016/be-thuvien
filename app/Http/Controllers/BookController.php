@@ -7,6 +7,7 @@ use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
 use App\Http\Resources\BookAdmin;
 use App\Http\Resources\BookResource;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -19,6 +20,7 @@ class BookController extends Controller
      */
     public function index(Request $request)
     {
+
         if($request->limit == 'all') {
             $books = Book::all();
             $bookData = $books->map(function ($book) {
@@ -26,14 +28,32 @@ class BookController extends Controller
                     return[
                         'name' => $book->name,
                         'id' => $book->id,
-                        // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
                     ];
             })->filter();
             return response()->json($bookData);
         }
-        return ($request->author=='admin')?
-        BookAdmin::collection(Book::all()):
-        BookResource::collection(Book::paginate($request->limit));
+        if (($request->author=='admin')) {
+            return BookAdmin::collection(Book::all());
+        }
+        if($request->slug) {
+            switch($request->slug){
+                case 'hot':
+                    return BookResource::collection(Book::orderBy('count', 'desc')->paginate($request->limit));
+                    break;
+                case 'new':
+                    return BookResource::collection(Book::orderBy('created_at', 'desc')->paginate($request->limit));
+                    break;
+                case 'monthly':
+                    return BookResource::collection(Book::whereMonth('created_at', Carbon::now()->month)->paginate($request->limit));
+                    break;
+                case 'major':
+                    return BookResource::collection(Book::orderBy('id', 'desc')->paginate($request->limit));
+                    break;
+            }
+        }else{
+            return BookResource::collection(Book::paginate($request->limit));
+        }
+
     }
 
     /**

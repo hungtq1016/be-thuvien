@@ -17,22 +17,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call([
-        //     AuthorSeeder::class,
-        //     BookSeeder::class,
-        //     CategorySeeder::class,
-        //     MajorSeeder::class,
-        //     PublisherSeeder::class,
-        //     TagSeeder::class,
-        //     UserSeeder::class,
-        // ]);
-        for($j = 0; $j <= 100; $j++){
-            DB::table('user_loan')->insert([
-                'user_id' => rand(1,100),
-                'book_id' => rand(1,100),
-                'loan_id' => rand(1,4),
-                'expired_time' => date("d-m-Y"),
-            ]);
-        }
+        $this->call([
+            // AuthorSeeder::class,
+            BookSeeder::class,
+            // CategorySeeder::class,
+            // MajorSeeder::class,
+            // PublisherSeeder::class,
+            // TagSeeder::class,
+            // UserSeeder::class,
+            // ImageSeeder::class,
+        ]);
+        // for($j = 0; $j <= 100; $j++){
+        //     DB::table('book_author')->insert([
+        //         'author_id' => rand(1,50),
+        //         'book_id' => rand(1,100),
+        //         'loan_id' => rand(1,4),
+        //         'expired_time' => date("d-m-Y"),
+        //     ]);
+        // }
     }
 }

@@ -7,20 +7,18 @@ use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookshelfController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DbController;
-use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\MajorController;
-use App\Http\Controllers\ModalController;
-use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserController;
 
     Route::post('/login', [AuthController::class, 'admin_login']);
     Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/search', [SearchController::class, 'searchImage']);
 
     // API get without auth
     Route::resource('/author', AuthorController::class, ['only' => ['index','show']]);
@@ -64,5 +62,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::put('publisher/{publisher}/update', [PublisherController::class,'updateStatus']);
     Route::put('language/{language}/update', [LanguageController::class, 'updateStatus']);
     Route::put('image/{image}/update', [ImageController::class, 'updateStatus']);
+
 
 });

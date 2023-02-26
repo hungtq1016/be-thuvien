@@ -7,6 +7,7 @@ use App\Http\Requests\StoreImageRequest;
 use App\Http\Requests\UpdateImageRequest;
 use App\Http\Resources\ImageResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ImageController extends Controller
 {
@@ -17,7 +18,7 @@ class ImageController extends Controller
      */
     public function index(Request $request)
     {
-        return ImageResource::collection(Image::paginate($request->limit));
+        return ImageResource::collection(Image::orderBy('id', 'desc')->paginate($request->limit));
     }
 
     /**
@@ -114,4 +115,6 @@ class ImageController extends Controller
         ]);
         return new ImageResource($image);
     }
+
+
 }

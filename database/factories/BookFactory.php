@@ -25,15 +25,17 @@ class BookFactory extends Factory
         return [
             'name' => $name,
             'slug' => $slug,
-            'image' => 'https://chiasemoi.com/wp-content/uploads/2017/12/ca-phe-cung-tony.jpg',
             'desc' => $this->faker->text(),
             'release' => $this->faker->year(),
             'country'=>$this->faker->country(),
-            'major_id' => rand(1,15),
-            'publisher_id' => rand(1,10),
-            'language_id' =>rand(1,3),
+            'quantity' => rand(1,50),
+            'count' => rand(1,100),
+            'image_id' => rand(1,100),
+            'major_id' => rand(1,20),
+            'publisher_id' => rand(1,20),
+            'language_id' =>rand(1,5),
             'bookself_id'=>rand(1,10),
-            'series_id'=>rand(1,10),
+            'series_id'=>rand(1,20),
             'status'=>1,
         ];
     }

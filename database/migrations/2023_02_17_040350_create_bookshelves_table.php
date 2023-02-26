@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('bookshelves', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->boolean('status');
             $table->timestamps();
         });

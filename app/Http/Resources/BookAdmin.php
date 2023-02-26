@@ -31,6 +31,8 @@ class BookAdmin extends JsonResource
             'country'=> $this->country,
             'desc'=> $this->desc,
             'release'=> $this->release,
+            'quantity'=>$this->quantity,
+            'count'=>$this->count,
             'major_id'=>$major,
             'publisher_id'=>$publisher,
             'language_id'=>$language,

@@ -15,12 +15,15 @@ return new class extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('slug');
             $table->string('desc');
-            $table->string('image');
             $table->string('country');
             $table->string('release');
+            $table->integer('quantity');
+            $table->integer('count');
+            $table->bigInteger('image_id');
+
             $table->bigInteger('major_id');
             // $table->bigi('major_id')->references('id')->on('majors');
             $table->bigInteger('publisher_id');

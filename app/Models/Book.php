@@ -18,6 +18,8 @@ class Book extends Model
         'desc',
         'release',
         'country',
+        'quantity',
+        'count',
         'image_id',
         'language_id',
         'major_id',

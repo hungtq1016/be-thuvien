@@ -16,12 +16,12 @@ class Author extends Model
     protected $fillable = [
 
         'name',
+        'slug',
         'image_id',
         'gender',
         'yob',
         'yod',
         'country',
-        'slug',
         'status',
     ];
 

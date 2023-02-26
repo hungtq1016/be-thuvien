@@ -24,7 +24,7 @@ class CategoryFactory extends Factory
         return [
             'name' => $name,
             'slug'=> $slug,
-            'image'=> 'https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg',
+            'image_id'=> rand(1,100),
             'desc'=> $this->faker->text(),
             'status' => true,
         ];

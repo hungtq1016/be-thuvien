@@ -20,14 +20,15 @@ class AuthorFactory extends Factory
     {
         $name = $this->faker->name();
         $slug = Str::slug($name, '-');
+        $gender=array("Nam","Nữ","Khác");
         return [
             'name' => $name,
-            'image' => 'https://people.com/thmb/4qadRVrtYHmcwd0lo1k6-Pxmjss=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(563x480:565x482):format(webp)/henry-cavill-02-05e04cf5412e4993a893d60ee9abc092.jpg',
-            'gender'  => $this->faker->title() ,
-            'yob' => $this->faker->dateTimeBetween($startDate = '-40 years', $endDate = 'now', $timezone = null) ,
-            'yod'  => $this->faker->dateTime($max = 'now', $timezone = null),
-            'country'  => $this->faker->country(),
             'slug'=> $slug,
+            'image_id' => rand(1,100),
+            'gender'  => $gender[rand(0,2)] ,
+            'yob' => $this->faker->date($format = 'Y-m-d', $max = 'now'),
+            'yod'  => $this->faker->date($format = 'Y-m-d', $max = 'now'),
+            'country'  => $this->faker->country(),
             'status' => true,
         ];
     }
