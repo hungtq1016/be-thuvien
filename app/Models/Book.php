@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
@@ -55,7 +56,7 @@ class Book extends Model
 
     public function parent(){
 
-        return $this->belongsTo( self::class, 'series_id', 'id' );
+        return $this->belongsTo( self::class, 'id', 'series_id' );
     }
 
     public function tags()
@@ -83,9 +84,14 @@ class Book extends Model
         return $this->belongsToMany(Loan::class,'user_loan','book_id','loan_id');
     }
 
+    public function comments() :HasMany
+    {
+        return $this->HasMany(Comment::class);
+    }
+
     public function children()
     {
-        return $this->hasMany(self::class,'id','series_id');
+        return $this->hasMany(self::class,'series_id','id');
     }
 
 }

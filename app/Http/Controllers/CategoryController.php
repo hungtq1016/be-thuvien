@@ -86,6 +86,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        // $category = ::where('slug', $category)->first();
         return new CategoryResource($category->loadCount('books'));
     }
 

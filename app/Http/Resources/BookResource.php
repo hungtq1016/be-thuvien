@@ -17,12 +17,13 @@ class BookResource extends JsonResource
         $categories = $this->categories()->select('categories.id','categories.name','categories.slug')->get()->unique();
         $tags = $this->tags()->select('tags.id','tags.name','tags.slug')->get()->unique();
         $authors = $this->authors()->select('authors.id','authors.name','authors.slug')->get()->unique();
+        $books = $this->children()->select('books.id','books.name','books.slug')->get()->unique();
 
-        $image = $this->image && $this->image->status ? $this->image :null;
-        $publisher = $this->publisher && $this->publisher->status ? $this->publisher :null;
-        $major = $this->major && $this->major->status ? $this->major :null;
-        $language = $this->language && $this->language->status ? $this->language :null;
-        $bookshelf = $this->bookshelf && $this->bookshelf->status ? $this->bookshelf :null;
+        $image = $this->image()->select('images.id','images.name','images.path')->get(1);
+        $major = $this->major()->select('majors.id','majors.name')->get(1);
+        $language = $this->language()->select('languages.id','languages.name')->get(1);
+        $publisher = $this->publisher()->select('publishers.id','publishers.name')->get(1);
+        $bookshelf = $this->bookshelf()->select('bookshelves.id','bookshelves.name')->get(1);
 
         return [
             'id' => $this->id,
@@ -40,7 +41,7 @@ class BookResource extends JsonResource
             'language'=>$language,
             'bookshelf'=> $bookshelf,
 
-            'series'=> $this->parent,
+            'series'=> $books,
 
             'tags'=> $tags,
             'categories'=> $categories,
