@@ -36,7 +36,16 @@ class CommentController extends Controller
      */
     public function store(StoreCommentRequest $request)
     {
-        //
+            Comment::create([
+                'comment' => $request->comment,
+                'user_id' =>$request->user_id,
+                'book_id' =>$request->book_id,
+                'rate' =>$request->rate,
+            ]);
+            return response()->json([
+                'message' => 'Thêm thành công!',
+                'status' => 201
+            ]);
     }
 
     /**

@@ -18,7 +18,6 @@ class BookResource extends JsonResource
         $tags = $this->tags()->select('tags.id','tags.name','tags.slug')->get()->unique();
         $authors = $this->authors()->select('authors.id','authors.name','authors.slug')->get()->unique();
         $books = $this->children()->select('books.id','books.name','books.slug')->get()->unique();
-
         $image = $this->image()->select('images.id','images.name','images.path')->get(1);
         $major = $this->major()->select('majors.id','majors.name')->get(1);
         $language = $this->language()->select('languages.id','languages.name')->get(1);
@@ -28,6 +27,7 @@ class BookResource extends JsonResource
         return [
             'id' => $this->id,
             'name'=> $this->name,
+            'comments'=> CommentResource::collection($this->comments),
             'slug'=> $this->slug,
             'country'=> $this->country,
             'desc'=> $this->desc,
@@ -35,7 +35,7 @@ class BookResource extends JsonResource
             'status'=> $this->status,
             'quantity'=>$this->quantity,
             'count'=>$this->count,
-            'image'=> $image,
+            'image'=> $this->image,
             'major'=>$major,
             'publisher'=> $publisher,
             'language'=>$language,

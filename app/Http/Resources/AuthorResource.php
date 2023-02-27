@@ -26,6 +26,7 @@ class AuthorResource extends JsonResource
             'country'  => $this->country,
             'slug' => $this->slug,
             'status' => $this->status,
+            'books'=>BookResource::collection($this->books)
         ];
     }
 }
