@@ -22,7 +22,8 @@ class LoanResource extends JsonResource
             'user' => $user[0],
             'book' => $book[0],
             'detail' => $detail[0],
-            'expired_time'=>$this->expired_time
+            'expired_time'=>$this->expired_time,
+            'start_time'=>$this->start_time
         ];
     }
 }

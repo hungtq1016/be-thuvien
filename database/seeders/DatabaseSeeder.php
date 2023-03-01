@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Publisher;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         $this->call([
             // AuthorSeeder::class,
             // BookSeeder::class,
@@ -25,15 +27,19 @@ class DatabaseSeeder extends Seeder
             // PublisherSeeder::class,
             // TagSeeder::class,
             // UserSeeder::class,
-            ImageSeeder::class,
+            // ImageSeeder::class,
         ]);
-        // for($j = 0; $j <= 100; $j++){
-        //     DB::table('images')->insert([
-        //         'name' => rand(1,50),
-        //         'book_id' => rand(1,100),
-        //         'loan_id' => rand(1,4),
-        //         'expired_time' => date("d-m-Y"),
-        //     ]);
-        // }
+        for($j = 0; $j <= 200; $j++){
+
+            $created_at = Carbon::create(2022, 1, 1, 0, 0, 0)->addWeeks(rand(1, 70));
+
+            DB::table('user_loan')->insert([
+                'book_id' => rand(1,100),
+                'user_id' => rand(1,100),
+                'loan_id' => rand(1,4),
+                'start_time' => $created_at,
+                'expired_time' => $created_at->addWeeks(2),
+            ]);
+        }
     }
 }

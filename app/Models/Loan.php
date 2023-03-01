@@ -11,8 +11,8 @@ class Loan extends Model
     use HasFactory;
     protected $table = 'user_loan';
     protected $primaryKey = 'id';
-    protected $hidden = ['created_at','updated_at','pivot'];
     protected $fillable = [
+        'start_time',
         'expired_time',
     ];
 

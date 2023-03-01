@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Loan;
-use App\Http\Requests\StoreLoanRequest;
 use App\Http\Requests\UpdateLoanRequest;
 use App\Http\Resources\LoanResource;
 use Carbon\Carbon;
@@ -17,8 +16,21 @@ class LoanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // Carbon::create('3-1-2023')
+        if ($request->q == 'week') {
+            // $loan = Loan::whereBetween('start_time', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+            // $loan = Loan::whereDate('start_time','>',Carbon::now()->startOfWeek())->get();
+            $loan = DB::table('user_loan')
+            ->select(DB::raw('DATE(start_time) as start_time'), DB::raw('count(*) as views'))
+            ->whereBetween('start_time', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])
+            ->groupBy('start_time')
+            ->get();
+            return response()->json([
+                $
+            ]);
+        }
         return LoanResource::collection(Loan::all());
     }
 
@@ -40,12 +52,14 @@ class LoanController extends Controller
      */
     public function store(Request $request)
     {
-        $now = Carbon::now();
-        $end = $now->addWeeks(2)->format('d-m-Y');
+        $date= Carbon::now();
+        $now = $date;
+        $end = $date->addWeeks(2);
         DB::table('user_loan')->insert([
             'user_id'=> $request->user_id,
             'book_id'=> $request->book_id,
             'loan_id'=> 1,
+            'start_time'=> $now,
             'expired_time'=> $end
         ]);
         return response()->json([

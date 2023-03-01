@@ -18,8 +18,8 @@ return new class extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('book_id');
             $table->bigInteger('loan_id');
+            $table->string('start_time');
             $table->string('expired_time');
-            $table->timestamps();
         });
     }
 
