@@ -20,8 +20,6 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'role' => $this->role,
             'loans' => $this->loans,
-            // 'loan_count' => $this->whenCounted('loans'),
-            'books'=> $this->books
         ];
     }
 }

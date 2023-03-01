@@ -22,7 +22,7 @@ class AuthController extends Controller
         if (!Auth::attempt($request->only(['email','password']))) {
             return $this->error('','Not match',401);
         }
-        $user = User::where('email',$request->email)->where('role_id','>=',3)->first();
+        $user = User::where('email',$request->email)->first();
 
         return $this->success([
             'name' => $user->name,

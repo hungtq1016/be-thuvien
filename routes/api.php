@@ -10,6 +10,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\LoanController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\PublisherController;
 use App\Http\Controllers\RoleController;
@@ -34,6 +35,7 @@ use App\Http\Controllers\UserController;
     Route::resource('/publisher', PublisherController::class, ['only' => ['index','show']]);
     Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
     Route::resource('/image', ImageController::class, ['only' => ['index','show']]);
+    Route::resource('/loan', LoanController::class, ['only' => ['index','show']]);
 
 
     //End API get all without auth
@@ -52,6 +54,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/publisher', PublisherController::class, ['except' => ['index','show']]);
     Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
     Route::resource('/image', ImageController::class, ['except' => ['index','show']]);
+    Route::resource('/loan', LoanController::class, ['except' => ['index','show']]);
 
 
     Route::put('author/{author}/update', [AuthorController::class, 'updateStatus']);

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Comment;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Http\Resources\CommentResource;
+use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
@@ -13,9 +15,9 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return CommentResource::collection(Comment::where('book_id',$request->book_id)->orderBy('created_at','DESC')->paginate($request->limit));
     }
 
     /**

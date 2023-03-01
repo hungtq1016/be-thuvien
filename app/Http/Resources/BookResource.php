@@ -23,11 +23,11 @@ class BookResource extends JsonResource
         $language = $this->language()->select('languages.id','languages.name')->get(1);
         $publisher = $this->publisher()->select('publishers.id','publishers.name')->get(1);
         $bookshelf = $this->bookshelf()->select('bookshelves.id','bookshelves.name')->get(1);
-
+        // $comments = $this->comments()->select('comments.id','comments.comment')->get();
         return [
             'id' => $this->id,
             'name'=> $this->name,
-            'comments'=> CommentResource::collection($this->comments),
+            'comments_count'=> $this->comments_count,
             'slug'=> $this->slug,
             'country'=> $this->country,
             'desc'=> $this->desc,

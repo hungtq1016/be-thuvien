@@ -33,25 +33,25 @@ class BookController extends Controller
             return response()->json($bookData);
         }
         if (($request->author=='admin')) {
-            return BookAdmin::collection(Book::all());
+            return BookAdmin::collection(Book::withCount('comments')->all());
         }
         if($request->slug) {
             switch($request->slug){
                 case 'hot':
-                    return BookResource::collection(Book::orderBy('count', 'desc')->paginate($request->limit));
+                    return BookResource::collection(Book::withCount('comments')->orderBy('count', 'desc')->paginate($request->limit));
                     break;
                 case 'new':
-                    return BookResource::collection(Book::orderBy('created_at', 'desc')->paginate($request->limit));
+                    return BookResource::collection(Book::withCount('comments')->orderBy('created_at', 'desc')->paginate($request->limit));
                     break;
                 case 'monthly':
-                    return BookResource::collection(Book::whereMonth('created_at', Carbon::now()->month)->paginate($request->limit));
+                    return BookResource::collection(Book::withCount('comments')->whereMonth('created_at', Carbon::now()->month)->paginate($request->limit));
                     break;
                 case 'major':
-                    return BookResource::collection(Book::orderBy('id', 'desc')->paginate($request->limit));
+                    return BookResource::collection(Book::withCount('comments')->orderBy('id', 'desc')->paginate($request->limit));
                     break;
             }
         }else{
-            return BookResource::collection(Book::paginate($request->limit));
+            return BookResource::collection(Book::withCount('comments')->paginate($request->limit));
         }
 
     }

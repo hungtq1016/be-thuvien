@@ -4,28 +4,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Loan extends Model
 {
     use HasFactory;
-    protected $table = 'loans';
+    protected $table = 'user_loan';
     protected $primaryKey = 'id';
     protected $hidden = ['created_at','updated_at','pivot'];
     protected $fillable = [
-        'name',
-        'money',
-        'status'
+        'expired_time',
     ];
 
-    public function books(): BelongsToMany
+    public function book(): HasOne
     {
-        return $this->belongsToMany(Book::class,'user_loan','loan_id','book_id');
+        return $this->hasOne(Book::class,'id','book_id');
     }
 
-    public function users(): BelongsToMany
+    public function user(): HasOne
     {
-        return $this->belongsToMany(User::class,'user_loan');
+        return $this->hasOne(User::class,'id','user_id');
+    }
+
+    public function detail(): HasOne
+    {
+        return $this->hasOne(LoanDetail::class,'id','loan_id');
     }
 }
