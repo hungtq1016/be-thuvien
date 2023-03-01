@@ -28,7 +28,9 @@ class LoanController extends Controller
             ->groupBy('start_time')
             ->get();
             return response()->json([
-                $
+                'data'=>[
+                    1=>$loan
+                ]
             ]);
         }
         return LoanResource::collection(Loan::all());
