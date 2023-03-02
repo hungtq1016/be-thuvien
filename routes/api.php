@@ -8,6 +8,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookshelfController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\LoanController;
@@ -36,6 +37,7 @@ use App\Http\Controllers\UserController;
     Route::resource('/language', LanguageController::class, ['only' => ['index','show']]);
     Route::resource('/image', ImageController::class, ['only' => ['index','show']]);
     Route::resource('/loan', LoanController::class, ['only' => ['index','show']]);
+    Route::resource('/favorite', FavoriteController::class, ['only' => ['index','show']]);
 
 
     //End API get all without auth
@@ -55,6 +57,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/language', LanguageController::class, ['except' => ['index','show']]);
     Route::resource('/image', ImageController::class, ['except' => ['index','show']]);
     Route::resource('/loan', LoanController::class, ['except' => ['index','show']]);
+    Route::resource('/favorite', FavoriteController::class, ['except' => ['index','show']]);
 
 
     Route::put('author/{author}/update', [AuthorController::class, 'updateStatus']);

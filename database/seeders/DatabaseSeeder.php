@@ -29,16 +29,17 @@ class DatabaseSeeder extends Seeder
             // UserSeeder::class,
             // ImageSeeder::class,
         ]);
-        for($j = 0; $j <= 200; $j++){
+        for($j = 0; $j <= 500; $j++){
 
-            $created_at = Carbon::create(2022, 1, 1, 0, 0, 0)->addWeeks(rand(1, 70));
+            $created_at = Carbon::create(2022, 1, 1, 0, 0, 0)->addWeeks(rand(1, 70))->subMinutes(random_int(0, 55))->subHour(random_int(0, 55));
+            $end = Carbon::parse($created_at)->addWeeks(2);
 
             DB::table('user_loan')->insert([
                 'book_id' => rand(1,100),
                 'user_id' => rand(1,100),
-                'loan_id' => rand(1,4),
+                'loan_id' => Carbon::now()->gt($end) ? 2 : 1,
                 'start_time' => $created_at,
-                'expired_time' => $created_at->addWeeks(2),
+                'expired_time' => $end,
             ]);
         }
     }

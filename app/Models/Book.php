@@ -90,11 +90,6 @@ class Book extends Model
         return $this->HasMany(Comment::class);
     }
 
-    // public function commentOwner(): HasManyThrough
-    // {
-    //     return $this->hasManyThrough(User::class, Comment::class,'user_id','id','book_id');
-    // }
-
     public function children()
     {
         return $this->hasMany(self::class,'series_id','id');
