@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'role' => $this->role,
-            'loans' => $this->loans,
+            'loans' => LoanResource::collection($this->loans),
         ];
     }
 }

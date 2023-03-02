@@ -18,17 +18,17 @@ class LoanController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->q == 'admin') {
+        $query = $request->q;
+        if ($query == 'loan'||$query == 'loss') {
             $labels ='';
             $dataLoan = [];
             $dataBack = [];
-            $dataLoss = [];
             if ($request->sortBy=='week') {
                 $labels = [ 'Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', ];
                 $start = Carbon::now()->startOfWeek()->format('Y-m-d');
                 $expire =Carbon::now()->endOfWeek()->format('Y-m-d');
-                $loans = $this->requestByWeek($start,$expire,1);
-                $backs = $this->requestByWeek($start,$expire,2);
+                $loans = $this->requestByWeek($start,$expire,$query == 'loan' ? 1: 3);
+                $backs = $this->requestByWeek($start,$expire,$query == 'loan' ? 2: 4);
 
                 $dataLoan=$dataBack = array_fill(0, 7, 0);
 
@@ -44,8 +44,8 @@ class LoanController extends Controller
                 $labels = [ 'Chủ Nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', ];
                 $start = Carbon::now()->subWeek()->startOfWeek()->format('Y-m-d');
                 $expire =Carbon::now()->subWeek()->endOfWeek()->format('Y-m-d');
-                $loans = $this->requestByWeek($start,$expire,1);
-                $backs = $this->requestByWeek($start,$expire,2);
+                $loans = $this->requestByWeek($start,$expire,$query == 'loan' ? 1: 3);
+                $backs = $this->requestByWeek($start,$expire,$query == 'loan' ? 2: 4);
 
                 $dataLoan=$dataBack = array_fill(0, 7, 0);
 
@@ -62,8 +62,8 @@ class LoanController extends Controller
                 $daysInMonth = Carbon::now()->daysInMonth;
                 $labels = range(1, $daysInMonth);
 
-                $loans = $this->requestByMonth(Carbon::now()->month,Carbon::now()->year,1);
-                $backs = $this->requestByMonth(Carbon::now()->month,Carbon::now()->year,2);
+                $loans = $this->requestByMonth(Carbon::now()->month,Carbon::now()->year,$query == 'loan' ? 1: 3);
+                $backs = $this->requestByMonth(Carbon::now()->month,Carbon::now()->year,$query == 'loan' ? 2: 4);
 
                 $dataLoan=$dataBack = array_fill(0, $daysInMonth, 0);
                 foreach ($loans as $loan) {
@@ -79,8 +79,8 @@ class LoanController extends Controller
                 $daysInMonth = Carbon::now()->subMonth()->daysInMonth;
                 $labels = range(1, $daysInMonth);
 
-                $loans = $this->requestByMonth(Carbon::now()->subMonth()->month,Carbon::now()->year,1);
-                $backs = $this->requestByMonth(Carbon::now()->subMonth()->month,Carbon::now()->year,2);
+                $loans = $this->requestByMonth(Carbon::now()->subMonth()->month,Carbon::now()->year,$query == 'loan' ? 1: 3);
+                $backs = $this->requestByMonth(Carbon::now()->subMonth()->month,Carbon::now()->year,$query == 'loan' ? 2: 4);
 
                 $dataLoan=$dataBack = array_fill(0, $daysInMonth, 0);
                 foreach ($loans as $loan) {
@@ -96,8 +96,8 @@ class LoanController extends Controller
                 $labels = ['Tháng 1','Tháng 2','Tháng 3','Tháng 4','Tháng 5','Tháng 6',
                 'Tháng 7','Tháng 8','Tháng 9','Tháng 10','Tháng 11','Tháng 12',];
 
-                $loans = $this->requestByYear(Carbon::now()->year,1);
-                $backs = $this->requestByYear(Carbon::now()->year,2);
+                $loans = $this->requestByYear(Carbon::now()->year,$query == 'loan' ? 1: 3);
+                $backs = $this->requestByYear(Carbon::now()->year,$query == 'loan' ? 2: 4);
 
                 $dataLoan=$dataBack = array_fill(0, 12, 0);
                 foreach ($loans as $loan) {
@@ -114,9 +114,8 @@ class LoanController extends Controller
             if ($request->sortBy=='all') {
                 $labels = ['Tất cả'];
 
-                $loans = $this->requestAll(1);
-                $backs = $this->requestAll(2);
-                $loss = $this->requestAll(3);
+                $loans = $this->requestAll($query == 'loan' ? 1: 3);
+                $backs = $this->requestAll($query == 'loan' ? 2: 4);
 
                 foreach ($loans as $loan) {
                     $dataLoan[0] = $loan->total;
@@ -126,21 +125,17 @@ class LoanController extends Controller
 
                     $dataBack[0] = $back->total;
                 }
-                foreach ($loss as $l) {
-
-                    $dataLoss[0] = $l->total;
-                }
 
             }
             $dataSet = [
                 0=>[
-                    'label'=>'Sách Mượn',
-                    'backgroundColor'=> '#0284BE',
+                    'label'=>$query == 'loan' ?'Sách Mượn':'Hết Hạn',
+                    'backgroundColor'=> $query == 'loan' ? '#0284BE':'#D97706',
                     'data'=> $dataLoan
                 ],
                 1=>[
-                    'label'=>'Sách Trả',
-                    'backgroundColor'=> '#D97706',
+                    'label'=>$query == 'loan' ?'Sách Trả':'Mất',
+                    'backgroundColor'=> $query == 'loan' ?'#65A30D':'#DC2626',
                     'data' => $dataBack
                 ]
             ];
@@ -148,8 +143,6 @@ class LoanController extends Controller
                 'data'=>[
                     'labels'=> $labels,
                     'datasets'=>$dataSet,
-                    'start'=>Carbon::now()->startOfWeek()->format('Y-m-d'),
-                    'end'=>Carbon::now()->endOfWeek()->format('Y-m-d')
                 ]
             ]);;
 

@@ -15,7 +15,7 @@ class LoanResource extends JsonResource
     public function toArray($request)
     {
         $user = $this->user()->select('users.name','users.email')->get();
-        $book = $this->book()->select('books.name','books.slug')->get();
+        $book = $this->book()->select('books.name','books.id')->get();
         $detail = $this->detail()->select('loans.name','loans.money')->get();
         return [
             'id' => $this->id,
