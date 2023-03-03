@@ -14,11 +14,8 @@ class FavoriteController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->user_id) {
-            $result =DB::table('user_favorite')->where('user_id',$request->user_id)->where('book_id',$request->book_id)->first();
-            return $result ? 1 : 0;
-        }
-        return 0;
+        $result =DB::table('user_favorite')->where('user_id',$request->user_id)->where('book_id',$request->book_id)->first();
+        return $result ? $result : 0;
     }
 
     /**
@@ -39,7 +36,7 @@ class FavoriteController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('user_favorite')->create([
+        DB::table('user_favorite')->insert([
             'book_id'=>$request->book_id,
             'user_id'=>$request->user_id,
         ]);
@@ -91,12 +88,6 @@ class FavoriteController extends Controller
      */
     public function destroy($id)
     {
-        $status =  DB::table('user_favorite')->delete($id);
-        if ($status) {
-            return response()->json([
-                'message' => 'Xóa thành công!',
-                'status' => 200
-            ]);
-        }
+        $status =  DB::table('user_favorite')->where('id', $id)->delete();
     }
 }

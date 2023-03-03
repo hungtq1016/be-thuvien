@@ -90,6 +90,7 @@ class Book extends Model
         return $this->HasMany(Comment::class);
     }
 
+
     public function children()
     {
         return $this->hasMany(self::class,'series_id','id');
