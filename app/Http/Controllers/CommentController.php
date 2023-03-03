@@ -17,6 +17,7 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
+        // $avgRating = Comment::avg('rate')->where('book_id',$request->book_id)->get();
         return CommentResource::collection(Comment::where('book_id',$request->book_id)->orderBy('created_at','DESC')->paginate($request->limit));
     }
 

@@ -16,7 +16,7 @@ class FavoriteController extends Controller
     {
         if ($request->user_id) {
             $result =DB::table('user_favorite')->where('user_id',$request->user_id)->where('book_id',$request->book_id)->first();
-            return $result ? $result : 0;
+            return $result ? 1 : 0;
         }
         return 0;
     }

@@ -33,25 +33,25 @@ class BookController extends Controller
             return response()->json($bookData);
         }
         if (($request->author=='admin')) {
-            return BookAdmin::collection(Book::withCount('comments')->all());
+            return BookAdmin::collection(Book::withAvg('comments as avgRating','rate')->all());
         }
         if($request->slug) {
             switch($request->slug){
                 case 'hot':
-                    return BookResource::collection(Book::withCount('comments')->orderBy('count', 'desc')->paginate($request->limit));
+                    return BookResource::collection(Book::withAvg('comments as avgRating','rate')->orderBy('count', 'desc')->paginate($request->limit));
                     break;
                 case 'new':
-                    return BookResource::collection(Book::withCount('comments')->orderBy('created_at', 'desc')->paginate($request->limit));
+                    return BookResource::collection(Book::withAvg('comments as avgRating','rate')->orderBy('created_at', 'desc')->paginate($request->limit));
                     break;
                 case 'monthly':
-                    return BookResource::collection(Book::withCount('comments')->whereMonth('created_at', Carbon::now()->month)->paginate($request->limit));
+                    return BookResource::collection(Book::withAvg('comments as avgRating','rate')->whereMonth('created_at', Carbon::now()->month)->paginate($request->limit));
                     break;
                 case 'major':
-                    return BookResource::collection(Book::withCount('comments')->orderBy('id', 'desc')->paginate($request->limit));
+                    return BookResource::collection(Book::withAvg('comments as avgRating','rate')->orderBy('id', 'desc')->paginate($request->limit));
                     break;
             }
         }else{
-            return BookResource::collection(Book::withCount('comments')->paginate($request->limit));
+            return BookResource::collection(Book::withAvg('comments as avgRating','rate')->paginate($request->limit));
         }
 
     }

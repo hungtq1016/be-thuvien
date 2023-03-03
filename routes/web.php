@@ -19,6 +19,12 @@ Route::get('/c/all',function(){
     Artisan::call('config:clear');
     Artisan::call('config:cache');
     Artisan::call('key:generate');
+    return 'all done';
+});
+
+Route::get('/c/key',function(){
+    Artisan::call('key:generate');
+    return 'key done';
 });
 
 Route::redirect('/{any}', 'http://thuvien.tranhung.info/', 301)->where('any', '^(?!api).*$')->where('any', '^(?!c).*$');
