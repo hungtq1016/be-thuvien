@@ -14,6 +14,7 @@ class Loan extends Model
     protected $fillable = [
         'start_time',
         'expired_time',
+        'loan_id'
     ];
 
     public function book(): HasOne

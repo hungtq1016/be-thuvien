@@ -14,14 +14,12 @@ class LoanResource extends JsonResource
      */
     public function toArray($request)
     {
-        $user = $this->user()->select('users.name','users.email')->get();
-        $book = $this->book()->select('books.name','books.id')->get();
-        $detail = $this->detail()->select('loans.name','loans.money')->get();
+        $book = $this->book()->select('books.name','books.id')->first();
+        $detail = $this->detail()->select('loans.name','loans.money'    )->first();
         return [
             'id' => $this->id,
-            'user' => $user[0],
-            'book' => $book[0],
-            'detail' => $detail[0],
+            'book' => $book,
+            'detail' => $detail,
             'expired_time'=>$this->expired_time,
             'start_time'=>$this->start_time
         ];

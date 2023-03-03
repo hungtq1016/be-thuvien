@@ -210,9 +210,12 @@ class LoanController extends Controller
      * @param  \App\Models\Loan  $loan
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLoanRequest $request, Loan $loan)
+    public function update(Request $request, Loan $loan)
     {
-        //
+        $loan ->update([
+            'loan_id' => $request->loan_id
+        ]);
+        return new LoanResource($loan);
     }
 
     /**
