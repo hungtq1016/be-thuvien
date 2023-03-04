@@ -19,6 +19,7 @@ class Category extends Model
         'desc',
         'slug',
         'image_id',
+        'isShow',
         'status',
     ];
 

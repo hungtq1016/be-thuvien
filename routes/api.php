@@ -60,17 +60,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('/favorite', FavoriteController::class, ['except' => ['index','show']]);
 
 
-    Route::put('author/{author}/update', [AuthorController::class, 'updateStatus']);
-    Route::put('category/{category}/update', [CategoryController::class, 'updateStatus']);
-    Route::put('tag/{tag}/update', [TagController::class,'updateStatus']);
-    Route::put('book/{book}/update', [BookController::class,'updateStatus']);
-    Route::put('user/{user}/update', [UserController::class,'updateStatus']);
-    Route::put('bookshelf/{bookshelf}/update', [BookshelfController::class,'updateStatus']);
-    Route::put('major/{major}/update', [MajorController::class,'updateStatus']);
-    Route::put('role/{role}/update', [RoleController::class,'updateStatus']);
-    Route::put('publisher/{publisher}/update', [PublisherController::class,'updateStatus']);
-    Route::put('language/{language}/update', [LanguageController::class, 'updateStatus']);
-    Route::put('image/{image}/update', [ImageController::class, 'updateStatus']);
+    Route::patch('author/{author}/update', [AuthorController::class, 'updateStatus']);
+    Route::patch('category/{category}/update', [CategoryController::class, 'updateStatus']);
+    Route::patch('tag/{tag}/update', [TagController::class,'updateStatus']);
+    Route::patch('book/{book}/update', [BookController::class,'updateStatus']);
+    Route::patch('user/{user}/update', [UserController::class,'updateStatus']);
+    Route::patch('bookshelf/{bookshelf}/update', [BookshelfController::class,'updateStatus']);
+    Route::patch('major/{major}/update', [MajorController::class,'updateStatus']);
+    Route::patch('role/{role}/update', [RoleController::class,'updateStatus']);
+    Route::patch('publisher/{publisher}/update', [PublisherController::class,'updateStatus']);
+    Route::patch('language/{language}/update', [LanguageController::class, 'updateStatus']);
+    Route::patch('image/{image}/update', [ImageController::class, 'updateStatus']);
 
 
 });

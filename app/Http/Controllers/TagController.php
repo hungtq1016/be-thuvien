@@ -20,11 +20,23 @@ class TagController extends Controller
     {
         if($request->limit == 'all') {
             $tags = Tag::all();
+            if ($request->q=='menu') {
+                $tagData = $tags->map(function ($tag) {
+                    if ($tag->isShow)
+                       return[
+                           'name' => $tag->name,
+                           'id' => $tag->id,
+                           // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                       ];
+               })->filter();
+               return response()->json($tagData);
+            }
             $tagData = $tags->map(function ($tag) {
                  if ($tag->status)
                     return[
                         'name' => $tag->name,
                         'id' => $tag->id,
+                        'isShow' => $tag->isShow,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
                     ];
             })->filter();
@@ -124,10 +136,11 @@ class TagController extends Controller
     }
     public function updateStatus(Request $request,Tag $tag)
     {
-        $tag ->update([
-            'status' => $request->status ? false : true
-        ]);
-        return new TagResource($tag);
+        $tag ->update($request->all());
 
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
+        ]);
     }
 }

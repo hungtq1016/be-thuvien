@@ -32,11 +32,22 @@ class CategoryController extends Controller
         }
         if($request->limit == 'all') {
             $categories = Category::all();
+            if ($request->q=='menu') {
+                $data = $categories->map(function ($category) {
+                    if ($category->isShow)
+                       return[
+                           'name' => $category->name,
+                           'id' => $category->id,
+                       ];
+               })->filter();
+               return response()->json($data);
+            }
             $categoryData = $categories->map(function ($category) {
                  if ($category->status)
                     return[
                         'name' => $category->name,
                         'id' => $category->id,
+                        'isShow' => $category->isShow,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
                     ];
             })->filter();
@@ -145,9 +156,11 @@ class CategoryController extends Controller
 
     public function updateStatus(Request $request, Category $category)
     {
-        $category ->update([
-            'status' => $request->status ? false : true
+        $category ->update($request->all());
+
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
         ]);
-        return new CategoryResource($category);
     }
 }

@@ -21,11 +21,23 @@ class AuthorController extends Controller
     {
         if($request->limit == 'all') {
             $authors = Author::all();
+            if ($request->q=='menu') {
+                $data = $authors->map(function ($item) {
+                    if ($item->isShow)
+                       return[
+                           'name' => $item->name,
+                           'id' => $item->id,
+                           // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
+                       ];
+               })->filter();
+               return response()->json($data);
+            }
             $authorData = $authors->map(function ($author) {
                  if ($author->status)
                     return[
                         'name' => $author->name,
                         'id' => $author->id,
+                        'isShow' => $author->isShow,
                         // Giữ lại các giá trị khác mà bạn muốn bao gồm trong mảng mới
                     ];
             })->filter();
@@ -139,9 +151,11 @@ class AuthorController extends Controller
 
     public function updateStatus(Request $request, Author $author)
     {
-        $author ->update([
-            'status' => $request->status ? 0 : 1
+        $author ->update($request->all());
+
+        return response()->json([
+            'message' => 'Thay đổi thành công!',
+            'status' => 200
         ]);
-        return new AuthorResource($author);
     }
 }

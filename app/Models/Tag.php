@@ -17,6 +17,7 @@ class Tag extends Model
         'name',
         'desc',
         'image_id',
+        'isShow',
         'slug',
         'status',
     ];

@@ -22,7 +22,8 @@ class Author extends Model
         'gender',
         'yob',
         'yod',
-        'country',
+        'isShow',
+        'country',  
         'status',
     ];
 
