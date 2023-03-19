@@ -21,7 +21,7 @@ use App\Http\Controllers\UserController;
 
     Route::post('/login', [AuthController::class, 'admin_login']);
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/search', [SearchController::class, 'searchImage']);
+    Route::get('/search', [SearchController::class, 'search']);
 
     // API get without auth
     Route::resource('/author', AuthorController::class, ['only' => ['index','show']]);
