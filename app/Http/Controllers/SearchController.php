@@ -2,23 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class SearchController extends Controller
 {
-    public function searchImage(Request $request){
-        $search = $request->q;
-        $model = $request->m;
-        $type = $request->t;
-        if (!$model) {
-           return response()->json(['error'=>'Thiếu Model']);
-        }
-        if ($type == 'less') {
-            return DB::table($model)->where('name', 'LIKE','%'.$search.'%')->take(5)->get();
-        }
-
+    public function search(Request $request)
+    {
+        $result = $request->limit ?
+        DB::table($request->type)->where('name', 'like', '%'.$request->q.'%')->limit($request->limit)
+        ->get()
+        :
+        DB::table($request->type)->where('name', 'like', '%'.$request->q.'%')
+        ->get();
+        return $result;
     }
 
 }
